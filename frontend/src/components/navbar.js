@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../iiitdmj.png";
+import logo from "../assets/iiitdmj.png";
 import "../stylesheets/Navbar.css";
 import { Link } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const Navbar = () => {
     </div>
   </div>
 </nav>
-        
+
     )
 }
 

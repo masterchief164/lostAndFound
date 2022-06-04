@@ -47,7 +47,7 @@ body {
     -webkit-transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
   }
-  
+
   /* Animate Background Image */
   @-webkit-keyframes aitf {
     0% {
@@ -68,14 +68,20 @@ body {
     transform: rotate(45deg);
     transition: border-width 150ms ease-in-out;
   }
-  
+
   .arrow:hover {
     border-bottom-width: 4px;
     border-right-width: 4px;
   }
-  
-  
+
+
   #full {
     height: 100vh;
     background-color: #256347;
   }
+
+h4{
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #fff;
+}
