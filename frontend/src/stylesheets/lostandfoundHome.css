@@ -6,7 +6,7 @@ body {
     margin: 0;
   }
 .section{
-  height: 60vh;
+  height: 80vh;
   width: 100%;
   margin-top: 3rem;
   display: flex;
@@ -58,4 +58,24 @@ body {
     }
   }
 
+  .arrow {
+    box-sizing: border-box;
+    height: 1vw;
+    width: 1vw;
+    border-style: solid;
+    border-color: white;
+    border-width: 0px 1px 1px 0px;
+    transform: rotate(45deg);
+    transition: border-width 150ms ease-in-out;
+  }
   
+  .arrow:hover {
+    border-bottom-width: 4px;
+    border-right-width: 4px;
+  }
+  
+  
+  #full {
+    height: 100vh;
+    background-color: #256347;
+  }

@@ -17,7 +17,11 @@ const Home = () => {
             <h3>Lost Items Count : </h3>
             <h3>Found Items Count : </h3>
         </div>
+        <a data-scroll href="#full">
+            <div class="arrow"></div>
+        </a>
         </section>
+        
     </>);
 }
 
