@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
+    <section className="navigationBar">
     <nav className="navbar">
         <div className="container">
              <div className="navbar-header">
@@ -29,6 +30,7 @@ const Navbar = () => {
     </div>
   </div>
 </nav>
+</section>
 
     )
 }

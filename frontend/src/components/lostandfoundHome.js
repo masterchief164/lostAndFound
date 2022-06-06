@@ -5,7 +5,7 @@ const Home = () => {
     let foundItemsCount = 10;
     return (<>
         <section className="section">
-            <p>
+            <p className="text">
                 Lost Something or Found a new Item?
                 <span>
                     LOST & FOUND

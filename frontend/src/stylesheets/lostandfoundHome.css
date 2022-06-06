@@ -20,7 +20,7 @@ body {
   justify-content: space-evenly;
   margin-top: 2rem;
  }
-  p {
+  .text {
     text-transform: uppercase;
     letter-spacing: 0.5em;
     display: inline-block;
@@ -29,7 +29,7 @@ body {
     padding: 1.5em 0em;
     width: 40em;
   }
-  p span {
+  .text span {
     font: 700 4em/1 "Oswald", sans-serif;
     letter-spacing: 0;
     padding: 0.25em 0 0.325em;
