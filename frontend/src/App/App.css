@@ -1,0 +1,16 @@
+*{
+    background-color: white;
+    background: transparent;
+    color: black;
+    box-sizing: border-box;
+    margin: 0;
+    padding:0;
+    z-index: 0;
+}
+
+:root{
+  --primary-color-dark: #BFB2C4;
+  --primary-color-light : #E3DDD3;
+  --secondary-color-dark: #F47A51;
+  --secondary-color-light:#FE926E;
+}

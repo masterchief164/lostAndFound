@@ -1,12 +1,43 @@
 import React from "react";
-import Navbar from "../components/navbar";
-import Home from "../components/lostandfoundHome";
-import HomepageList from "../components/homepageList";
+import "../stylesheets/Homepage.css";
+import HomepageListItems from "../components/homepageItemsList";
+
 function Homepage() {
     return (
         <> 
-            <Home/>
-            <HomepageList/>
+            <section className="BannerBox">
+                <div className="banner">
+                    <h1>Lost <span> & </span> Found</h1>
+                    <h3>We help everyone to get their lost things !</h3>
+                </div>
+                <div className="itemTags">
+                    <div  className="tag">
+                        <h3>LOST ITEMS : 30</h3>
+                    </div>
+                    <div  className="tag">
+                         <h3>FOUND ITEMS : 30</h3>
+                    </div>
+                </div>
+            </section>
+
+            <section className="ListBox">
+                <div className="listContainer">
+                    <HomepageListItems />
+                    <HomepageListItems />
+                    <HomepageListItems />
+                    <HomepageListItems />
+                    <HomepageListItems />
+                    <HomepageListItems />
+                </div>
+                <div className="listContainer">
+                    <HomepageListItems />
+                    <HomepageListItems />
+                    <HomepageListItems />
+                    <HomepageListItems />
+                    <HomepageListItems />
+                    <HomepageListItems />
+                </div>
+            </section>
         </>
     );
 }
