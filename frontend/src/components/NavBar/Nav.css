@@ -1,0 +1,5 @@
+img{
+    margin: 0.5vw;
+    width: calc(max(2vw, 4vh));
+    height: calc(max(2vw, 4vh));
+}
