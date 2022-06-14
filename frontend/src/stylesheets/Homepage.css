@@ -5,7 +5,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
+body{
+    font-family: 'Nunito-sans', sans-serif;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 .banner{
@@ -22,14 +31,26 @@
     position: relative;
 }
 
+.banner img{
+    position: absolute;
+    aspect-ratio: auto;
+    margin-left: 38vw;
+    height: 40vw;
+    width: 40vw;
+}
+
 .banner > h1{
-  font-size: 60px;
+    font-size: 5.5vw;
+    font-weight: 800;
 }
 .banner > h1 > span{
-    font-weight: 100;
+    font-weight: 200;
 }
 .banner > h3{
-    font-size: 20px;
+    width: 40vw;
+    font-size: 2.5vw;
+    line-height: 1.5;
+    font-weight: 400;
   }
 
   .itemTags{
@@ -41,8 +62,8 @@
   }
 
   .tag{
-      width: 16rem;
-      height: 5rem;
+      width: 18vw;
+      height: 5vw;
       background: linear-gradient(90deg, #F47A51 5.68%, #FE926E 95.79%);
       box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
       border-radius: 30px;
@@ -54,7 +75,7 @@
   .tag > h3{
       background: transparent;
       color: white;
-      font-size: 20px;
+      font-size: 1.5vw;
       font-weight: 500;
   }
 
@@ -73,18 +94,24 @@
     width:30%;
     height:80%;
     border-radius: 20px;
-    border:1px solid black;
-    border-right:none ;
+    background-color: #f0f0f0;
     overflow-y: scroll;
-    padding: .5rem;
+    padding: 1.5rem;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+.listContainer::-webkit-scrollbar {
+    display: none;
+}
+
 
 /* HomepageListItems css component */
 
 .listItem{
     width:100%;
-    height:5rem;
-    margin-bottom: 2rem;
+    height:6rem;
+    margin-bottom: 3rem;
     background: linear-gradient(90deg, #BFB2C4 0%, #E3DDD3 100%);
     box-shadow: 5px 5px 20px 2px rgba(0, 0, 0, 0.28);
     border-radius: 20px;
@@ -102,7 +129,6 @@
 
 .listTexts{
     width: 80%;
-    
     display: flex;
     flex-direction: column;
     align-items: flex-start;

@@ -1,14 +1,16 @@
 import React from "react";
 import "../stylesheets/Homepage.css";
 import HomepageListItems from "../components/homepageItemsList";
+import banner from "../assets/banner.png";
 
 function Homepage() {
     return (
-        <> 
+        <>
             <section className="BannerBox">
                 <div className="banner">
                     <h1>Lost <span> & </span> Found</h1>
                     <h3>We help everyone to get their lost things !</h3>
+                    <img src={banner} alt="banner"/>
                 </div>
                 <div className="itemTags">
                     <div  className="tag">
