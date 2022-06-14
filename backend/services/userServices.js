@@ -1,6 +1,8 @@
 require("dotenv").config();
 const axios = require("axios");
 const qs = require("querystring");
+const jwt = require("jsonwebtoken");
+const User = require("../models/userSchema");
 
 const getGoogleOAuthTokens = async (code) => {
     const url = "https://oauth2.googleapis.com/token";
@@ -8,21 +10,33 @@ const getGoogleOAuthTokens = async (code) => {
     const options = {
         code,
         client_id: process.env.REACT_APP_CLIENT_ID,
-        client_secret: process.env.REACT_APP_CLIENT_SECRET,
+        client_secret: process.env.CLIENT_SECRET,
         redirect_uri: 'http://localhost:3000',
         grant_type: "authorization_code",
     }
-    console.log(url+"?"+qs.stringify(options));
 
-    require('axios-debug-log')
-    const res = await axios.post(url, qs.stringify(options), {
+    return await axios.post(url, qs.stringify(options), {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         }
     }).catch((err) => {
         console.log(err.message);
     });
-    return res;
 }
 
-module.exports = { getGoogleOAuthTokens };
+const addUser = async (user) => {
+    let person = await User.findOne({sub: user.sub});
+
+    if (!person) {
+        person = new User(user);
+        await person.save();
+    }
+
+    return person;
+}
+
+const decodeToken = (token) => {
+    return jwt.decode(token, {complete: false});
+}
+
+module.exports = {getGoogleOAuthTokens, addUser, decodeToken};
