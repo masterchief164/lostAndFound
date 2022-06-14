@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 const DrawerComp = () => {
     const [open, setOpen] = React.useState(false);
     return (<>
-        <SwipeableDrawer  open={open} onClose={() => setOpen(false)}>
+        <SwipeableDrawer open={open} onOpen={()=> setOpen(true)} onClose={() => setOpen(false)}>
             <List>
                 <ListItemButton component={Link} onClick={() => setOpen(false)} to="/">
                     <ListItemText primaryTypographyProps={{fontSize: '1.2em'}} primary="Login"/>
