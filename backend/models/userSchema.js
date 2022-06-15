@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../bin/mongoose.util');
 
 const userSchema = new mongoose.Schema({
     name: String,
@@ -14,5 +14,5 @@ const userSchema = new mongoose.Schema({
     family_name: String,
 })
 
-const user = mongoose.model('User', userSchema);
-module.exports = user;
+const userModel = mongoose.model('User', userSchema);
+module.exports = {userModel , userSchema};
