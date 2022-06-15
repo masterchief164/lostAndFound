@@ -10,7 +10,7 @@ import GoogleSignIn from "../../utils/GoogleSignIn/GoogleSignIn";
 
 const Nav = () => {
     const [value, setValue] = React.useState(0);
-    const isSmall = useMediaQuery("(max-width:1150px)");
+    const isSmall = useMediaQuery("(max-width:900px)");
 
     let authorizationCode;
 
@@ -77,14 +77,14 @@ const Nav = () => {
                 {!isSmall ? <>
                     <Tabs value={value} onChange={(e, value) => setValue(value)}
                           indicatorColor={'primary'}>
-                        <Tab component={Link} to={"/"} label="Home" sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>
+                        <Tab component={Link} to={"/"} label="Home" sx={{fontSize: "1.1vw", margin: " 0 2vw"}}/>
                         <Tab component={Link} to={"/lost"} label="Items Lost"
-                             sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>
+                             sx={{fontSize: "1.1vw", margin: " 0 2vw"}}/>
                         <Tab component={Link} to={"/found"} label="Items Found"
-                             sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>
+                             sx={{fontSize: "1.1vw", margin: " 0 2vw"}}/>
                         <Tab component={Link} to={"/"} label="Report New Item"
-                             sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>
-                        <Tab component={Link} to={"/"} label="About" sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>
+                             sx={{fontSize: "1.1vw", margin: " 0 2vw"}}/>
+                        <Tab component={Link} to={"/"} label="About" sx={{fontSize: "1.1vw", margin: " 0 2vw"}}/>
 
                     </Tabs>
                     <IconButton
