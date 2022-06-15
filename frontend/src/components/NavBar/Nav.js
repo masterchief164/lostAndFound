@@ -78,9 +78,9 @@ const Nav = () => {
                     <Tabs value={value} onChange={(e, value) => setValue(value)}
                           indicatorColor={'primary'}>
                         <Tab component={Link} to={"/"} label="Home" sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>
-                        <Tab component={Link} to={"/"} label="Items Lost"
+                        <Tab component={Link} to={"/lost"} label="Items Lost"
                              sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>
-                        <Tab component={Link} to={"/"} label="Items Found"
+                        <Tab component={Link} to={"/found"} label="Items Found"
                              sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>
                         <Tab component={Link} to={"/"} label="Report New Item"
                              sx={{fontSize: "1.2rem", margin: " 0 2vw"}}/>

@@ -5,6 +5,8 @@ import Nav from "../components/NavBar/Nav";
 import {createTheme, ThemeProvider} from "@mui/material";
 import Homepage from "../routes/homepage";
 import Footer from "../components/footer";
+import LostPage from '../routes/lostPage';
+import FoundPage from '../routes/foundPage';
 
 const theme = createTheme({
     palette: {
@@ -27,6 +29,8 @@ function App() {
                     <Nav/>
                     <Routes>
                         <Route exact path="/" element={<Homepage/>}/>
+                        <Route exact path="/lost" element={<LostPage/>}/>
+                        <Route exact path="/found" element={<FoundPage/>}/>
                     </Routes>
                     <Footer/>
                 </div>

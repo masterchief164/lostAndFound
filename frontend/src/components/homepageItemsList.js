@@ -8,7 +8,7 @@ const HomepageListItems = () => {
     <section className="listItem" >
         <img src={IMG} alt="img"></img>
         <div className="listTexts">
-            <h3>Lost a Laptop Charger</h3>
+            <h3>Lost a Laptop Charger </h3>
             <div>
                 <p>26 March 2022</p>
             </div>
