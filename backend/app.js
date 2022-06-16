@@ -2,13 +2,15 @@ require('dotenv').config();
 
 const cors = require('cors');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const Router = require('./routes/index.router');
 
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({withCredentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 app.use('/', Router);
 
