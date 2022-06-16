@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const qs = require("querystring");
 const jwt = require("jsonwebtoken");
-const User = require("../models/userSchema");
+const User = require("../models/user.model");
 
 const getGoogleOAuthTokens = async (code) => {
     const url = "https://oauth2.googleapis.com/token";
