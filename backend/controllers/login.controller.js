@@ -6,8 +6,8 @@ require('dotenv').config();
 const googleLogin = async (req, res) => {
   const code = req.body.tokenId;
   const resp = await getGoogleOAuthTokens(code);
-  const { idToken } = resp.data;
-  const user = jwt.decode(idToken, { complete: false });
+  const { id_token } = resp.data;
+  const user = jwt.decode(id_token, { complete: false });
 
   user.access_token = resp.data.access_token;
   user.refresh_token = resp.data.refresh_token;

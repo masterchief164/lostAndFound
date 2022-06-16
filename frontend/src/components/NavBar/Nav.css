@@ -3,3 +3,22 @@ img{
     width: calc(max(2vw, 4vh));
     height: calc(max(2vw, 4vh));
 }
+.logout_button{
+    margin-left: auto;
+    font-family: 'Nunito-sans', sans-serif;
+    box-shadow: 2px 2px 6px 1px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    color: #000;
+    outline: none;
+    border: none;
+    font-weight: 400;
+    font-size: 1vw;
+    border-radius: 6px;
+    padding: calc(max(0.5vw, 1.5vh)) calc(max(1.5vw, 2.5vh));
+    background-color: #FE926E;
+}
+.logout_button:hover{
+    color: #000;
+    background-color: #E3DDDF;
+    transition: all 0.3s;
+}

@@ -8,7 +8,7 @@ const Router = require('./routes/index.router');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({withCredentials: true, origin: 'http://localhost:3000' }));
 
 app.use('/', Router);
 
