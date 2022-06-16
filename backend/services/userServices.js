@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const qs = require('querystring');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
+const User = require('../models/user.model').userModel;
 
 const getGoogleOAuthTokens = async (code) => {
   const url = 'https://oauth2.googleapis.com/token';
@@ -15,14 +15,14 @@ const getGoogleOAuthTokens = async (code) => {
     grant_type: 'authorization_code',
   };
 
-  const data = await axios.post(url, qs.stringify(options), {
+  return await axios.post(url, qs.stringify(options), {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-  }).catch((err) => {
-    console.log(err.message);
-  });
-  return data;
+  })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 
 const addUser = async (user) => {
