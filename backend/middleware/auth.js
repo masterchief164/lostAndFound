@@ -1,21 +1,18 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-function verify(req, res, next) {
-  const token = req.headers.authorization;
-  if (!token || !token.startsWith('Bearer ')) {
-    return res.status(401).send({
-      auth: false,
-      message: 'No token provided.',
-    });
-  }
-  const jwtToken = token.split(' ')[1];
-  jwt.verify(jwtToken, process.env.CLIENT_SECRET, {}, (err, user) => {
-    if (err) {
-      return res.sendStatus(403);
+const verify = (req, res, next) => {
+    const token = req.cookies.token;
+    if (token == null) {
+        return  res.status(401)
+          .send("Unauthorized");
     }
-    req.user = user;
-    next();
-  });
-}
+    jwt.verify(token, process.env.CLIENT_SECRET, {}, (err, user) => {
+        if (err) {
+            return res.sendStatus(403);
+        }
+        req.user = user;
+        next();
+    });
+};
 
 module.exports = verify;

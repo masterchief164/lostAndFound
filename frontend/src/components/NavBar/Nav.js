@@ -13,13 +13,14 @@ const Nav = () => {
     const [user, setUser] = React.useState(null);
     const [token, setToken] = React.useState(null);
     const isSmall = useMediaQuery("(max-width:900px)");
+    // axios.defaults.withCredentials = true;
 
     useEffect(() => {
-        if(user) {
+        if (user) {
             console.log(user);
             localStorage.setItem("userDataLost", JSON.stringify(user));
         }
-      }, [user]);
+    }, [user]);
 
     let authorizationCode;
 
@@ -53,13 +54,11 @@ const Nav = () => {
                     window.clearInterval(intervalId);
                     authorizationCode = getQueryString("code", href);
                     // console.log(authorizationCode);
-                    axios.post("http://localhost:8000/login/google", { tokenId: authorizationCode })
+                    axios.post("http://localhost:8000/auth/googleLogin", { tokenId: authorizationCode }, { withCredentials: true })
                       .then(async (response) => {
                           const data = response.data;
                           console.log(data);
-                          await setUser(data.userData);
-                          localStorage.setItem("tokenLost", data.token);
-                          setToken(data.token);
+                          setUser(data.userData);
                       })
                       .catch(error => console.error("Error:", error));
                     windowHandle.close();
@@ -76,12 +75,19 @@ const Nav = () => {
         return window.open(url, name, options);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem("tokenLost");
-        localStorage.removeItem("userDataLost");
-        setUser(null);
-        setToken(null);
-    }
+    const handleLogout = async () => {
+
+        await axios.get("http://localhost:8000/auth/logout", { withCredentials: true })
+          .then((response) => {
+              if(response.status === 200) {
+                  console.log("logged out");
+                  localStorage.removeItem("tokenLost");
+                  localStorage.removeItem("userDataLost");
+                  setUser(null);
+                  setToken(null);
+              }
+            });
+    };
 
     return (<>
         <AppBar position="static" sx={{
@@ -120,16 +126,16 @@ const Nav = () => {
                         }} />
 
                     </Tabs>
-                    {(user==null)?<IconButton
-                      sx={{
-                          marginLeft: "auto",
-                          height: "calc(max(3vw, 5vh))",
-                          width: "calc(max(3vw, 5vh))"
-                      }}
-                      onClick={doAuthorization}>
-                        <img src={GoogleIcon} alt={"Google Icon"} />
-                    </IconButton>:
-                        <button className={"logout_button"} onClick={handleLogout}>Logout</button>}
+                    {(user == null) ? <IconButton
+                        sx={{
+                            marginLeft: "auto",
+                            height: "calc(max(3vw, 5vh))",
+                            width: "calc(max(3vw, 5vh))"
+                        }}
+                        onClick={doAuthorization}>
+                          <img src={GoogleIcon} alt={"Google Icon"} />
+                      </IconButton> :
+                      <button className={"logout_button"} onClick={handleLogout}>Logout</button>}
                 </> : <DrawerComp />}
 
             </Toolbar>

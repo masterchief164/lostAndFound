@@ -2,7 +2,7 @@ const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-const loginRouter = require('./login.route');
+const authRouter = require('./auth.route');
 const ReportRouter = require('./report.route');
 const lostRouter = require('./lost.route');
 const foundRouter = require('./found.route');
@@ -34,7 +34,7 @@ router.use(
 
 // routes
 
-router.use('/login/google', loginRouter);
+router.use('/auth', authRouter);
 router.use('/report/form', ReportRouter);
 router.use('/lost', lostRouter);
 router.use('/found', foundRouter);
