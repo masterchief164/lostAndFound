@@ -1,5 +1,5 @@
+/* eslint-disable */
 const mongoose = require('mongoose');
-
 
 mongoose.Promise = Promise;
 
@@ -11,11 +11,10 @@ mongoose.connection.on('error', (e) => {
   if (e.message.code === 'ETIMEDOUT') {
     console.log(e);
   }
-  console.log(e);
 });
 
 mongoose.connection.once('open', () => {
-  console.log(`MongoDB successfully connected`);
+  console.log('MongoDB successfully connected');
 });
 
 module.exports = mongoose;

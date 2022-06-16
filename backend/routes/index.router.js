@@ -1,27 +1,27 @@
-const express = require("express");
+const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-const loginRouter = require("./login.route");
-const ReportRouter = require("./report.route");
-const lostRouter = require("./lost.route");
-const foundRouter = require("./found.route");
+const loginRouter = require('./login.route');
+const ReportRouter = require('./report.route');
+const lostRouter = require('./lost.route');
+const foundRouter = require('./found.route');
 
 const router = express.Router();
 
 // swagger docs config
 
 const swaggerOptions = {
-    swaggerDefinition: {
-      openapi: '3.0.0',
-      info: {
-        title: 'Documentation',
-      },
-      servers: [
-        { url: 'http://localhost:8000' },
-      ],
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Documentation',
     },
-    apis: ['./routes/*.js'],
+    servers: [
+      { url: 'http://localhost:8000' },
+    ],
+  },
+  apis: ['./routes/*.js'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -29,17 +29,14 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 router.use(
   '/api-docs',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocs)
+  swaggerUi.setup(swaggerDocs),
 );
-
-
 
 // routes
 
-
-router.use("/login/google", loginRouter);
-router.use("/report/form", ReportRouter);
-router.use("/lost", lostRouter);
-router.use("/found", foundRouter);
+router.use('/login/google', loginRouter);
+router.use('/report/form', ReportRouter);
+router.use('/lost', lostRouter);
+router.use('/found', foundRouter);
 
 module.exports = router;

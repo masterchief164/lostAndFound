@@ -1,3 +1,4 @@
+/* eslint-disable */
 // chalk config
 const chalk = require('chalk');
 
@@ -27,10 +28,10 @@ const errorFormatter = ({ err, file, params }) => {
   return red(output);
 };
 
-const infoFormatter = ({ file, message, options }) => {
+function infoFormatter({ file, message, options }){
   let indent = '';
   if (options && options.indent) {
-    for (let i = 0; i < options.indent; i++) {
+    for (let i = 0; i < options.indent; i+=1) {
       indent += ' ';
     }
   }

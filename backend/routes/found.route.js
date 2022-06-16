@@ -1,8 +1,7 @@
-const express = require("express");
-const controller = require("../controllers/foundItems.controller");
+const express = require('express');
+const controller = require('../controllers/foundItems.controller');
 
 const router = express.Router();
-
 
 /**
  * @openapi
@@ -19,6 +18,6 @@ const router = express.Router();
  *              schema:
  *                type: object
  */
-router.get("/", controller.getItems);
+router.get('/', controller.getItems);
 
 module.exports = router;

@@ -1,5 +1,5 @@
-const express = require("express");
-const controller = require("../controllers/report.controller");
+const express = require('express');
+const controller = require('../controllers/report.controller');
 
 const router = express.Router();
 
@@ -41,6 +41,6 @@ const router = express.Router();
  *                schema:
  *                  type: object
  */
-router.post("/", controller.createItem);
+router.post('/', controller.createItem);
 
 module.exports = router;

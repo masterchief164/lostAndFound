@@ -1,5 +1,5 @@
-const express = require("express");
-const controller = require("../controllers/lostItems.controller");
+const express = require('express');
+const controller = require('../controllers/lostItems.controller');
 
 const router = express.Router();
 
@@ -18,6 +18,6 @@ const router = express.Router();
  *              schema:
  *                type: object
  */
-router.get("/", controller.getItems);
+router.get('/', controller.getItems);
 
 module.exports = router;
