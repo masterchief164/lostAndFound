@@ -95,7 +95,7 @@ const Nav = () => {
             padding: "0.5em 2em"
         }}>
             <Toolbar>
-                <IconButton sx={{ background: "#FE926E" }}>
+                <IconButton sx={{ background: "#FE926E" }} component={Link} to={'/'} onClick={()=>setValue(0)}>
                     <img src={CollegeIcon} alt="IIITDMJ" />
                 </IconButton>
                 {!isSmall ? <>
