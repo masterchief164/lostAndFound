@@ -10,11 +10,15 @@ const lostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    email: {
+    roll: {
       type: String,
       required: true,
     },
     phone: {
+      type: String,
+      required: true,
+    },
+    title: {
       type: String,
       required: true,
     },
@@ -53,11 +57,15 @@ const foundSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    email: {
+    roll: {
       type: String,
       required: true,
     },
     phone: {
+      type: String,
+      required: true,
+    },
+    title: {
       type: String,
       required: true,
     },

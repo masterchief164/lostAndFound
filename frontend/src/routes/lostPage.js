@@ -4,7 +4,7 @@ import IMG from '../assets/banner.png'
 
 const LostPage = () => {
   return (
-    <section className='container'>
+    <section className='lostContainer'>
         <div className='filter-box'>
         </div>
         <div className='lost-items'>

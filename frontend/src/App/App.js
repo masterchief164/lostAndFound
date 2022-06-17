@@ -7,6 +7,7 @@ import Homepage from "../routes/homepage";
 import Footer from "../components/footer";
 import LostPage from '../routes/lostPage';
 import FoundPage from '../routes/foundPage';
+import ReportItems from '../routes/reportPage';
 
 const theme = createTheme({
     palette: {
@@ -31,6 +32,7 @@ function App() {
                         <Route exact path="/" element={<Homepage/>}/>
                         <Route exact path="/lost" element={<LostPage/>}/>
                         <Route exact path="/found" element={<FoundPage/>}/>
+                        <Route exact path="/report/form" element={<ReportItems/>}/>
                     </Routes>
                     <Footer/>
                 </div>

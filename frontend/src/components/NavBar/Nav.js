@@ -115,7 +115,7 @@ const Nav = () => {
                                  fontSize: "1.1vw",
                                  margin: " 0 2vw"
                              }} />
-                        <Tab component={Link} to={"/"} label="Report New Item"
+                        <Tab component={Link} to={"/report/form"} label="Report New Item"
                              sx={{
                                  fontSize: "1.1vw",
                                  margin: " 0 2vw"

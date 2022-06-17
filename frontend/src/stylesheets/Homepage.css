@@ -166,5 +166,6 @@ footer{
 }
 footer > h3{
     color: white;
-    font-weight: 600;
+    font-size: 1vw;
+    font-weight: 400;
 }
