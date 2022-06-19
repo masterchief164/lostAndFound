@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import Axios from "axios";
 import "../stylesheets/reportPage.css";
-import { Alert, CircularProgress } from "@mui/material";
+import {Alert, CircularProgress} from "@mui/material";
 
 const ReportPage = () => {
 
@@ -56,6 +56,8 @@ const ReportPage = () => {
 
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
+            // TODO show the alert that save has failed
         }
         setPostData({
             firstName: "",
@@ -185,7 +187,7 @@ const ReportPage = () => {
                                     </div>
                                     <button className="nextBtn" onClick={(e) => clickHandler(e)}>
                                         <span className="btnText">Next</span>
-                                        <i className="uil uil-navigator"></i>
+                                        <i className="uil uil-navigator"/>
                                     </button>
                                 </div>
                             </div>
