@@ -1,0 +1,178 @@
+import React, { useCallback } from "react";
+import "../stylesheets/Form.css";
+import { Alert, CircularProgress, TextField } from "@mui/material";
+import { useDropzone } from "react-dropzone";
+import Axios from "axios";
+import closeButton from "../assets/closeButton.svg";
+
+const Form = () => {
+
+    const defaultFormData = {
+        firstName: "",
+        lastName: "",
+        title: "",
+        description: "",
+        location: "",
+        itemTag: "",
+        image: "asdvwv",
+        type: "Lost",
+        dateTime: new Date().toISOString()
+            .substring(0, new Date().toISOString()
+                .lastIndexOf(":"))
+    };
+
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [postData, setPostData] = React.useState(defaultFormData);
+    const [isAlert, setIsAlert] = React.useState(false);
+    const [imageSelected, setImageSelected] = React.useState(false);
+    const [isSuccess, setIsSuccess] = React.useState(false);
+    let message = "Something went wrong";
+
+    const onDrop = useCallback(async (acceptedFiles) => {
+        console.log(acceptedFiles[0]);
+        setImageSelected(true);
+        const reader = new FileReader();
+        reader.readAsDataURL(acceptedFiles[0]);
+        reader.onloadend = () => {
+
+            setPostData({
+                ...postData,
+                image: reader.result
+            });
+        };
+    }, [postData]);
+
+    const {
+        getRootProps,
+        getInputProps,
+    } = useDropzone({
+        onDrop,
+        accepts: "image/*",
+        multiple: false
+    });
+
+    const reportTypes = [{
+        value: "Lost",
+        label: "Lost"
+    }, {
+        value: "Found",
+        label: "Found"
+    }];
+
+    const handleSubmit = async () => {
+        setIsLoading(true);
+        try {
+            await Axios.post(`${process.env.REACT_APP_BACKEND_URL}/report/form`, postData);
+            // message = resp.data.message;
+            // TODO handle error messages in both backend and frontend
+            setIsLoading(false);
+            setIsAlert(true);
+            setIsSuccess(true);
+
+        } catch (error) {
+            console.log(error);
+            message = error.message;
+            setIsAlert(true);
+            setIsSuccess(false);
+            setIsLoading(false);
+        }
+        setPostData(defaultFormData);
+        setImageSelected(false);
+    };
+
+
+    return (<>
+        {isAlert ? <Alert severity={isSuccess ? "success" : "error"} onClose={() => {
+            setIsAlert(false);
+        }}>{isSuccess ? "Your Report was successfully Submitted!" : `Error: ${message}`}</Alert> : ""}
+        <section className={"formSection"}>
+            {isLoading ? <CircularProgress /> : <div className="formContainer">
+
+                <select value={postData.type} className="selectBox" onChange={(e) => setPostData({
+                    ...postData,
+                    type: e.target.value
+                })}>
+                    {reportTypes.map(type => <option className={"optionBox"} key={type.value}
+                                                     value={type.value}>{type.label}</option>)}
+                </select>
+
+                <div className={"row"}>
+                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                               value={postData.firstName}
+                               onChange={(e) => setPostData({
+                                   ...postData,
+                                   firstName: e.target.value
+                               })} required={true} label="First Name" variant="outlined" />
+                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                               value={postData.lastName}
+                               onChange={(e) => setPostData({
+                                   ...postData,
+                                   lastName: e.target.value
+                               })} required={true} label="Last Name" variant="outlined" />
+                </div>
+
+                <div className={"row"}>
+                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                               value={postData.location}
+                               onChange={(e) => setPostData({
+                                   ...postData,
+                                   location: e.target.value
+                               })} required={true} label="Last Seen Place" variant="outlined" />
+                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                               type={"datetime-local"}
+                               value={postData.dateTime}
+                               onChange={(e) => setPostData({
+                                   ...postData,
+                                   description: e.target.value
+                               })} required={true} label="Last Seen Time" variant="outlined" />
+                </div>
+
+                <div className={"row"}>
+                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                               value={postData.itemTag}
+                               onChange={(e) => setPostData({
+                                   ...postData,
+                                   itemTag: e.target.value
+                               })} required={true} label="Item Tag" variant="outlined" />
+                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                               value={postData.title}
+                               onChange={(e) => setPostData({
+                                   ...postData,
+                                   title: e.target.value
+                               })} required={true} label="Title" variant="outlined" />
+                </div>
+
+                <TextField margin={"normal"} multiline={true} minRows={6} sx={{ width: "50vw" }}
+                           value={postData.description}
+                           onChange={(e) => setPostData({
+                               ...postData,
+                               description: e.target.value
+                           })} required={true}
+                           id="outlined-basic" label="Description" variant="outlined" />
+
+                <div className={`dropBox`} {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {imageSelected ?
+                        <div className="container" id={"preview"}>
+                            <img src={postData.image} alt="Preview" className={"preview"} />
+                            <img src={closeButton} alt="Preview" className={"close"}
+                                 onClick={() => {
+                                     setImageSelected(false);
+                                     setPostData({
+                                         ...postData,
+                                         image: ""
+                                     });}
+                                 } />
+                        </div> :
+                        <p>Drop files here or click to upload</p>
+                    }
+                </div>
+
+
+                <button className={"submitButton"} onClick={handleSubmit}>Submit</button>
+            </div>}
+        </section>
+    </>);
+};
+
+export default Form;

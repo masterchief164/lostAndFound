@@ -3,7 +3,7 @@ const logger = require('../bin/winston.util');
 
 module.exports.saveItem = async (data) => {
   try {
-    if (data.type === 'lost') {
+    if (data.type === 'Lost') {
       const document = new lostModel(data);
       return await document.save();
     }
