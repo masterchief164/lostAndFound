@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { AppBar, IconButton, Tab, Tabs, Toolbar, useMediaQuery } from "@mui/material";
-import CollegeIcon from "../../assets/iiitdmj.png";
+import CollegeIcon from "../../assets/iiitdmj.svg";
 import "./Nav.css";
 import { Link } from "react-router-dom";
 import GoogleIcon from "../../assets/google.png";
