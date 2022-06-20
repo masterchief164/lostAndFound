@@ -1,8 +1,9 @@
 import React, { useCallback } from "react";
-import "./Form.css";
+import "../stylesheets/Form.css";
 import { Alert, CircularProgress, TextField } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 import Axios from "axios";
+import closeButton from "../assets/closeButton.svg";
 
 const Form = () => {
 
@@ -13,25 +14,37 @@ const Form = () => {
         description: "",
         location: "",
         itemTag: "",
+        image: "asdvwv",
         type: "Lost",
         dateTime: new Date().toISOString()
-            .split(".")[0]
+            .substring(0, new Date().toISOString()
+                .lastIndexOf(":"))
     };
 
     const [isLoading, setIsLoading] = React.useState(false);
-    const [selectedFile, setSelectedFile] = React.useState(null);
     const [postData, setPostData] = React.useState(defaultFormData);
     const [isAlert, setIsAlert] = React.useState(false);
+    const [imageSelected, setImageSelected] = React.useState(false);
+    const [isSuccess, setIsSuccess] = React.useState(false);
+    let message = "Something went wrong";
 
-    const onDrop = useCallback((acceptedFiles) => {
-        console.log(acceptedFiles);
-        // setSelectedFile(acceptedFiles[0]);
-    }, []);
+    const onDrop = useCallback(async (acceptedFiles) => {
+        console.log(acceptedFiles[0]);
+        setImageSelected(true);
+        const reader = new FileReader();
+        reader.readAsDataURL(acceptedFiles[0]);
+        reader.onloadend = () => {
+
+            setPostData({
+                ...postData,
+                image: reader.result
+            });
+        };
+    }, [postData]);
 
     const {
         getRootProps,
         getInputProps,
-        isDragActive
     } = useDropzone({
         onDrop,
         accepts: "image/*",
@@ -46,49 +59,32 @@ const Form = () => {
         label: "Found"
     }];
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        formData.append("upload_preset", "vaogtmy6");
-        let res,
-            image = "";
+    const handleSubmit = async () => {
         setIsLoading(true);
-        if (selectedFile) {
-            try {
-                res = await Axios.post(process.env.REACT_APP_CLOUD_BUCKET, formData);
-            } catch (error) {
-                console.log(error);
-                setIsLoading(false);
-                return;
-            }
-
-            if (res && res.status === 200) {
-                console.log("success", res.data.secure_url);
-                image = res.data.secure_url;
-            } else {
-                return;
-            }
-        }
         try {
-            let data = postData;
-            data.image = image;
-            await Axios.post(`${process.env.REACT_APP_BACKEND_URL}/report/form`, data);
+            await Axios.post(`${process.env.REACT_APP_BACKEND_URL}/report/form`, postData);
+            // message = resp.data.message;
+            // TODO handle error messages in both backend and frontend
             setIsLoading(false);
             setIsAlert(true);
+            setIsSuccess(true);
 
         } catch (error) {
             console.log(error);
+            message = error.message;
+            setIsAlert(true);
+            setIsSuccess(false);
             setIsLoading(false);
-            // TODO show the alert that save has failed
         }
         setPostData(defaultFormData);
-        setSelectedFile("");
+        setImageSelected(false);
     };
 
+
     return (<>
-        {isAlert ? <Alert severity="success" onClose={() => {
-        }}>Your Report was successfully Submitted!</Alert> : ""}
+        {isAlert ? <Alert severity={isSuccess ? "success" : "error"} onClose={() => {
+            setIsAlert(false);
+        }}>{isSuccess ? "Your Report was successfully Submitted!" : `Error: ${message}`}</Alert> : ""}
         <section className={"formSection"}>
             {isLoading ? <CircularProgress /> : <div className="formContainer">
 
@@ -156,8 +152,22 @@ const Form = () => {
 
                 <div className={`dropBox`} {...getRootProps()}>
                     <input {...getInputProps()} />
-                    <p>Drop files here or click to upload</p>
+                    {imageSelected ?
+                        <div className="container" id={"preview"}>
+                            <img src={postData.image} alt="Preview" className={"preview"} />
+                            <img src={closeButton} alt="Preview" className={"close"}
+                                 onClick={() => {
+                                     setImageSelected(false);
+                                     setPostData({
+                                         ...postData,
+                                         image: ""
+                                     });}
+                                 } />
+                        </div> :
+                        <p>Drop files here or click to upload</p>
+                    }
                 </div>
+
 
                 <button className={"submitButton"} onClick={handleSubmit}>Submit</button>
             </div>}

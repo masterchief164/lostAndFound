@@ -39,6 +39,7 @@
     border-radius: 32px;
     box-shadow: 10px 10px 50px 4px rgba(0, 0, 0, 0.28);
     padding: 2vw 5vw;
+    margin: 7vh 0 10vh 0;
 }
 .row{
     display: flex;
@@ -53,6 +54,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 50vw;
     margin-top: 4vh;
     border: 2px dashed #424242;
@@ -64,6 +66,41 @@
 }
 .dropBox p{
     cursor: pointer;
+}
+
+.container{
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    background: none;
+    z-index: 1;
+    border: none;
+    box-shadow: none;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    padding: 0.5vw 0.5vw 0 0;
+}
+
+.preview {
+    height: 90%;
+    width: auto;
+    margin: 0;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.close{
+    position: absolute;
+    width: 2vh;
+    height: 2vh;
+    top:0;
+    right: 0;
+    border-radius: 100%;
+    background-color: #fff;
+    margin: 2% 0 0 0;
 }
 
 .submitButton{

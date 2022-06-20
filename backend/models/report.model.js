@@ -10,14 +10,6 @@ const lostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    roll: {
-      type: String,
-      required: true,
-    },
-    phone: {
-      type: String,
-      required: true,
-    },
     title: {
       type: String,
       required: true,
@@ -34,8 +26,8 @@ const lostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    reportedOn: {
-      type: Number,
+    dateTime: {
+      type: String,
       default: Date.now(),
     },
     type: {
@@ -57,14 +49,6 @@ const foundSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    roll: {
-      type: String,
-      required: true,
-    },
-    phone: {
-      type: String,
-      required: true,
-    },
     title: {
       type: String,
       required: true,
@@ -75,15 +59,19 @@ const foundSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: true,
+      required: false,
     },
     location: {
       type: String,
       required: true,
     },
-    reportedOn: {
-      type: Number,
+    dateTime: {
+      type: String,
       default: Date.now(),
+    },
+    itemTag: {
+      type: String,
+      required: true,
     },
     type: {
       type: String,
