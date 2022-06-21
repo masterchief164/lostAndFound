@@ -129,20 +129,20 @@ const Form = () => {
 
                 <div className={"row"}>
                     <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
-                               value={postData.itemTag}
+                               value={postData.itemTag} helperText={"Tag like #mobile, #bag, #laptop"}
                                onChange={(e) => setPostData({
                                    ...postData,
                                    itemTag: e.target.value
                                })} required={true} label="Item Tag" variant="outlined" />
                     <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
-                               value={postData.title}
+                               value={postData.title} helperText={" "}
                                onChange={(e) => setPostData({
                                    ...postData,
                                    title: e.target.value
                                })} required={true} label="Title" variant="outlined" />
                 </div>
 
-                <TextField margin={"normal"} multiline={true} minRows={6} sx={{ width: "50vw" }}
+                <TextField margin={"normal"} multiline={true} minRows={5} sx={{ width: "50vw" }}
                            value={postData.description}
                            onChange={(e) => setPostData({
                                ...postData,

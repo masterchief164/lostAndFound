@@ -1,8 +1,10 @@
 import React from 'react'
 import "../stylesheets/lostPage.css"
 import IMG from '../assets/banner.png'
+import { LostItemsContext } from "../utils/LostItemsContext";
 
 const LostPage = () => {
+  const [lostItems, setLostItems] = React.useContext(LostItemsContext);
   return (
     <section className='lostContainer'>
         <div className='filter-box'>

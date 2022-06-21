@@ -13,11 +13,14 @@
 .selectBox {
     align-items: center;
     justify-content: center;
+    text-align: center;
     width: 10vw;
+    height: 4vh;
+    font-size: 1.2vw;
     background: linear-gradient(90deg, #424242 32.77%, #101010 100%);
     color: white;
     border-radius: 8px;
-    margin-bottom: 5vh;
+    margin-bottom: 8vh;
 }
 .optionBox{
     align-items: center;
@@ -105,6 +108,7 @@
 
 .submitButton{
     margin-top: 4vh;
+    font-size: 1vw;
     align-items: center;
     justify-content: center;
     width: 10vw;

@@ -7,17 +7,29 @@ import GoogleIcon from "../../assets/google.png";
 import DrawerComp from "../DrawerComp/DrawerComp";
 import GoogleSignIn from "../../utils/GoogleSignIn/GoogleSignIn";
 import axios from "axios";
+import { UserContext } from "../../utils/UserContext";
 
 const Nav = () => {
     const [value, setValue] = React.useState(0);
-    const [user, setUser] = React.useState(null);
-    const [token, setToken] = React.useState(null);
+    const [user, setUser] = React.useContext(UserContext);
     const isSmall = useMediaQuery("(max-width:900px)");
-    // axios.defaults.withCredentials = true;
+
+    useEffect(() => {
+        let tmp = localStorage.getItem("userDataLost");
+        console.log("hello");
+        if (tmp != null) {
+            tmp = JSON.parse(tmp);
+            if (new Date(tmp.exp).getTime() > new Date().getTime()) {
+                setUser(localStorage.getItem("userDataLost"));
+            } else {
+                localStorage.removeItem("userDataLost");
+            }
+        }
+    },[]);
 
     useEffect(() => {
         if (user) {
-            console.log(user);
+            // console.log(user);
             localStorage.setItem("userDataLost", JSON.stringify(user));
         }
     }, [user]);
@@ -55,12 +67,12 @@ const Nav = () => {
                     authorizationCode = getQueryString("code", href);
                     // console.log(authorizationCode);
                     axios.post("http://localhost:8000/auth/googleLogin", { tokenId: authorizationCode }, { withCredentials: true })
-                      .then(async (response) => {
-                          const data = response.data;
-                          console.log(data);
-                          setUser(data.userData);
-                      })
-                      .catch(error => console.error("Error:", error));
+                        .then(async (response) => {
+                            const data = response.data;
+                            console.log(data);
+                            setUser(data.userData);
+                        })
+                        .catch(error => console.error("Error:", error));
                     windowHandle.close();
                 }
             }
@@ -78,14 +90,12 @@ const Nav = () => {
     const handleLogout = async () => {
 
         await axios.get("http://localhost:8000/auth/logout", { withCredentials: true })
-          .then((response) => {
-              if(response.status === 200) {
-                  console.log("logged out");
-                  localStorage.removeItem("tokenLost");
-                  localStorage.removeItem("userDataLost");
-                  setUser(null);
-                  setToken(null);
-              }
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("logged out");
+                    localStorage.removeItem("userDataLost");
+                    setUser(null);
+                }
             });
     };
 
@@ -95,7 +105,8 @@ const Nav = () => {
             padding: "0.5em 2em"
         }}>
             <Toolbar>
-                <IconButton sx={{ background: "#FE926E" }} component={Link} to={'/'} onClick={()=>setValue(0)}>
+                <IconButton sx={{ background: "#FE926E" }} component={Link} to={"/"}
+                            onClick={() => setValue(0)}>
                     <img src={CollegeIcon} alt="IIITDMJ" />
                 </IconButton>
                 {!isSmall ? <>
@@ -127,15 +138,15 @@ const Nav = () => {
 
                     </Tabs>
                     {(user == null) ? <IconButton
-                        sx={{
-                            marginLeft: "auto",
-                            height: "calc(max(3vw, 5vh))",
-                            width: "calc(max(3vw, 5vh))"
-                        }}
-                        onClick={doAuthorization}>
-                          <img src={GoogleIcon} alt={"Google Icon"} />
-                      </IconButton> :
-                      <button className={"logout_button"} onClick={handleLogout}>Logout</button>}
+                            sx={{
+                                marginLeft: "auto",
+                                height: "calc(max(3vw, 5vh))",
+                                width: "calc(max(3vw, 5vh))"
+                            }}
+                            onClick={doAuthorization}>
+                            <img src={GoogleIcon} alt={"Google Icon"} />
+                        </IconButton> :
+                        <button className={"logout_button"} onClick={handleLogout}>Logout</button>}
                 </> : <DrawerComp />}
 
             </Toolbar>

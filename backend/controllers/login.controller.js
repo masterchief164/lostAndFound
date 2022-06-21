@@ -22,6 +22,7 @@ const googleLogin = async (req, res) => {
     const person = await addUser(user);
     const token = await createToken(person);
     const userData = decodeToken(token);
+    userData.exp = new Date(Date.now() + 1800000);
     console.log("login");
 
     res.status(202)
