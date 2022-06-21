@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import GoogleIcon from "../../assets/google.png";
 import DrawerComp from "../DrawerComp/DrawerComp";
 import GoogleSignIn from "../../utils/GoogleSignIn/GoogleSignIn";
-import axios from "axios";
 import { UserContext } from "../../utils/UserContext";
 import initializeApp from "../../utils/initializeApp";
+import { logout, sendAuthorizationCode } from "../../Api/Data";
 
 const Nav = () => {
     const [value, setValue] = React.useState(0);
@@ -19,12 +19,11 @@ const Nav = () => {
 
     useEffect(() => {
         initializeApp(setUser, setLostItems, setFoundItems)
-            .then(() => (console.log("load Completed")));
+            .then();
     }, []);
 
     useEffect(() => {
         if (user) {
-            // console.log(user);
             localStorage.setItem("userDataLost", JSON.stringify(user));
         }
     }, [user]);
@@ -48,7 +47,7 @@ const Nav = () => {
 
         windowHandle = createOauthWindow(GoogleSignIn(state), "OAuth login");
 
-        intervalId = window.setInterval(() => {
+        intervalId = window.setInterval(async () => {
             let href;
             try {
                 href = windowHandle.location.href;
@@ -78,13 +77,7 @@ const Nav = () => {
                         console.log("State mismatch");
                         return;
                     }
-                    axios.post("http://localhost:8000/auth/googleLogin", { tokenId: resp.authorizationCode }, { withCredentials: true })
-                        .then(async (response) => {
-                            const data = response.data;
-                            // console.log(data);
-                            setUser(data.userData);
-                        })
-                        .catch(error => console.error("Error:", error));
+                    await sendAuthorizationCode(resp.authorizationCode, setUser);
                     windowHandle.close();
                 }
             }
@@ -100,15 +93,7 @@ const Nav = () => {
     };
 
     const handleLogout = async () => {
-
-        await axios.get("http://localhost:8000/auth/logout", { withCredentials: true })
-            .then((response) => {
-                if (response.status === 200) {
-                    console.log("logged out");
-                    localStorage.removeItem("userDataLost");
-                    setUser(null);
-                }
-            });
+        await logout(setUser);
     };
 
     return (<>
