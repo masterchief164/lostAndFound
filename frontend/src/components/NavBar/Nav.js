@@ -16,7 +16,6 @@ const Nav = () => {
 
     useEffect(() => {
         let tmp = localStorage.getItem("userDataLost");
-        console.log("hello");
         if (tmp != null) {
             tmp = JSON.parse(tmp);
             if (new Date(tmp.exp).getTime() > new Date().getTime()) {
@@ -25,7 +24,7 @@ const Nav = () => {
                 localStorage.removeItem("userDataLost");
             }
         }
-    },[]);
+    }, []);
 
     useEffect(() => {
         if (user) {
@@ -34,7 +33,6 @@ const Nav = () => {
         }
     }, [user]);
 
-    let authorizationCode;
 
     let windowHandle;
     let intervalId = null;
@@ -46,7 +44,14 @@ const Nav = () => {
             return;
         }
 
-        windowHandle = createOauthWindow(GoogleSignIn(), "OAuth login");
+        const state = Math.random()
+            .toString(36)
+            .substring(2, 15) + Math.random()
+            .toString(36)
+            .substring(2, 15);
+        // console.log("state", state);
+
+        windowHandle = createOauthWindow(GoogleSignIn(state), "OAuth login");
 
         intervalId = window.setInterval(() => {
             let href;
@@ -56,20 +61,32 @@ const Nav = () => {
                 // console.log(e);
             }
             if (href != null) {
+                // console.log(href);
                 const getQueryString = function(field, url) {
                     const windowLocationUrl = url ? url : href;
                     const reg = new RegExp("[?&]" + field + "=([^&#]*)", "i");
+                    const reg2 = new RegExp("[?&]" + "state" + "=([^&#]*)", "i");
                     const string = reg.exec(windowLocationUrl);
-                    return string ? string[1] : null;
+                    const string2 = reg2.exec(windowLocationUrl);
+                    // console.log("String2", string2);
+                    // console.log(string);
+                    return string && string2 ? {
+                        stateResp: string2[1],
+                        authorizationCode: string[1]
+                    } : null;
                 };
                 if (href.match("code")) {
                     window.clearInterval(intervalId);
-                    authorizationCode = getQueryString("code", href);
+                    const resp = getQueryString("code", href);
                     // console.log(authorizationCode);
-                    axios.post("http://localhost:8000/auth/googleLogin", { tokenId: authorizationCode }, { withCredentials: true })
+                    if(resp.stateResp !== state) {
+                        console.log("State mismatch");
+                        return;
+                    }
+                    axios.post("http://localhost:8000/auth/googleLogin", { tokenId: resp.authorizationCode }, { withCredentials: true })
                         .then(async (response) => {
                             const data = response.data;
-                            console.log(data);
+                            // console.log(data);
                             setUser(data.userData);
                         })
                         .catch(error => console.error("Error:", error));
