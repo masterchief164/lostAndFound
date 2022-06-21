@@ -8,22 +8,18 @@ import DrawerComp from "../DrawerComp/DrawerComp";
 import GoogleSignIn from "../../utils/GoogleSignIn/GoogleSignIn";
 import axios from "axios";
 import { UserContext } from "../../utils/UserContext";
+import initializeApp from "../../utils/initializeApp";
 
 const Nav = () => {
     const [value, setValue] = React.useState(0);
     const [user, setUser] = React.useContext(UserContext);
+    const [lostItems, setLostItems] = React.useContext(UserContext);
+    const [foundItems, setFoundItems] = React.useContext(UserContext);
     const isSmall = useMediaQuery("(max-width:900px)");
 
     useEffect(() => {
-        let tmp = localStorage.getItem("userDataLost");
-        if (tmp != null) {
-            tmp = JSON.parse(tmp);
-            if (new Date(tmp.exp).getTime() > new Date().getTime()) {
-                setUser(localStorage.getItem("userDataLost"));
-            } else {
-                localStorage.removeItem("userDataLost");
-            }
-        }
+        initializeApp(setUser, setLostItems, setFoundItems)
+            .then(() => (console.log("load Completed")));
     }, []);
 
     useEffect(() => {
@@ -32,7 +28,6 @@ const Nav = () => {
             localStorage.setItem("userDataLost", JSON.stringify(user));
         }
     }, [user]);
-
 
     let windowHandle;
     let intervalId = null;
@@ -79,7 +74,7 @@ const Nav = () => {
                     window.clearInterval(intervalId);
                     const resp = getQueryString("code", href);
                     // console.log(authorizationCode);
-                    if(resp.stateResp !== state) {
+                    if (resp.stateResp !== state) {
                         console.log("State mismatch");
                         return;
                     }
