@@ -3,6 +3,7 @@ import "../stylesheets/Form.css";
 import { Alert, CircularProgress, TextField } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 import closeButton from "../assets/closeButton.svg";
+import Axios from "axios";
 
 const Form = () => {
 
@@ -13,7 +14,7 @@ const Form = () => {
         description: "",
         location: "",
         itemTag: "",
-        image: "",
+        image: "default",
         type: "Lost",
         dateTime: new Date().toISOString()
             .substring(0, new Date().toISOString()
@@ -72,10 +73,11 @@ const Form = () => {
     }];
 
     const handleSubmit = async () => {
+        console.log(!Object.values(postData)
+          .every(value => value.length !== 0));
         if (!Object.values(errors)
             .every(value => value === false) || !Object.values(postData)
             .every(value => value.length !== 0)) {
-            console.log(errors);
             setMessage("Form Incorrectly Filled");
             setIsAlert(true);
             return;
