@@ -1,8 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import "../stylesheets/Form.css";
 import { Alert, CircularProgress, TextField } from "@mui/material";
 import { useDropzone } from "react-dropzone";
-import Axios from "axios";
 import closeButton from "../assets/closeButton.svg";
 
 const Form = () => {
@@ -14,19 +13,32 @@ const Form = () => {
         description: "",
         location: "",
         itemTag: "",
-        image: "asdvwv",
+        image: "",
         type: "Lost",
         dateTime: new Date().toISOString()
             .substring(0, new Date().toISOString()
                 .lastIndexOf(":"))
     };
 
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [postData, setPostData] = React.useState(defaultFormData);
-    const [isAlert, setIsAlert] = React.useState(false);
-    const [imageSelected, setImageSelected] = React.useState(false);
-    const [isSuccess, setIsSuccess] = React.useState(false);
-    let message = "Something went wrong";
+    const [errors, setErrors] = useState({
+        firstName: false,
+        lastName: false,
+        title: false,
+        description: false,
+        location: false,
+        itemTag: false,
+        type: false
+    });
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [postData, setPostData] = useState(defaultFormData);
+    const [isAlert, setIsAlert] = useState(false);
+    const [imageSelected, setImageSelected] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [message, setMessage] = useState("Something went wrong");
+    // useEffect(() => {
+    //     console.log(postData.firstName);
+    // }, [postData]);
 
     const onDrop = useCallback(async (acceptedFiles) => {
         console.log(acceptedFiles[0]);
@@ -44,7 +56,7 @@ const Form = () => {
 
     const {
         getRootProps,
-        getInputProps,
+        getInputProps
     } = useDropzone({
         onDrop,
         accepts: "image/*",
@@ -60,18 +72,27 @@ const Form = () => {
     }];
 
     const handleSubmit = async () => {
+        if (!Object.values(errors)
+            .every(value => value === false) || !Object.values(postData)
+            .every(value => value.length !== 0)) {
+            console.log(errors);
+            setMessage("Form Incorrectly Filled");
+            setIsAlert(true);
+            return;
+        }
         setIsLoading(true);
         try {
             await Axios.post(`${process.env.REACT_APP_BACKEND_URL}/report/form`, postData);
             // message = resp.data.message;
             // TODO handle error messages in both backend and frontend
+            console.log("here");
             setIsLoading(false);
             setIsAlert(true);
             setIsSuccess(true);
 
         } catch (error) {
             console.log(error);
-            message = error.message;
+            setMessage(error.message);
             setIsAlert(true);
             setIsSuccess(false);
             setIsLoading(false);
@@ -79,7 +100,6 @@ const Form = () => {
         setPostData(defaultFormData);
         setImageSelected(false);
     };
-
 
     return (<>
         {isAlert ? <Alert severity={isSuccess ? "success" : "error"} onClose={() => {
@@ -97,27 +117,69 @@ const Form = () => {
                 </select>
 
                 <div className={"row"}>
-                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                    <TextField error={errors.firstName} margin={"normal"} sx={{ width: "20vw" }}
+                               id="outlined-basic"
                                value={postData.firstName}
-                               onChange={(e) => setPostData({
-                                   ...postData,
-                                   firstName: e.target.value
-                               })} required={true} label="First Name" variant="outlined" />
-                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                               onChange={(e) => {
+                                   if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
+                                       setErrors({
+                                           ...errors,
+                                           firstName: true
+                                       });
+                                   } else {
+                                       setErrors({
+                                           ...errors,
+                                           firstName: false
+                                       });
+                                   }
+                                   setPostData({
+                                       ...postData,
+                                       firstName: e.target.value
+                                   });
+                               }} required={true} label="First Name" variant="outlined" />
+                    <TextField error={errors.lastName} margin={"normal"} sx={{ width: "20vw" }}
+                               id="outlined-basic"
                                value={postData.lastName}
-                               onChange={(e) => setPostData({
-                                   ...postData,
-                                   lastName: e.target.value
-                               })} required={true} label="Last Name" variant="outlined" />
+                               onChange={(e) => {
+                                   if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
+                                       setErrors({
+                                           ...errors,
+                                           lastName: true
+                                       });
+                                   } else {
+                                       setErrors({
+                                           ...errors,
+                                           lastName: false
+                                       });
+                                   }
+                                   setPostData({
+                                       ...postData,
+                                       lastName: e.target.value
+                                   });
+                               }} required={true} label="Last Name" variant="outlined" />
                 </div>
 
                 <div className={"row"}>
-                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                    <TextField error={errors.location} margin={"normal"} sx={{ width: "20vw" }}
+                               id="outlined-basic"
                                value={postData.location}
-                               onChange={(e) => setPostData({
-                                   ...postData,
-                                   location: e.target.value
-                               })} required={true} label="Last Seen Place" variant="outlined" />
+                               onChange={(e) => {
+                                   if (!e.target.value.match(/^[a-zA-Z\s\d,_.-]{2,30}$/)) {
+                                       setErrors({
+                                           ...errors,
+                                           location: true
+                                       });
+                                   } else {
+                                       setErrors({
+                                           ...errors,
+                                           location: false
+                                       });
+                                   }
+                                   setPostData({
+                                       ...postData,
+                                       location: e.target.value
+                                   });
+                               }} required={true} label="Last Seen Place" variant="outlined" />
                     <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
                                type={"datetime-local"}
                                value={postData.dateTime}
@@ -128,26 +190,69 @@ const Form = () => {
                 </div>
 
                 <div className={"row"}>
-                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
-                               value={postData.itemTag} helperText={"Tag like #mobile, #bag, #laptop"}
-                               onChange={(e) => setPostData({
-                                   ...postData,
-                                   itemTag: e.target.value
-                               })} required={true} label="Item Tag" variant="outlined" />
-                    <TextField margin={"normal"} sx={{ width: "20vw" }} id="outlined-basic"
+                    <TextField error={errors.itemTag} margin={"normal"} sx={{ width: "20vw" }}
+                               id="outlined-basic"
+                               value={postData.itemTag}
+                               helperText={"Tag like mobile, bag, laptop"}
+                               onChange={(e) => {
+                                   if (!e.target.value.match(/^[a-zA-Z]{2,15}$/)) {
+                                       setErrors({
+                                           ...errors,
+                                           itemTag: true
+                                       });
+                                   } else {
+                                       setErrors({
+                                           ...errors,
+                                           itemTag: false
+                                       });
+                                   }
+                                   setPostData({
+                                       ...postData,
+                                       itemTag: e.target.value
+                                   });
+                               }} required={true} label="Item Tag" variant="outlined" />
+                    <TextField error={errors.title} margin={"normal"} sx={{ width: "20vw" }}
+                               id="outlined-basic"
                                value={postData.title} helperText={" "}
-                               onChange={(e) => setPostData({
-                                   ...postData,
-                                   title: e.target.value
-                               })} required={true} label="Title" variant="outlined" />
+                               onChange={(e) => {
+                                   if (!e.target.value.match(/^[a-z\sA-Z]{2,15}$/)) {
+                                       setErrors({
+                                           ...errors,
+                                           title: true
+                                       });
+                                   } else {
+                                       setErrors({
+                                           ...errors,
+                                           title: false
+                                       });
+                                   }
+                                   setPostData({
+                                       ...postData,
+                                       title: e.target.value
+                                   });
+                               }} required={true} label="Title" variant="outlined" />
                 </div>
 
-                <TextField margin={"normal"} multiline={true} minRows={5} sx={{ width: "50vw" }}
+                <TextField error={errors.description} margin={"normal"} multiline={true} minRows={5}
+                           sx={{ width: "50vw" }}
                            value={postData.description}
-                           onChange={(e) => setPostData({
-                               ...postData,
-                               description: e.target.value
-                           })} required={true}
+                           onChange={(e) => {
+                               if (e.target.value.length < 1) {
+                                   setErrors({
+                                       ...errors,
+                                       description: true
+                                   });
+                               } else {
+                                   setErrors({
+                                       ...errors,
+                                       description: false
+                                   });
+                               }
+                               setPostData({
+                                   ...postData,
+                                   description: e.target.value
+                               });
+                           }} required={true}
                            id="outlined-basic" label="Description" variant="outlined" />
 
                 <div className={`dropBox`} {...getRootProps()}>
@@ -161,7 +266,8 @@ const Form = () => {
                                      setPostData({
                                          ...postData,
                                          image: ""
-                                     });}
+                                     });
+                                 }
                                  } />
                         </div> :
                         <p>Drop files here or click to upload</p>
