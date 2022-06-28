@@ -131,7 +131,15 @@
     align-items: center;
     background: linear-gradient(90deg, #BFB2C4 0%, #E3DDD3 100%);
 }
-
+.popup-footer > p{
+    font-size: 12px;
+    line-height: 1rem;
+    /*text-align: center;*/
+}
+.popup-footer > p > strong{
+    font-size: 16px;
+    font-weight: 600;
+}
 .popup-footer > button{
     width: 117px;
     height: 32px;

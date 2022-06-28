@@ -20,7 +20,7 @@ const Card = () => (
 			</div>
 		</div>
 		<div className="popup-footer">
-			<p>Reported on: 22-04-2022</p>
+			<p>Reported on<br/><strong> 22 Jan,2022</strong></p>
 			<button> FOUND IT </button>
 		</div>
 	</div>
