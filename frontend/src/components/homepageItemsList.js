@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import "../stylesheets/Homepage.css";
-import IMG from "../assets/banner.png";
+import React, { useState } from 'react';
+import '../stylesheets/Homepage.css';
+import IMG from '../assets/banner.png';
 
 const HomepageListItems = () => {
-    const [btnPopup , setBtnPopup] = useState(false);
-    return (
+  const [btnPopup, setBtnPopup] = useState(false);
+  return (
     <section className="listItem" >
         <img src={IMG} alt="img"></img>
         <div className="listTexts">
@@ -14,7 +14,7 @@ const HomepageListItems = () => {
             </div>
         </div>
     </section>
-    )
-}
+  );
+};
 
 export default HomepageListItems;

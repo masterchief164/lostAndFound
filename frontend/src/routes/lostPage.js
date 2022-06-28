@@ -1,7 +1,7 @@
-import React from 'react'
-import "../stylesheets/lostPage.css"
-import IMG from '../assets/banner.png'
-import { LostItemsContext } from "../utils/LostItemsContext";
+import React from 'react';
+import '../stylesheets/lostPage.css';
+import IMG from '../assets/banner.png';
+import { LostItemsContext } from '../utils/LostItemsContext';
 
 const LostPage = () => {
   const [lostItems, setLostItems] = React.useContext(LostItemsContext);
@@ -27,11 +27,10 @@ const LostPage = () => {
             </div>
         </div>
     </section>
-  )
-}
+  );
+};
 
- const Card = () => {
-  return (
+const Card = () => (
     <div className='card-box'>
         <div className="title">
             <img src={IMG} alt="img"></img>
@@ -46,9 +45,6 @@ const LostPage = () => {
           <button> FOUND IT </button>
       </div>
     </div>
-  )
-}
-
-
+);
 
 export default LostPage;

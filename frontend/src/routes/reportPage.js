@@ -1,81 +1,79 @@
-import React, {useEffect} from "react";
-import Axios from "axios";
-import "../stylesheets/reportPage.css";
-import {Alert, CircularProgress} from "@mui/material";
+import React, { useEffect } from 'react';
+import Axios from 'axios';
+import '../stylesheets/reportPage.css';
+import { Alert, CircularProgress } from '@mui/material';
 
 const ReportPage = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isAlert, setIsAlert] = React.useState(false);
+  const [postData, setPostData] = React.useState({
+    firstName: '',
+    lastName: '',
+    roll: '',
+    phone: '',
+    title: '',
+    description: '',
+    location: '',
+    type: 'lost',
+  });
+  const [selectedFile, setSelectedFile] = React.useState(null);
 
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [isAlert, setIsAlert] = React.useState(false);
-    const [postData, setPostData] = React.useState({
-        firstName: "",
-        lastName: "",
-        roll: "",
-        phone: "",
-        title: "",
-        description: "",
-        location: "",
-        type: "lost"
+  useEffect(() => {
+  }, [isLoading, isAlert]);
+
+  const clickHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('upload_preset', 'vaogtmy6');
+    let res;
+    let image = '';
+    setIsLoading(true);
+    if (selectedFile) {
+      try {
+        res = await Axios.post(process.env.REACT_APP_CLOUD_BUCKET, formData);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+        return;
+      }
+
+      if (res && res.status === 200) {
+        console.log('success', res.data.secure_url);
+        image = res.data.secure_url;
+      } else {
+        return;
+      }
+    }
+
+    try {
+      const data = postData;
+      data.image = image;
+      await Axios.post(`${process.env.REACT_APP_BACKEND_URL}/report/form`, data);
+      setIsLoading(false);
+      setIsAlert(true);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      // TODO show the alert that save has failed
+    }
+    setPostData({
+      firstName: '',
+      lastName: '',
+      roll: '',
+      phone: '',
+      title: '',
+      description: '',
+      location: '',
+      type: '',
     });
-    const [selectedFile, setSelectedFile] = React.useState(null);
+    setSelectedFile('');
+  };
 
-    useEffect(() => {
-    }, [isLoading, isAlert]);
-
-    const clickHandler = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        formData.append("upload_preset", "vaogtmy6");
-        let res,
-          image = "";
-        setIsLoading(true);
-        if (selectedFile) {
-            try {
-                res = await Axios.post(process.env.REACT_APP_CLOUD_BUCKET, formData);
-            } catch (error) {
-                console.log(error);
-                setIsLoading(false);
-                return;
-            }
-
-            if (res && res.status === 200) {
-                console.log("success", res.data.secure_url);
-                image = res.data.secure_url;
-            } else {
-                return;
-            }
-        }
-
-        try {
-            let data = postData;
-            data.image = image;
-            await Axios.post(`${process.env.REACT_APP_BACKEND_URL}/report/form`, data);
-            setIsLoading(false);
-            setIsAlert(true);
-
-        } catch (error) {
-            console.log(error);
-            setIsLoading(false);
-            // TODO show the alert that save has failed
-        }
-        setPostData({
-            firstName: "",
-            lastName: "",
-            roll: "",
-            phone: "",
-            title: "",
-            description: "",
-            location: "",
-            type: ""
-        });
-        setSelectedFile("");
-    };
-
-    return (
+  return (
       <>
           {isAlert ? <Alert severity="success" onClose={() => {
-          }}>Your Report was successfully Submitted!</Alert> : ""}
+          }}>Your Report was successfully Submitted!</Alert> : ''}
           <section className="reportForm">
               {isLoading ? <CircularProgress /> : (
                 <div className="container">
@@ -90,8 +88,8 @@ const ReportPage = () => {
                                         <input type="text" placeholder="Enter your first name"
                                                name="firstName" value={postData.firstName}
                                                onChange={(e) => setPostData({
-                                                   ...postData,
-                                                   firstName: e.target.value
+                                                 ...postData,
+                                                 firstName: e.target.value,
                                                })} required />
                                     </div>
 
@@ -100,8 +98,8 @@ const ReportPage = () => {
                                         <input type="text" placeholder="Enter your last name"
                                                name="lastname" value={postData.lastName}
                                                onChange={(e) => setPostData({
-                                                   ...postData,
-                                                   lastName: e.target.value
+                                                 ...postData,
+                                                 lastName: e.target.value,
                                                })} required />
                                     </div>
 
@@ -110,8 +108,8 @@ const ReportPage = () => {
                                         <input type="text" placeholder="Enter roll number"
                                                name="roll" value={postData.roll}
                                                onChange={(e) => setPostData({
-                                                   ...postData,
-                                                   roll: e.target.value
+                                                 ...postData,
+                                                 roll: e.target.value,
                                                })} required />
                                     </div>
 
@@ -120,8 +118,8 @@ const ReportPage = () => {
                                         <input type="text" placeholder="Enter mobile number"
                                                name="phone" value={postData.phone}
                                                onChange={(e) => setPostData({
-                                                   ...postData,
-                                                   phone: e.target.value
+                                                 ...postData,
+                                                 phone: e.target.value,
                                                })} required />
                                     </div>
 
@@ -136,8 +134,8 @@ const ReportPage = () => {
                                         <label>Report Type</label>
                                         <select name="type" value={postData.type}
                                                 onChange={(e) => setPostData({
-                                                    ...postData,
-                                                    type: e.target.value
+                                                  ...postData,
+                                                  type: e.target.value,
                                                 })} required>
                                             <option value="lost">Lost</option>
                                             <option value="found">Found</option>
@@ -150,8 +148,8 @@ const ReportPage = () => {
                                                placeholder="eg: I lost my laptop charger  in cc"
                                                name="title" value={postData.title}
                                                onChange={(e) => setPostData({
-                                                   ...postData,
-                                                   title: e.target.value
+                                                 ...postData,
+                                                 title: e.target.value,
                                                })} required />
                                     </div>
                                     <div className="input-field">
@@ -160,19 +158,19 @@ const ReportPage = () => {
                                                placeholder="Enter last location you remember"
                                                name="location" value={postData.location}
                                                onChange={(e) => setPostData({
-                                                   ...postData,
-                                                   location: e.target.value
+                                                 ...postData,
+                                                 location: e.target.value,
                                                })} required />
                                     </div>
 
                                     <div className="input-field"
-                                         style={{ width: "calc(2*100% / 3 + 15px)" }}>
+                                         style={{ width: 'calc(2*100% / 3 + 15px)' }}>
                                         <label>Item Description</label>
                                         <textarea inputMode="text" required rows={5}
                                                   name="description" value={postData.description}
                                                   onChange={(e) => setPostData({
-                                                      ...postData,
-                                                      description: e.target.value
+                                                    ...postData,
+                                                    description: e.target.value,
                                                   })} />
                                     </div>
                                     <br />
@@ -198,7 +196,7 @@ const ReportPage = () => {
               )}
           </section>
       </>
-    );
+  );
 };
 
 export default ReportPage;

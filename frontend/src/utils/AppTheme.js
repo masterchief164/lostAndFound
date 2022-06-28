@@ -1,20 +1,20 @@
-import { createTheme } from "@mui/material";
+import { createTheme } from '@mui/material';
 
 const theme = createTheme({
-    palette: {
-        primary: {
-            main: "#000"
-        },
-        secondary: {
-            main: "#fff"
-        }
+  palette: {
+    primary: {
+      main: '#000',
     },
-    typography: {
-        fontFamily: "Nunito Sans"
+    secondary: {
+      main: '#fff',
     },
-    tabs: {
-        fontSize: "100"
-    }
+  },
+  typography: {
+    fontFamily: 'Nunito Sans',
+  },
+  tabs: {
+    fontSize: '100',
+  },
 });
 
 export default theme;
