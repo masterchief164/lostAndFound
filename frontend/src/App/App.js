@@ -8,6 +8,7 @@ import Footer from '../components/footer';
 import LostPage from '../routes/lostPage';
 import FoundPage from '../routes/foundPage';
 import Form from '../components/Form';
+import Card from '../components/Card';
 import theme from '../utils/AppTheme';
 import { UserContextProvider } from '../utils/UserContext';
 import { LostItemsContextProvider } from '../utils/LostItemsContext';
@@ -26,6 +27,7 @@ function App() {
                                 <Route exact path="/lost" element={<LostPage />} />
                                 <Route exact path="/found" element={<FoundPage />} />
                                 <Route exact path="/report/form" element={<Form />} />
+                                <Route exact path="/report/card" element={<Card />} />
                             </Routes>
                             <Footer />
                         </div>
