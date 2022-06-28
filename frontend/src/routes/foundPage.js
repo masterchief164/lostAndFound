@@ -1,7 +1,7 @@
-import React from 'react'
-import "../stylesheets/lostPage.css"
-import IMG from '../assets/banner.png'
-import {FoundItemsContext} from "../utils/FoundItemsContext";
+import React from 'react';
+import '../stylesheets/lostPage.css';
+import IMG from '../assets/banner.png';
+import { FoundItemsContext } from '../utils/FoundItemsContext';
 
 const FoundPage = () => {
   const [foundItems, setFoundItems] = React.useContext(FoundItemsContext);
@@ -27,11 +27,10 @@ const FoundPage = () => {
             </div>
         </div>
     </section>
-  )
-}
+  );
+};
 
- const Card = () => {
-  return (
+const Card = () => (
     <div className='card-box'>
         <div className="title">
             <img src={IMG} alt="img"></img>
@@ -46,9 +45,6 @@ const FoundPage = () => {
           <button> CLAIM IT </button>
       </div>
     </div>
-  )
-}
-
-
+);
 
 export default FoundPage;

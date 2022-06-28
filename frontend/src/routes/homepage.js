@@ -1,10 +1,10 @@
-import React from "react";
-import "../stylesheets/Homepage.css";
-import HomepageListItems from "../components/homepageItemsList";
-import banner from "../assets/banner.png";
+import React from 'react';
+import '../stylesheets/Homepage.css';
+import HomepageListItems from '../components/homepageItemsList';
+import banner from '../assets/banner.png';
 
 function Homepage() {
-    return (
+  return (
         <>
             <section className="BannerBox">
                 <div className="banner">
@@ -13,10 +13,10 @@ function Homepage() {
                     <img src={banner} alt="banner"/>
                 </div>
                 <div className="itemTags">
-                    <div  className="tag">
+                    <div className="tag">
                         <h3>LOST ITEMS : 30</h3>
                     </div>
-                    <div  className="tag">
+                    <div className="tag">
                          <h3>FOUND ITEMS : 30</h3>
                     </div>
                 </div>
@@ -41,7 +41,7 @@ function Homepage() {
                 </div>
             </section>
         </>
-    );
+  );
 }
 
 export default Homepage;
