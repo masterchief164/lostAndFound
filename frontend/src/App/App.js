@@ -11,14 +11,10 @@ import GoogleLogin from '../routes/GoogleLogin';
 import Form from '../routes/Form';
 import theme from '../utils/AppTheme';
 import { UserContextProvider } from '../utils/UserContext';
-import { LostItemsContextProvider } from '../utils/LostItemsContext';
-import { FoundItemsContextProvider } from '../utils/FoundItemsContext';
 
 function App() {
   return (<ThemeProvider theme={theme}>
     <UserContextProvider>
-      <LostItemsContextProvider>
-        <FoundItemsContextProvider>
           <Router>
             <div className="App">
               <Nav />
@@ -32,8 +28,6 @@ function App() {
               <Footer />
             </div>
           </Router>
-        </FoundItemsContextProvider>
-      </LostItemsContextProvider>
     </UserContextProvider>
   </ThemeProvider>);
 }

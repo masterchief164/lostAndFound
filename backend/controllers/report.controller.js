@@ -5,9 +5,9 @@ const { cloudinary } = require('../utils/cloudinary');
 module.exports.createItem = async (req, res) => {
   try {
     const data = req.body;
-    // console.log(data);
+    console.log(data);
     const image = data.image;
-    console.log(image);
+    // console.log(image);
     if (image != null && image !== 'default') {
       const uploadedImage = await cloudinary.uploader.upload(image, { upload_preset: 'lostAndFound' });
       console.log(uploadedImage.secure_url);

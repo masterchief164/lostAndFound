@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const fetchFound = async () => {
+const fetchFound = async (setFoundItems) => {
   try {
     const res = await axios.get('http://localhost:8000/found', { withCredentials: true });
     if (res.status === 200) {
-      return res.data;
+      setFoundItems(res.data);
     }
   } catch (err) {
     console.log(err);
@@ -12,11 +12,11 @@ const fetchFound = async () => {
   }
 };
 
-const fetchLost = async () => {
+const fetchLost = async (setLostItems) => {
   try {
     const res = await axios.get('http://localhost:8000/lost', { withCredentials: true });
     if (res.status === 200) {
-      return res.data;
+      setLostItems(res.data);
     }
   } catch (err) {
     console.log(err);
