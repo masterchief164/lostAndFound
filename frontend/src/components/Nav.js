@@ -13,14 +13,11 @@ import { logout } from '../Api/Data';
 import handleGoogleSignIn from '../utils/HandleGoogleSignIn';
 
 const Nav = () => {
-  const [value, setValue] = React.useState(0);
-  const [user, setUser] = React.useContext(UserContext);
-  const [, setLostItems] = React.useContext(UserContext);
-  const [, setFoundItems] = React.useContext(UserContext);
+  const [user, setUser, pageNumber, setPageNumber] = React.useContext(UserContext);
   const isSmall = useMediaQuery('(max-width:900px)');
 
   useEffect(() => {
-    initializeApp(setUser, setLostItems, setFoundItems)
+    initializeApp(setUser)
       .then();
   }, []);
 
@@ -41,11 +38,11 @@ const Nav = () => {
     }}>
       <Toolbar>
         <IconButton sx={{ background: '#FE926E' }} component={Link} to={'/'}
-                    onClick={() => setValue(0)}>
+                    onClick={() => setPageNumber(0)}>
           <img src={CollegeIcon} alt="IIITDMJ" />
         </IconButton>
         {!isSmall ? <>
-          <Tabs value={value} onChange={(e, val) => setValue(val)}
+          <Tabs value={pageNumber} onChange={(e, val) => setPageNumber(val)}
                 indicatorColor={'primary'}>
             <Tab component={Link} to={'/'} label="Home" sx={{
               fontSize: '1.1vw',
