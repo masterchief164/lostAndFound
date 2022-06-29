@@ -3,9 +3,16 @@ import '../stylesheets/lostPage.css';
 import { Grid } from '@mui/material';
 import Card from '../components/Card';
 import { fetchFound } from '../Api/Data';
+import { UserContext } from '../utils/UserContext';
 
 const FoundPage = () => {
   const [foundItems, setFoundItems] = React.useState([]);
+  const [, , , setPageNumber] = React.useContext(UserContext);
+
+  useEffect(() => {
+    setPageNumber(2);
+  }, []);
+
   useEffect(() => {
     fetchFound(setFoundItems)
       .then(() => console.log('got Data'));

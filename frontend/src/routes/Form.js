@@ -1,11 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import '../stylesheets/Form.css';
 import { Alert, CircularProgress, TextField } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import Axios from 'axios';
 import closeButton from '../assets/closeButton.svg';
+import { UserContext } from '../utils/UserContext';
 
 const Form = () => {
+  const [, , , setPageNumber] = React.useContext(UserContext);
+
+  useEffect(() => {
+    setPageNumber(3);
+  }, []);
+
   const defaultFormData = {
     firstName: '',
     lastName: '',

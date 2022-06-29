@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../stylesheets/Homepage.css';
 import HomepageListItems from '../components/homepageItemsList';
 import banner from '../assets/banner.png';
+import { UserContext } from '../utils/UserContext';
 
 function Homepage() {
+  const [, , , setPageNumber] = React.useContext(UserContext);
+
+  useEffect(() => {
+    setPageNumber(0);
+  }, []);
+
   return (
     <>
       <section className="BannerBox">
