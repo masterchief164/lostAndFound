@@ -11,11 +11,11 @@ const getGoogleOAuthTokens = async (code) => {
     code,
     client_id: process.env.REACT_APP_CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
-    redirect_uri: 'http://localhost:3000',
+    redirect_uri: 'http://localhost:3000/google',
     grant_type: 'authorization_code',
   };
 
-  return await axios.post(url, qs.stringify(options), {
+  return axios.post(url, qs.stringify(options), {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
