@@ -22,7 +22,8 @@
     border-radius: 8px;
     margin-bottom: 8vh;
 }
-.optionBox{
+
+.optionBox {
     align-items: center;
     justify-content: center;
     width: 10vw;
@@ -44,7 +45,8 @@
     padding: 2vw 5vw;
     margin: 7vh 0 10vh 0;
 }
-.row{
+
+.row {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -53,7 +55,7 @@
     margin-bottom: 1vh;
 }
 
-.dropBox{
+.dropBox {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,11 +69,12 @@
     border-radius: 8px;
     cursor: pointer;
 }
-.dropBox p{
+
+.dropBox p {
     cursor: pointer;
 }
 
-.container{
+.container {
     display: flex;
     margin: 0;
     flex-direction: column;
@@ -95,18 +98,18 @@
 }
 
 /* Style the button and place it in the middle of the container/image */
-.close{
+.close {
     position: absolute;
     width: 2vh;
     height: 2vh;
-    top:0;
+    top: 0;
     right: 0;
     border-radius: 100%;
     background-color: #fff;
     margin: 2% 0 0 0;
 }
 
-.submitButton{
+.submitButton {
     margin-top: 4vh;
     font-size: 1vw;
     align-items: center;
@@ -120,6 +123,7 @@
     border-radius: 8px;
     transition: .1s;
 }
-.submitButton:active{
+
+.submitButton:active {
     box-shadow: 5px 5px 15px 2px rgba(0, 0, 0, 0.25);
 }

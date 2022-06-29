@@ -16,26 +16,26 @@ import { FoundItemsContextProvider } from '../utils/FoundItemsContext';
 
 function App() {
   return (<ThemeProvider theme={theme}>
-        <UserContextProvider>
-            <LostItemsContextProvider>
-                <FoundItemsContextProvider>
-                    <Router>
-                        <div className="App">
-                            <Nav />
-                            <Routes>
-                                <Route exact path="/" element={<Homepage />} />
-                                <Route exact path="/lost" element={<LostPage />} />
-                                <Route exact path="/found" element={<FoundPage />} />
-                                <Route exact path="/report/form" element={<Form />} />
-                              <Route exact path="/google" element={<GoogleLogin />} />
-                            </Routes>
-                            <Footer />
-                        </div>
-                    </Router>
-                </FoundItemsContextProvider>
-            </LostItemsContextProvider>
-        </UserContextProvider>
-    </ThemeProvider>);
+    <UserContextProvider>
+      <LostItemsContextProvider>
+        <FoundItemsContextProvider>
+          <Router>
+            <div className="App">
+              <Nav />
+              <Routes>
+                <Route exact path="/" element={<Homepage />} />
+                <Route exact path="/lost" element={<LostPage />} />
+                <Route exact path="/found" element={<FoundPage />} />
+                <Route exact path="/report/form" element={<Form />} />
+                <Route exact path="/google" element={<GoogleLogin />} />
+              </Routes>
+              <Footer />
+            </div>
+          </Router>
+        </FoundItemsContextProvider>
+      </LostItemsContextProvider>
+    </UserContextProvider>
+  </ThemeProvider>);
 }
 
 export default App;

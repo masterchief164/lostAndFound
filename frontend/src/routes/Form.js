@@ -101,182 +101,182 @@ const Form = () => {
   };
 
   return (<>
-        {isAlert ? <Alert severity={isSuccess ? 'success' : 'error'} onClose={() => {
-          setIsAlert(false);
-        }}>{isSuccess ? 'Your Report was successfully Submitted!' : `Error: ${message}`}</Alert> : ''}
-        <section className={'formSection'}>
-            {isLoading ? <CircularProgress /> : <div className="formContainer">
+    {isAlert ? <Alert severity={isSuccess ? 'success' : 'error'} onClose={() => {
+      setIsAlert(false);
+    }}>{isSuccess ? 'Your Report was successfully Submitted!' : `Error: ${message}`}</Alert> : ''}
+    <section className={'formSection'}>
+      {isLoading ? <CircularProgress /> : <div className="formContainer">
 
-                <select value={postData.type} className="selectBox" onChange={(e) => setPostData({
-                  ...postData,
-                  type: e.target.value,
-                })}>
-                    {reportTypes.map((type) => <option className={'optionBox'} key={type.value}
-                                                     value={type.value}>{type.label}</option>)}
-                </select>
+        <select value={postData.type} className="selectBox" onChange={(e) => setPostData({
+          ...postData,
+          type: e.target.value,
+        })}>
+          {reportTypes.map((type) => <option className={'optionBox'} key={type.value}
+                                             value={type.value}>{type.label}</option>)}
+        </select>
 
-                <div className={'row'}>
-                    <TextField error={errors.firstName} margin={'normal'} sx={{ width: '20vw' }}
-                               id="outlined-basic"
-                               value={postData.firstName}
-                               onChange={(e) => {
-                                 if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
-                                   setErrors({
-                                     ...errors,
-                                     firstName: true,
-                                   });
-                                 } else {
-                                   setErrors({
-                                     ...errors,
-                                     firstName: false,
-                                   });
-                                 }
-                                 setPostData({
-                                   ...postData,
-                                   firstName: e.target.value,
-                                 });
-                               }} required={true} label="First Name" variant="outlined" />
-                    <TextField error={errors.lastName} margin={'normal'} sx={{ width: '20vw' }}
-                               id="outlined-basic"
-                               value={postData.lastName}
-                               onChange={(e) => {
-                                 if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
-                                   setErrors({
-                                     ...errors,
-                                     lastName: true,
-                                   });
-                                 } else {
-                                   setErrors({
-                                     ...errors,
-                                     lastName: false,
-                                   });
-                                 }
-                                 setPostData({
-                                   ...postData,
-                                   lastName: e.target.value,
-                                 });
-                               }} required={true} label="Last Name" variant="outlined" />
-                </div>
+        <div className={'row'}>
+          <TextField error={errors.firstName} margin={'normal'} sx={{ width: '20vw' }}
+                     id="outlined-basic"
+                     value={postData.firstName}
+                     onChange={(e) => {
+                       if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
+                         setErrors({
+                           ...errors,
+                           firstName: true,
+                         });
+                       } else {
+                         setErrors({
+                           ...errors,
+                           firstName: false,
+                         });
+                       }
+                       setPostData({
+                         ...postData,
+                         firstName: e.target.value,
+                       });
+                     }} required={true} label="First Name" variant="outlined" />
+          <TextField error={errors.lastName} margin={'normal'} sx={{ width: '20vw' }}
+                     id="outlined-basic"
+                     value={postData.lastName}
+                     onChange={(e) => {
+                       if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
+                         setErrors({
+                           ...errors,
+                           lastName: true,
+                         });
+                       } else {
+                         setErrors({
+                           ...errors,
+                           lastName: false,
+                         });
+                       }
+                       setPostData({
+                         ...postData,
+                         lastName: e.target.value,
+                       });
+                     }} required={true} label="Last Name" variant="outlined" />
+        </div>
 
-                <div className={'row'}>
-                    <TextField error={errors.location} margin={'normal'} sx={{ width: '20vw' }}
-                               id="outlined-basic"
-                               value={postData.location}
-                               onChange={(e) => {
-                                 if (!e.target.value.match(/^[a-zA-Z\s\d,_.-]{2,30}$/)) {
-                                   setErrors({
-                                     ...errors,
-                                     location: true,
-                                   });
-                                 } else {
-                                   setErrors({
-                                     ...errors,
-                                     location: false,
-                                   });
-                                 }
-                                 setPostData({
-                                   ...postData,
-                                   location: e.target.value,
-                                 });
-                               }} required={true} label="Last Seen Place" variant="outlined" />
-                    <TextField margin={'normal'} sx={{ width: '20vw' }} id="outlined-basic"
-                               type={'datetime-local'}
-                               value={postData.dateTime}
-                               onChange={(e) => setPostData({
-                                 ...postData,
-                                 description: e.target.value,
-                               })} required={true} label="Last Seen Time" variant="outlined" />
-                </div>
+        <div className={'row'}>
+          <TextField error={errors.location} margin={'normal'} sx={{ width: '20vw' }}
+                     id="outlined-basic"
+                     value={postData.location}
+                     onChange={(e) => {
+                       if (!e.target.value.match(/^[a-zA-Z\s\d,_.-]{2,30}$/)) {
+                         setErrors({
+                           ...errors,
+                           location: true,
+                         });
+                       } else {
+                         setErrors({
+                           ...errors,
+                           location: false,
+                         });
+                       }
+                       setPostData({
+                         ...postData,
+                         location: e.target.value,
+                       });
+                     }} required={true} label="Last Seen Place" variant="outlined" />
+          <TextField margin={'normal'} sx={{ width: '20vw' }} id="outlined-basic"
+                     type={'datetime-local'}
+                     value={postData.dateTime}
+                     onChange={(e) => setPostData({
+                       ...postData,
+                       description: e.target.value,
+                     })} required={true} label="Last Seen Time" variant="outlined" />
+        </div>
 
-                <div className={'row'}>
-                    <TextField error={errors.itemTag} margin={'normal'} sx={{ width: '20vw' }}
-                               id="outlined-basic"
-                               value={postData.itemTag}
-                               helperText={'Tag like mobile, bag, laptop'}
-                               onChange={(e) => {
-                                 if (!e.target.value.match(/^[a-zA-Z]{2,15}$/)) {
-                                   setErrors({
-                                     ...errors,
-                                     itemTag: true,
-                                   });
-                                 } else {
-                                   setErrors({
-                                     ...errors,
-                                     itemTag: false,
-                                   });
-                                 }
-                                 setPostData({
-                                   ...postData,
-                                   itemTag: e.target.value,
-                                 });
-                               }} required={true} label="Item Tag" variant="outlined" />
-                    <TextField error={errors.title} margin={'normal'} sx={{ width: '20vw' }}
-                               id="outlined-basic"
-                               value={postData.title} helperText={' '}
-                               onChange={(e) => {
-                                 if (!e.target.value.match(/^[a-z\sA-Z]{2,15}$/)) {
-                                   setErrors({
-                                     ...errors,
-                                     title: true,
-                                   });
-                                 } else {
-                                   setErrors({
-                                     ...errors,
-                                     title: false,
-                                   });
-                                 }
-                                 setPostData({
-                                   ...postData,
-                                   title: e.target.value,
-                                 });
-                               }} required={true} label="Title" variant="outlined" />
-                </div>
+        <div className={'row'}>
+          <TextField error={errors.itemTag} margin={'normal'} sx={{ width: '20vw' }}
+                     id="outlined-basic"
+                     value={postData.itemTag}
+                     helperText={'Tag like mobile, bag, laptop'}
+                     onChange={(e) => {
+                       if (!e.target.value.match(/^[a-zA-Z]{2,15}$/)) {
+                         setErrors({
+                           ...errors,
+                           itemTag: true,
+                         });
+                       } else {
+                         setErrors({
+                           ...errors,
+                           itemTag: false,
+                         });
+                       }
+                       setPostData({
+                         ...postData,
+                         itemTag: e.target.value,
+                       });
+                     }} required={true} label="Item Tag" variant="outlined" />
+          <TextField error={errors.title} margin={'normal'} sx={{ width: '20vw' }}
+                     id="outlined-basic"
+                     value={postData.title} helperText={' '}
+                     onChange={(e) => {
+                       if (!e.target.value.match(/^[a-z\sA-Z]{2,15}$/)) {
+                         setErrors({
+                           ...errors,
+                           title: true,
+                         });
+                       } else {
+                         setErrors({
+                           ...errors,
+                           title: false,
+                         });
+                       }
+                       setPostData({
+                         ...postData,
+                         title: e.target.value,
+                       });
+                     }} required={true} label="Title" variant="outlined" />
+        </div>
 
-                <TextField error={errors.description} margin={'normal'} multiline={true} minRows={5}
-                           sx={{ width: '50vw' }}
-                           value={postData.description}
-                           onChange={(e) => {
-                             if (e.target.value.length < 1) {
-                               setErrors({
-                                 ...errors,
-                                 description: true,
-                               });
-                             } else {
-                               setErrors({
-                                 ...errors,
-                                 description: false,
-                               });
-                             }
-                             setPostData({
-                               ...postData,
-                               description: e.target.value,
-                             });
-                           }} required={true}
-                           id="outlined-basic" label="Description" variant="outlined" />
+        <TextField error={errors.description} margin={'normal'} multiline={true} minRows={5}
+                   sx={{ width: '50vw' }}
+                   value={postData.description}
+                   onChange={(e) => {
+                     if (e.target.value.length < 1) {
+                       setErrors({
+                         ...errors,
+                         description: true,
+                       });
+                     } else {
+                       setErrors({
+                         ...errors,
+                         description: false,
+                       });
+                     }
+                     setPostData({
+                       ...postData,
+                       description: e.target.value,
+                     });
+                   }} required={true}
+                   id="outlined-basic" label="Description" variant="outlined" />
 
-                <div className={'dropBox'} {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    {imageSelected
-                      ? <div className="container" id={'preview'}>
-                            <img src={postData.image} alt="Preview" className={'preview'} />
-                            <img src={closeButton} alt="Preview" className={'close'}
-                                 onClick={() => {
-                                   setImageSelected(false);
-                                   setPostData({
-                                     ...postData,
-                                     image: '',
-                                   });
-                                 }
-                                 } />
-                        </div>
-                      : <p>Drop files here or click to upload</p>
-                    }
-                </div>
+        <div className={'dropBox'} {...getRootProps()}>
+          <input {...getInputProps()} />
+          {imageSelected
+            ? <div className="container" id={'preview'}>
+              <img src={postData.image} alt="Preview" className={'preview'} />
+              <img src={closeButton} alt="Preview" className={'close'}
+                   onClick={() => {
+                     setImageSelected(false);
+                     setPostData({
+                       ...postData,
+                       image: '',
+                     });
+                   }
+                   } />
+            </div>
+            : <p>Drop files here or click to upload</p>
+          }
+        </div>
 
-                <button className={'submitButton'} onClick={handleSubmit}>Submit</button>
-            </div>}
-        </section>
-    </>);
+        <button className={'submitButton'} onClick={handleSubmit}>Submit</button>
+      </div>}
+    </section>
+  </>);
 };
 
 export default Form;
