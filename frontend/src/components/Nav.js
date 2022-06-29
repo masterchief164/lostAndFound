@@ -15,8 +15,8 @@ import handleGoogleSignIn from '../utils/HandleGoogleSignIn';
 const Nav = () => {
   const [value, setValue] = React.useState(0);
   const [user, setUser] = React.useContext(UserContext);
-  const [lostItems, setLostItems] = React.useContext(UserContext);
-  const [foundItems, setFoundItems] = React.useContext(UserContext);
+  const [, setLostItems] = React.useContext(UserContext);
+  const [, setFoundItems] = React.useContext(UserContext);
   const isSmall = useMediaQuery('(max-width:900px)');
 
   useEffect(() => {

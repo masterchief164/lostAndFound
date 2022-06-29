@@ -1,30 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../stylesheets/lostPage.css';
-import { FoundItemsContext } from '../utils/FoundItemsContext';
+import { Grid } from '@mui/material';
 import Card from '../components/Card';
+import { fetchFound } from '../Api/Data';
 
 const FoundPage = () => {
-  const [foundItems, setFoundItems] = React.useContext(FoundItemsContext);
+  const [foundItems, setFoundItems] = React.useState([]);
+  useEffect(() => {
+    fetchFound(setFoundItems)
+      .then(() => console.log('got Data'));
+  }, []);
+  useEffect(() => {
+    console.log(foundItems);
+  }, [foundItems]);
   return (
     <section className="lostContainer">
-      <div className="filter-box">
+      <div className="lostpage-banner">
+        <h1>Found Items</h1>
       </div>
-      <div className="lost-items">
-        <div className="lostpage-banner">
-          <h1>Found Items</h1>
-        </div>
-        <div className="lostitems-box">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </div>
+      <div className={'lostItems'}>
+        <Grid container={true} spacing={5}>
+          {
+            foundItems.map((item, index) => (
+              <Grid item={true} xs={12} md={6} lg={4} xl={3} key={index}>
+                <Card item={item} type={1}/>
+              </Grid>
+            ))
+          };
+
+        </Grid>
       </div>
     </section>
   );

@@ -30,6 +30,10 @@ const lostSchema = new mongoose.Schema(
       type: String,
       default: Date.now(),
     },
+    itemTag: {
+      type: String,
+      required: true,
+    },
     type: {
       type: String,
       default: 'lost',
