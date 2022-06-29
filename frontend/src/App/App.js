@@ -8,7 +8,7 @@ import Footer from '../components/footer';
 import LostPage from '../routes/lostPage';
 import FoundPage from '../routes/foundPage';
 import Form from '../components/Form';
-import Card from '../components/Card';
+import Card from '../components/Card/Card';
 import theme from '../utils/AppTheme';
 import { UserContextProvider } from '../utils/UserContext';
 import { LostItemsContextProvider } from '../utils/LostItemsContext';

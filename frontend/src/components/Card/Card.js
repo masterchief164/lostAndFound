@@ -1,6 +1,6 @@
 import React from 'react';
-import '../stylesheets/lostPage.css';
-import IMG from '../assets/Id.jpg';
+import '../Card/Card.css';
+import IMG from '../../assets/Id.jpg';
 
 const Card = () => (
 	<div className='card-box'>

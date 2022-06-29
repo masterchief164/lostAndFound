@@ -2,7 +2,7 @@ import React from 'react';
 import '../stylesheets/lostPage.css';
 import IMG from '../assets/banner.png';
 import { FoundItemsContext } from '../utils/FoundItemsContext';
-import Card from '../components/Card';
+import Card from '../components/Card/Card';
 
 const FoundPage = () => {
 	const [foundItems, setFoundItems] = React.useContext(FoundItemsContext);

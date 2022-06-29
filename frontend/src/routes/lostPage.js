@@ -1,7 +1,7 @@
 import React from 'react';
 import '../stylesheets/lostPage.css';
 import IMG from '../assets/banner.png';
-import Card from '../components/Card';
+import Card from '../components/Card/Card';
 import { LostItemsContext } from '../utils/LostItemsContext';
 
 const LostPage = () => {
