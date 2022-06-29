@@ -28,6 +28,8 @@ const sendAuthorizationCode = async (code, setUser) => {
   try {
     const res = await axios.post('http://localhost:8000/auth/googleLogin', { tokenId: code }, { withCredentials: true });
     setUser(res.data.userData);
+    localStorage.setItem('userDataLost', JSON.stringify(res.data.userData));
+    localStorage.removeItem('state');
   } catch (err) {
     console.log(err);
   }
