@@ -33,8 +33,7 @@ const FoundPage = () => {
                 <Card item={item} type={1}/>
               </Grid>
             ))
-          };
-
+          }
         </Grid>
       </div>
     </section>

@@ -33,8 +33,7 @@ const LostPage = () => {
                 <Card item={item} type={0} />
               </Grid>
             ))
-          };
-
+          }
         </Grid>
       </div>
     </section>
