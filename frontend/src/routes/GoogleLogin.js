@@ -5,6 +5,7 @@ import { UserContext } from '../utils/UserContext';
 const GoogleLogin = () => {
   const [, setUser] = React.useContext(UserContext);
   useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
     login()
       .then(() => {
         window.location.assign('/');

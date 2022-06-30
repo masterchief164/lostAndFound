@@ -201,7 +201,7 @@ const Form = () => {
                      value={postData.itemTag}
                      helperText={'Tag like mobile, bag, laptop'}
                      onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z]{2,15}$/)) {
+                       if (!e.target.value.match(/^[a-zA-Z,\s]{2,15}$/)) {
                          setErrors({
                            ...errors,
                            itemTag: true,
