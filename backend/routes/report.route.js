@@ -1,4 +1,5 @@
 const express = require('express');
+const verify = require('../middleware/auth');
 const controller = require('../controllers/report.controller');
 
 const router = express.Router();
@@ -41,6 +42,6 @@ const router = express.Router();
  *                schema:
  *                  type: object
  */
-router.post('/', controller.createItem);
+router.post('/', verify, controller.createItem);
 
 module.exports = router;
