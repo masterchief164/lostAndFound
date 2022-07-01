@@ -1,5 +1,6 @@
 .profile {
-    width: 120px;
+    width: 40px;
     height: auto;
     border-radius: 50%;
+    margin-left: 10px;
 }
