@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { CircularProgress } from '@mui/material';
 import { sendAuthorizationCode } from '../Api/Data';
 import { UserContext } from '../utils/UserContext';
 
@@ -23,8 +24,16 @@ const GoogleLogin = () => {
   };
 
   return (<>
-    <div>
-      Google Login
+    <div style={{
+      height: '76vh',
+      display: 'flex',
+      alignContent: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+    }}>
+      <CircularProgress />
+      <h1>Please Wait</h1>
     </div>
   </>);
 };
