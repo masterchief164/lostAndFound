@@ -191,7 +191,7 @@ const Form = () => {
                      value={postData.dateTime}
                      onChange={(e) => setPostData({
                        ...postData,
-                       description: e.target.value,
+                       dateTime: e.target.value,
                      })} required={true} label="Last Seen Time" variant="outlined" />
         </div>
 
