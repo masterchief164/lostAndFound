@@ -53,10 +53,10 @@ const DrawerComp = () => {
         </ListItemButton><ListItemButton component={Link} onClick={() => setOpen(false)}
                                          to="/found">
         <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Found Items" />
-      </ListItemButton><ListItemButton component={Link} onClick={() => setOpen(false)} to="/">
+      </ListItemButton><ListItemButton component={Link} onClick={() => setOpen(false)} to="/report/form">
         <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Report New Item" />
       </ListItemButton><ListItemButton component={Link} onClick={() => setOpen(false)}
-                                       to="/report/form">
+                                       to="/">
         <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="About" />
       </ListItemButton>
       </List>
