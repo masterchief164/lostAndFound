@@ -46,6 +46,15 @@ const logout = async (setUser) => {
     });
 };
 
+const claim = async (type, id) => {
+  if (type === 0) {
+    // console.log('found');
+    return axios.get(`http://localhost:8000/lost/foundIt/${id}`, { withCredentials: true });
+  }
+  // console.log('claimed');
+  return axios.get(`http://localhost:8000/found/claimIt/${id}`, { withCredentials: true });
+};
+
 export {
-  fetchFound, fetchLost, sendAuthorizationCode, logout,
+  fetchFound, fetchLost, sendAuthorizationCode, logout, claim,
 };

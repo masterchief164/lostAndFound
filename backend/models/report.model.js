@@ -38,6 +38,14 @@ const lostSchema = new mongoose.Schema(
       type: String,
       default: 'lost',
     },
+    submittedBy: {
+      type: String,
+      required: true,
+    },
+    claimedBy: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: { created_at: 'created' } },
   { timestamps: { updated_at: 'updated' } },
@@ -80,6 +88,14 @@ const foundSchema = new mongoose.Schema(
     type: {
       type: String,
       default: 'found',
+    },
+    submittedBy: {
+      type: String,
+      required: true,
+    },
+    claimedBy: {
+      type: String,
+      required: false,
     },
   },
   { timestamps: { created_at: 'created' } },

@@ -7,7 +7,7 @@ import closeButton from '../assets/closeButton.svg';
 import { UserContext } from '../utils/UserContext';
 
 const Form = () => {
-  const [, , , setPageNumber] = React.useContext(UserContext);
+  const [user, , , setPageNumber] = React.useContext(UserContext);
 
   useEffect(() => {
     setPageNumber(3);
@@ -15,6 +15,7 @@ const Form = () => {
 
   const defaultFormData = {
     firstName: '',
+    submittedBy: user ? user.email : '',
     lastName: '',
     title: '',
     description: '',
@@ -78,6 +79,11 @@ const Form = () => {
   }];
 
   const handleSubmit = async () => {
+    if (user == null) {
+      setMessage('Please login to submit a report');
+      setIsAlert(true);
+      return;
+    }
     console.log(!Object.values(postData)
       .every((value) => value.length !== 0));
     if (!Object.values(errors)

@@ -1,4 +1,5 @@
 const express = require('express');
+const verify = require('../middleware/auth');
 const controller = require('../controllers/lostItems.controller');
 
 const router = express.Router();
@@ -19,5 +20,6 @@ const router = express.Router();
  *                type: object
  */
 router.get('/', controller.getItems);
+router.get('/foundIt/:id', verify, controller.foundIt);
 
 module.exports = router;
