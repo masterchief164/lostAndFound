@@ -1,6 +1,7 @@
+/* eslint-disable no-constant-condition */
 import React, { useEffect } from 'react';
 import '../stylesheets/lostPage.css';
-import { Alert, Button, Grid, TextField } from '@mui/material';
+import { Alert, Button, CircularProgress, Grid, TextField } from '@mui/material';
 import Card from '../components/Card';
 import { fetchLost } from '../Api/Data';
 import { UserContext } from '../utils/UserContext';
@@ -11,27 +12,41 @@ const LostPage = () => {
   const [isAlert, setIsAlert] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [message, setMessage] = React.useState('');
-  const [searchText,setSearchText] = React.useState('');
-
+  const [searchText, setSearchText] = React.useState('');
+  const[searchTags, setSearchTags] = React.useState({username:false, description:false, title:false , location:false});
+  const [searchBtn, setSearchbtn] = React.useState(false);
+  const [isLoading , setIsLoading] = React.useState(true);
+  
   const getLostItems = async () =>{
-    await fetchLost(setLostItems,searchText);
+    await fetchLost(setLostItems,searchText,searchTags);
+    setIsLoading(false);
     console.log(lostItems);
   };
+
+  const searchBtnHandler = async (e) => {
+    e.preventDefault();
+    setSearchbtn(!searchBtn);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  };
+
 
   useEffect(() => {
     setPageNumber(1);
   }, []);
 
   useEffect(() => {
-    getLostItems();
-    console.log(searchText);
-  }, [searchText]);
+   getLostItems();
+  }, [searchBtn]);
+  
 
   return (<>
       {isAlert ? <Alert severity={isSuccess ? 'success' : 'error'} onClose={() => {
         setIsAlert(false);
       }}>{message}</Alert> : ''}
-      <section className="lostContainer">
+       <section className="lostContainer">
         <div className='lost-page-section'>
             <div className='filterBox'>
             <TextField
@@ -43,28 +58,28 @@ const LostPage = () => {
             value={searchText}
             onChange={(e)=>{setSearchText(e.target.value);}}
              />
-             <Button variant="contained" size="small">Search</Button>
+             <Button variant="contained" size="small" onClick={(e)=>{searchBtnHandler(e);}}>Search</Button>
              <fieldset>
               <legend>---- Search Filters ----</legend>
               <div>
-                <input type="checkbox" id="username" name="username" />
-                <label for="username">UserName</label>
+                <input type="checkbox" id="username" name="username" value={searchTags.username} onChange={()=>{setSearchTags({...searchTags, username:!searchTags.username});}}/>
+                <label htmlFor="username">UserName</label>
               </div>
               <div>
-                <input type="checkbox" id="description" name="description" />
-                <label for="description">Description</label>
+                <input type="checkbox" id="description" name="description" value={searchTags.description} onChange={()=>{setSearchTags({...searchTags, description:!searchTags.description});}}/>
+                <label htmlFor="description">Description</label>
               </div>
               <div>
-                <input type="checkbox" id="title" name="title" />
-                <label for="title">Title</label>
+                <input type="checkbox" id="title" name="title" value={searchTags.title} onChange={()=>{setSearchTags({...searchTags, title:!searchTags.title});}}/>
+                <label htmlFor="title">Title</label>
               </div>
               <div>
                 <input type="checkbox" id="lost" name="lost" />
-                <label for="lost">Lost</label>
+                <label htmlFor="lost">Lost</label>
               </div>
               <div>
-                <input type="checkbox" id="date" name="date" />
-                <label for="date">Date</label>
+                <input type="checkbox" id="date" name="date" value={searchTags.location} onChange={()=>{setSearchTags({...searchTags, location:!searchTags.location});}}/>
+                <label htmlFor="date">Location</label>
               </div>
             </fieldset>
             </div>
@@ -75,19 +90,23 @@ const LostPage = () => {
               <div className="lostpage-banner">
               <h1>Lost Items</h1>
              </div>
-            <Grid container={true} spacing={5}>
-              {
-                lostItems.map((item, index) => (
+           {isLoading ? <div className='progressBox'><CircularProgress/></div> : (<Grid container={true} spacing={5}>
+              {lostItems.length == 0 || lostItems == null ? 
+               <div className='progressBox'>
+                 <h3>No lost items found , Report a new item.</h3> 
+               </div> : 
+              (lostItems.map((item, index) => (
                   <Grid item={true} xs={12} md={6} lg={4} xl={4} key={index}>
                     <Card item={item}
                           type={0}
                           alert={setIsAlert}
                           success={setIsSuccess}
-                          message={setMessage}/>
+                          message={setMessage}/>  
                   </Grid>
                 ))
+              )
               }
-            </Grid>
+            </Grid>)}
           </div>
         </div>
       </section>

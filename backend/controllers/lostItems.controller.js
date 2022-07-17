@@ -4,8 +4,9 @@ const { getLostItemsDTO } = require('../dto/lostItems.dto');
 const { lostModel } = require('../models/report.model');
 
 module.exports.getItems = async (req, res) => {
+  const searchFields = req.query;
   try {
-    const document = await getAllLostItems(getLostItemsDTO.selectedFields);
+    const document = await getAllLostItems(searchFields, getLostItemsDTO.selectedFields);
     const data = document.map(getLostItemsDTO.execute);
     res.send(data);
   } catch (err) {

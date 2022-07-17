@@ -4,14 +4,15 @@ const { getFoundItemsDTO } = require('../dto/foundItems.dto');
 const { foundModel } = require('../models/report.model');
 
 module.exports.getItems = async (req, res) => {
+  const searchFields = req.query;
   try {
-    const document = await getFoundItems(getFoundItemsDTO.selectedFields);
+    const document = await getFoundItems(searchFields, getFoundItemsDTO.selectedFields);
     const data = document.map(getFoundItemsDTO.execute);
     res.send(data);
   } catch (err) {
     logger.error({
       err: err.stack,
-      file: 'foundItems.controller.js',
+      file: 'lfoundItems.controller.js',
       params: {},
     });
   }

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const fetchFound = async (setFoundItems,searchText) => {
+const fetchFound = async (setFoundItems,searchText,searchTags) => {
   try {
-    const res = await axios.get(`http://localhost:8000/found/${searchText}`, { withCredentials: true });
+    const res = await axios.get(`http://localhost:8000/found?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
       setFoundItems(res.data);
     }
@@ -12,9 +12,9 @@ const fetchFound = async (setFoundItems,searchText) => {
   }
 };
 
-const fetchLost = async (setLostItems,searchText) => {
+const fetchLost = async (setLostItems,searchText,searchTags) => {
   try {
-    const res = await axios.get(`http://localhost:8000/lost/${searchText}`, { withCredentials: true });
+    const res = await axios.get(`http://localhost:8000/lost/?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
       setLostItems(res.data);
     }

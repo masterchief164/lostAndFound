@@ -20,6 +20,16 @@
     margin-bottom: 2rem;
 }
 
+.progressBox{
+    margin-top: 20vh;
+    width: 100%;
+    text-align: center;
+}
+.progressBox > h3{
+    color: #726f6f;
+    text-shadow: 1px 1px black;
+}
+
 .lost-page-section{
     width: 100%;
     height: 100%;
