@@ -16,7 +16,7 @@
 }
 .Image-box{
     height: 206px;
-    width: 175px;
+    width: 140px;
     display: flex;
     border-radius: 28px 0 0 0;
 
@@ -25,24 +25,24 @@
 .Image-box > img{
     margin: 0;
     height: 206px;
-    width: 175px;
+    width: 100%;
     object-fit: cover;
     border-radius: 28px 0 0 0;
 }
 .Title-box{
-    width: 170px;
+    width: 200px;
     height: 200px;
-    border-radius-topright: 28px;
-    padding: 20px 10px 20px 10px;
+    padding: 20px 5px 20px 5px;
+    overflow-y: hidden;
 }
 .Main-title {
     height: 28px;
-    width: 150px;
+    width: 100%;
     padding: 3px 5px 0 5px;
     background: #FB8A65;
     border-radius: 6px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 
 
@@ -63,6 +63,7 @@
     overflow: hidden;
     justify-content: space-evenly;
     align-items: normal;
+    overflow-wrap: break-word;
 }
 
 .Description > h3{
@@ -77,6 +78,7 @@
     font-weight: 600;
     color: #FB8A65;
     margin-bottom: .5rem;
+    text-transform: uppercase   ;
 }
 .Description > p{
     line-height: 1rem;

@@ -15,7 +15,6 @@ const Card = ({
   let date = new Date(item.dateTime).toDateString()
     .substring(4);
   date = date === 'lid Date' ? '22 Jan,2022' : date;
-  const itemTag = item.itemTag === undefined ? 'default' : item.itemTag;
   const title = item.title === undefined ? 'default' : item.title;
   const description = item.description === undefined ? 'default' : item.description;
   const location = item.location === undefined ? 'default' : item.location;
@@ -54,8 +53,8 @@ const Card = ({
           </div>
           <div className="Description">
             <h3>Description</h3>
-            <p className="tags">{itemTag}</p>
-            <p>{description}, {verb} at {location}</p>
+            <p className="tags">{verb} at {location}</p>
+            <p>{description}</p>
           </div>
         </div>
       </div>
