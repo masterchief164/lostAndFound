@@ -8,6 +8,7 @@ module.exports.getFoundItemsDTO = {
     itemTag: 1,
     type: 1,
     title: 1,
+    claimedBy: 1,
   },
   populateFields: [],
   execute: (item) => ({
@@ -18,5 +19,7 @@ module.exports.getFoundItemsDTO = {
     title: item.title,
     dateTime: item.dateTime,
     itemTag: item.itemTag,
+    claimedBy: item.claimedBy,
+    type: item.type,
   }),
 };

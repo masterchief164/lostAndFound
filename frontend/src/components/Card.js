@@ -17,9 +17,9 @@ const Card = ({
   date = date === 'lid Date' ? '22 Jan,2022' : date;
   const title = item.title === undefined ? 'default' : item.title;
   const description = item.description === undefined ? 'default' : item.description;
-  const location = item.location === undefined ? 'default' : item.location;
-  const button = type === 0 ? 'Found' : 'Claim';
-  const verb = type === 1 ? 'Found' : 'Lost';
+  // const location = item.location === undefined ? 'default' : item.location;
+  const button = (item.type) === 'lost' ? 'Found' : 'Claim';
+  // const verb = type === 1 ? 'Found' : 'Lost';
   const [user] = React.useContext(UserContext);
 
   const clickHandler = async () => {
@@ -40,7 +40,7 @@ const Card = ({
       success(false);
     }
   };
-
+  console.log(item);
   return (
     <div className="card-box">
       <div className="popup-header">
@@ -52,8 +52,8 @@ const Card = ({
             <p>Lost a {title}</p>
           </div>
           <div className="Description">
-            <h3>Description</h3>
-            <p className="tags">{verb} at {location}</p>
+             {item.claimedBy  ? <p className="tags" style={{ color:'green' }}>Status : {button} </p> : <p className="tags" style={{ color:'red' }}>Status : Not yet {button} </p> }
+             <h3>Description</h3>
             <p>{description}</p>
           </div>
         </div>

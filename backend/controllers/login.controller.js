@@ -13,8 +13,9 @@ const googleLogin = async (req, res) => {
   console.log(code);
   const resp = await getGoogleOAuthTokens(code);
   // console.log(resp.data);
-  const { idToken } = resp.data;
-  const user = jwt.decode(idToken, { complete: false });
+  // eslint-disable-next-line camelcase
+  const { id_token } = resp.data;
+  const user = jwt.decode(id_token, { complete: false });
 
   user.access_token = resp.data.access_token;
   user.refresh_token = resp.data.refresh_token;

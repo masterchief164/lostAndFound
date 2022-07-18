@@ -33,3 +33,23 @@ module.exports.getFoundItems = async (searchFields, selectedFields) => {
     });
   }
 };
+
+module.exports.checkClaimed = async (searchFields) => {
+  try {
+    const document = await foundModel.findOne({ _id: searchFields.id }).lean().exec();
+    if (document && document.claimedBy) {
+      return document;
+    }
+    const newEntry = await foundModel.findOneAndUpdate(
+      { _id: searchFields.id },
+      { claimedBy: searchFields.user.email },
+    ).lean().exec();
+    return newEntry;
+  } catch (error) {
+    logger.error({
+      err: error.stack,
+      file: 'lostItems.service.js',
+      params: {},
+    });
+  }
+};
