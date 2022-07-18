@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../stylesheets/lostPage.css';
-import { Alert, Button, CircularProgress, Grid, TextField } from '@mui/material';
+import { Alert, CircularProgress, Grid, TextField } from '@mui/material';
 import Card from '../components/Card';
 import { fetchFound } from '../Api/Data';
 import { UserContext } from '../utils/UserContext';
@@ -45,16 +45,18 @@ const FoundPage = () => {
       <section className="lostContainer">
         <div className='lost-page-section'>
             <div className='filterBox'>
-            <TextField
-            hiddenLabel
-            id="filled-hidden-label-small"
-            placeholder='Search'
-            variant="outlined"
-            size="small"
-            value={searchText}
-            onChange={(e)=>{setSearchText(e.target.value);}}
-             />
-             <Button variant="contained" size="small" onClick={(e)=>{searchBtnHandler(e);}}>Search</Button>
+              <div className='search-box'>
+                <TextField
+                hiddenLabel
+                id="filled-hidden-label-small"
+                placeholder='Search'
+                variant="outlined"
+                size="small"
+                value={searchText}
+                onChange={(e)=>{setSearchText(e.target.value);}}
+                />
+                <button onClick={(e)=>{searchBtnHandler(e);}}>Search</button>
+              </div>
              <fieldset>
               <legend>---- Search Filters ----</legend>
               <div>
@@ -94,7 +96,6 @@ const FoundPage = () => {
               (foundItems.map((item, index) => (
                   <Grid item={true} xs={12} md={6} lg={4} xl={4} key={index}>
                     <Card item={item}
-                          type={0}
                           alert={setIsAlert}
                           success={setIsSuccess}
                           message={setMessage}/>

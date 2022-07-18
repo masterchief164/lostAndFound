@@ -6,7 +6,6 @@ import { claim } from '../Api/Data';
 
 const Card = ({
   item,
-  type,
   alert,
   success,
   message,
@@ -18,8 +17,7 @@ const Card = ({
   const title = item.title === undefined ? 'default' : item.title;
   const description = item.description === undefined ? 'default' : item.description;
   // const location = item.location === undefined ? 'default' : item.location;
-  const button = (item.type) === 'lost' ? 'Found' : 'Claim';
-  // const verb = type === 1 ? 'Found' : 'Lost';
+  const button = (item.type) === 'Lost' ? 'Found' : 'Claim';
   const [user] = React.useContext(UserContext);
 
   const clickHandler = async () => {
@@ -29,7 +27,8 @@ const Card = ({
       message('Please login to claim an item');
       return;
     }
-    const resp = await claim(type, item.id);
+   
+    const resp = await claim(item);
     if (resp.status === 200) {
       message('Successfully claimed item');
       alert(true);
@@ -40,7 +39,7 @@ const Card = ({
       success(false);
     }
   };
-  console.log(item);
+ 
   return (
     <div className="card-box">
       <div className="popup-header">
@@ -49,10 +48,11 @@ const Card = ({
         </div>
         <div className="Title-box">
           <div className="Main-title">
-            <p>Lost a {title}</p>
+            <p>{title}</p>
           </div>
           <div className="Description">
-             {item.claimedBy  ? <p className="tags" style={{ color:'green' }}>Status : {button} </p> : <p className="tags" style={{ color:'red' }}>Status : Not yet {button} </p> }
+             {item.claimedBy  ? <p className="tags" style={{ color:'green' }}>Status : {button} </p> :
+              <p className="tags" style={{ color:'red' }}>Status : Not yet {button === 'Found' ? button : button+'ED'} </p> }
              <h3>Description</h3>
             <p>{description}</p>
           </div>

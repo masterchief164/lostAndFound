@@ -1,7 +1,7 @@
 /* eslint-disable no-constant-condition */
 import React, { useEffect } from 'react';
 import '../stylesheets/lostPage.css';
-import { Alert, Button, CircularProgress, Grid, TextField } from '@mui/material';
+import { Alert, CircularProgress, Grid, TextField } from '@mui/material';
 import Card from '../components/Card';
 import { fetchLost } from '../Api/Data';
 import { UserContext } from '../utils/UserContext';
@@ -49,16 +49,18 @@ const LostPage = () => {
        <section className="lostContainer">
         <div className='lost-page-section'>
             <div className='filterBox'>
-            <TextField
-            hiddenLabel
-            id="filled-hidden-label-small"
-            placeholder='Search'
-            variant="outlined"
-            size="small"
-            value={searchText}
-            onChange={(e)=>{setSearchText(e.target.value);}}
-             />
-             <Button variant="contained" size="small" onClick={(e)=>{searchBtnHandler(e);}}>Search</Button>
+            <div className='search-box'>
+              <TextField
+              hiddenLabel
+              id="filled-hidden-label-small"
+              placeholder='Search'
+              variant="outlined"
+              size="small"
+              value={searchText}
+              onChange={(e)=>{setSearchText(e.target.value);}}
+              />
+              <button onClick={(e)=>{searchBtnHandler(e);}}>Search</button>
+            </div>
              <fieldset>
               <legend>---- Search Filters ----</legend>
               <div>

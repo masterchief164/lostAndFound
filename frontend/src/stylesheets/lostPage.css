@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .progressBox{
@@ -29,6 +29,22 @@
     color: #726f6f;
     text-shadow: 1px 1px black;
 }
+.search-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.search-box > button{
+    width: 100px;
+    height: 32px;
+    color: #fff;
+    background: linear-gradient(90deg, #424242 32.77%, #101010 100%);
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin-top: 0.5rem;
+} 
 
 .lost-page-section{
     width: 100%;

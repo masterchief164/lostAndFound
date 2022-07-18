@@ -48,7 +48,7 @@ module.exports.checkClaimed = async (searchFields) => {
   } catch (error) {
     logger.error({
       err: error.stack,
-      file: 'lostItems.service.js',
+      file: 'foundItems.service.js',
       params: {},
     });
   }
