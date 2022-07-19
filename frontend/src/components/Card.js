@@ -6,7 +6,6 @@ import { claim } from '../Api/Data';
 
 const Card = ({
   item,
-  type,
   alert,
   success,
   message,
@@ -15,12 +14,10 @@ const Card = ({
   let date = new Date(item.dateTime).toDateString()
     .substring(4);
   date = date === 'lid Date' ? '22 Jan,2022' : date;
-  const itemTag = item.itemTag === undefined ? 'default' : item.itemTag;
   const title = item.title === undefined ? 'default' : item.title;
   const description = item.description === undefined ? 'default' : item.description;
-  const location = item.location === undefined ? 'default' : item.location;
-  const button = type === 0 ? 'Found' : 'Claim';
-  const verb = type === 1 ? 'Found' : 'Lost';
+  // const location = item.location === undefined ? 'default' : item.location;
+  const button = (item.type) === 'Lost' ? 'Found' : 'Claim';
   const [user] = React.useContext(UserContext);
 
   const clickHandler = async () => {
@@ -30,7 +27,8 @@ const Card = ({
       message('Please login to claim an item');
       return;
     }
-    const resp = await claim(type, item.id);
+   
+    const resp = await claim(item);
     if (resp.status === 200) {
       message('Successfully claimed item');
       alert(true);
@@ -41,7 +39,7 @@ const Card = ({
       success(false);
     }
   };
-
+ 
   return (
     <div className="card-box">
       <div className="popup-header">
@@ -50,12 +48,13 @@ const Card = ({
         </div>
         <div className="Title-box">
           <div className="Main-title">
-            <p>Lost a {title}</p>
+            <p>{title}</p>
           </div>
           <div className="Description">
-            <h3>Description</h3>
-            <p className="tags">{itemTag}</p>
-            <p>{description}, {verb} at {location}</p>
+             {item.claimedBy  ? <p className="tags" style={{ color:'green' }}>Status : {button === 'Found' ? button : button+'ED'} </p> :
+              <p className="tags" style={{ color:'red' }}>Status : Not yet {button === 'Found' ? button : button+'ED'} </p> }
+             <h3>Description</h3>
+            <p>{description}</p>
           </div>
         </div>
       </div>

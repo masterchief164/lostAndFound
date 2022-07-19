@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../stylesheets/Homepage.css';
 import IMG from '../assets/banner.png';
 
 const HomepageListItems = () => {
-  const [btnPopup, setBtnPopup] = useState(false);
+  // const [btnPopup, setBtnPopup] = useState(false);
   return (
     <section className="listItem" >
         <img src={IMG} alt="img"></img>

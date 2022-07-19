@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const fetchFound = async (setFoundItems) => {
+const fetchFound = async (setFoundItems,searchText,searchTags) => {
   try {
-    const res = await axios.get('http://localhost:8000/found', { withCredentials: true });
+    const res = await axios.get(`http://localhost:8000/found?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
       setFoundItems(res.data);
     }
@@ -12,9 +12,9 @@ const fetchFound = async (setFoundItems) => {
   }
 };
 
-const fetchLost = async (setLostItems) => {
+const fetchLost = async (setLostItems,searchText,searchTags) => {
   try {
-    const res = await axios.get('http://localhost:8000/lost', { withCredentials: true });
+    const res = await axios.get(`http://localhost:8000/lost/?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
       setLostItems(res.data);
     }
@@ -46,13 +46,11 @@ const logout = async (setUser) => {
     });
 };
 
-const claim = async (type, id) => {
-  if (type === 0) {
-    // console.log('found');
-    return axios.get(`http://localhost:8000/lost/foundIt/${id}`, { withCredentials: true });
+const claim = async (item) => {
+  if (item.type === 'Lost') {
+    return axios.get(`http://localhost:8000/lost/foundIt/${item.id}`, { withCredentials: true });
   }
-  // console.log('claimed');
-  return axios.get(`http://localhost:8000/found/claimIt/${id}`, { withCredentials: true });
+  return axios.get(`http://localhost:8000/found/claimIt/${item.id}`, { withCredentials: true });
 };
 
 export {
