@@ -51,7 +51,7 @@ const Card = ({
             <p>{title}</p>
           </div>
           <div className="Description">
-             {item.claimedBy  ? <p className="tags" style={{ color:'green' }}>Status : {button} </p> :
+             {item.claimedBy  ? <p className="tags" style={{ color:'green' }}>Status : {button === 'Found' ? button : button+'ED'} </p> :
               <p className="tags" style={{ color:'red' }}>Status : Not yet {button === 'Found' ? button : button+'ED'} </p> }
              <h3>Description</h3>
             <p>{description}</p>

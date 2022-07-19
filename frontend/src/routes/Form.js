@@ -95,7 +95,7 @@ const Form = () => {
     }
     setIsLoading(true);
     try {
-      await Axios.post(`${process.env.REACT_APP_BACKEND_URL}/report/form`, postData);
+      await Axios.post(`${process.env.REACT_APP_BACKEND_URL}/report/form`, postData,{withCredentials:true});
       // message = resp.data.message;
       // TODO handle error messages in both backend and frontend
       console.log('here');
