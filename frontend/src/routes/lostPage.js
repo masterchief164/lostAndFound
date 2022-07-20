@@ -5,6 +5,7 @@ import { Alert, CircularProgress, Grid, TextField } from '@mui/material';
 import Card from '../components/Card';
 import { fetchLost } from '../Api/Data';
 import { UserContext } from '../utils/UserContext';
+import Popup from '../components/popup';
 
 const LostPage = () => {
   const [lostItems, setLostItems] = React.useState([]);
@@ -16,7 +17,8 @@ const LostPage = () => {
   const[searchTags, setSearchTags] = React.useState({username:false, description:false, title:false , location:false});
   const [searchBtn, setSearchbtn] = React.useState(false);
   const [isLoading , setIsLoading] = React.useState(true);
-  
+  const [popupTrigger, setPopupTrigger] = React.useState(false);
+
   const getLostItems = async () =>{
     await fetchLost(setLostItems,searchText,searchTags);
     setIsLoading(false);
@@ -101,14 +103,20 @@ const LostPage = () => {
                   <Grid item={true} xs={12} md={6} lg={4} xl={4} key={index}>
                     <Card item={item}
                           type={0}
-                          alert={setIsAlert}
-                          success={setIsSuccess}
-                          message={setMessage}/>  
-                  </Grid>
+                          setPopupTrigger = {setPopupTrigger}/>
+                    <Popup trigger={popupTrigger} 
+                           setPopupTrigger={setPopupTrigger} 
+                           data={item} 
+                           alert={setIsAlert}
+                           success={setIsSuccess}
+                           message={setMessage}  >
+                   </Popup>
+                  </Grid> 
                 ))
               )
               }
             </Grid>)}
+            
           </div>
         </div>
       </section>

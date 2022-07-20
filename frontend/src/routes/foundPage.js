@@ -4,6 +4,7 @@ import { Alert, CircularProgress, Grid, TextField } from '@mui/material';
 import Card from '../components/Card';
 import { fetchFound } from '../Api/Data';
 import { UserContext } from '../utils/UserContext';
+import Popup from '../components/popup';
 
 const FoundPage = () => {
   const [foundItems, setFoundItems] = React.useState([]);
@@ -15,6 +16,7 @@ const FoundPage = () => {
   const[searchTags, setSearchTags] = React.useState({username:false, description:false, title:false , location:false});
   const [searchBtn, setSearchbtn] = React.useState(false);
   const [isLoading , setIsLoading] = React.useState(true);
+  const [popupTrigger, setPopupTrigger] = React.useState(false);
 
   const getFoundItems = async () =>{
     await fetchFound(setFoundItems,searchText,searchTags);
@@ -96,9 +98,14 @@ const FoundPage = () => {
               (foundItems.map((item, index) => (
                   <Grid item={true} xs={12} md={6} lg={4} xl={4} key={index}>
                     <Card item={item}
-                          alert={setIsAlert}
-                          success={setIsSuccess}
-                          message={setMessage}/>
+                          setPopupTrigger = {setPopupTrigger}/>
+                    <Popup trigger={popupTrigger} 
+                           setPopupTrigger={setPopupTrigger} 
+                           data={item} 
+                           alert={setIsAlert}
+                           success={setIsSuccess}
+                           message={setMessage}  >
+                   </Popup>
                   </Grid>
                 ))
               )}

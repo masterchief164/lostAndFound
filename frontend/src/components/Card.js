@@ -1,14 +1,11 @@
 import React from 'react';
 import '../stylesheets/Card.css';
 import IMG from '../assets/Id.jpg';
-import { UserContext } from '../utils/UserContext';
-import { claim } from '../Api/Data';
+
 
 const Card = ({
   item,
-  alert,
-  success,
-  message,
+  setPopupTrigger,
 }) => {
   const image = item.image === undefined || item.image === 'default' || item.image === '' ? IMG : item.image;
   let date = new Date(item.dateTime).toDateString()
@@ -18,34 +15,18 @@ const Card = ({
   const description = item.description === undefined ? 'default' : item.description;
   // const location = item.location === undefined ? 'default' : item.location;
   const button = (item.type) === 'Lost' ? 'Found' : 'Claim';
-  const [user] = React.useContext(UserContext);
 
   const clickHandler = async () => {
-    if (user === null) {
-      alert(true);
-      success(false);
-      message('Please login to claim an item');
-      return;
-    }
-   
-    const resp = await claim(item);
-    if (resp.status === 200) {
-      message('Successfully claimed item');
-      alert(true);
-      success(true);
-    } else {
-      message('Error claiming item');
-      alert(true);
-      success(false);
-    }
+    setPopupTrigger(true);
   };
  
   return (
+    <>
     <div className="card-box">
       <div className="popup-header">
         <div className="Image-box">
           <img src={image} alt="img"></img>
-        </div>
+        </div> 
         <div className="Title-box">
           <div className="Main-title">
             <p>{title}</p>
@@ -55,7 +36,7 @@ const Card = ({
               <p className="tags" style={{ color:'red' }}>Status : Not yet {button === 'Found' ? button : button+'ED'} </p> }
              <h3>Description</h3>
             <p>{description}</p>
-          </div>
+          </div>  
         </div>
       </div>
       <div className="popup-footer">
@@ -63,6 +44,7 @@ const Card = ({
         <button onClick={clickHandler}>{button} it</button>
       </div>
     </div>
+    </>
   );
 };
 
