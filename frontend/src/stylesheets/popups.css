@@ -20,7 +20,7 @@
     box-shadow: 10px 10px 50px 4px rgba(0, 0, 0, 0.28);
     position: fixed;
     left: 30%;
-    top: 20%;
+    top: 10%;
     z-index: 10;
 }
 
@@ -70,6 +70,8 @@
     width: 100%;
     margin-top: 1rem;
     margin-left: 0.5rem;
+    max-height: 18vh;
+    overflow-y: hidden;
 }
 .desc-btn{
     display: flex;
