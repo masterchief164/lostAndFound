@@ -1,6 +1,9 @@
 module.exports.getFoundItemsDTO = {
   selectedFields: {
     _id: 1,
+    firstName: 1,
+    lastName: 1,
+    submittedBy: 1,
     description: 1,
     image: 1,
     location: 1,
@@ -21,5 +24,8 @@ module.exports.getFoundItemsDTO = {
     itemTag: item.itemTag,
     claimedBy: item.claimedBy,
     type: item.type,
+    firstName: item.firstName,
+    lastName: item.lastName,
+    submittedBy: item.submittedBy,
   }),
 };
