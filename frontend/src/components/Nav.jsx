@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import CollegeIcon from '../assets/iiitdmj.svg';
 import '../stylesheets/Nav.css';
 import GoogleIcon from '../assets/google.png';
-import DrawerComp from './DrawerComp';
-import { UserContext } from '../utils/UserContext';
+import DrawerComp from './DrawerComp.jsx';
+import { UserContext } from '../utils/UserContext.jsx';
 import initializeApp from '../utils/initializeApp';
 import { logout } from '../Api/Data';
 import handleGoogleSignIn from '../utils/HandleGoogleSignIn';
@@ -75,7 +75,10 @@ const Nav = () => {
                 height: 'calc(max(3vw, 5vh))',
                 width: 'calc(max(3vw, 5vh))',
               }}
-              onClick={handleGoogleSignIn}>
+              onClick={() => {
+                handleGoogleSignIn(setUser);
+              }
+              }>
               <img src={GoogleIcon} alt={'Google Icon'} />
             </IconButton>
             : <button className={'logout_button'} onClick={handleLogout}>Logout</button>}
