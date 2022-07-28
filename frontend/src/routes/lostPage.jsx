@@ -96,7 +96,7 @@ const LostPage = () => {
             <h1>Lost Items</h1>
           </div>
           {isLoading ? <div className='progressBox'><CircularProgress /></div> : (<Grid container={true} spacing={5}>
-            {lostItems.length == 0 || lostItems == null ?
+            {lostItems.length === 0 || lostItems == null ?
               <div className='progressBox'>
                 <h3>No lost items found , Report a new item.</h3>
               </div> :

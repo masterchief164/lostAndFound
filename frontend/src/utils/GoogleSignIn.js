@@ -3,8 +3,8 @@ const GoogleSignIn = (state) => {
   const nonce = Math.floor(Math.random() * 100000);
 
   const options = {
-    client_id: process.env.REACT_APP_CLIENT_ID,
-    redirect_uri: process.env.REACT_APP_REDIRECT_URL,
+    client_id: import.meta.env.VITE_CLIENT_ID,
+    redirect_uri: import.meta.env.VITE_REDIRECT_URL,
     access_type: 'offline',
     nonce,
     state,
@@ -13,7 +13,6 @@ const GoogleSignIn = (state) => {
     scope: 'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
   };
   const qs = new URLSearchParams(options);
-
   return (`${loginUrl}?${qs.toString()}`);
 };
 

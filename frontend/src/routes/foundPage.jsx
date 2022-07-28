@@ -92,7 +92,7 @@ const FoundPage = () => {
             <h1>Found Items</h1>
           </div>
           {isLoading ? <div className='progressBox'><CircularProgress /></div> : (<Grid container={true} spacing={5}>
-            {foundItems.length == 0 || foundItems == null ?
+            {foundItems.length === 0 || foundItems == null ?
               <div className='progressBox'>
                 <h3>No reported items found , Report a new item.</h3>
               </div> :
