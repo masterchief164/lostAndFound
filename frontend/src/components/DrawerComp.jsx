@@ -19,6 +19,8 @@ const DrawerComp = () => {
   useEffect(() => {
     if (user) {
       localStorage.setItem('userDataLost', JSON.stringify(user));
+      console.log(user);
+      console.log('hereDra');
       setProfileIcon(user.picture);
     }
   }, [user]);
@@ -35,7 +37,7 @@ const DrawerComp = () => {
         marginRight: '2vw',
         marginLeft: '1vw',
       }}>
-        <img className={'profile'} src={profileIcon} alt={'Profile Icon'} />
+        <img className={'profile'} src={profileIcon} referrerPolicy="no-referrer" alt={'Profile Icon'} />
         <Divider />
         {(user == null) ? <ListItemButton onClick={() => {
           setOpen(false);
@@ -59,6 +61,9 @@ const DrawerComp = () => {
                                        to="/">
         <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="About" />
       </ListItemButton>
+        <ListItemButton component={Link} onClick={() => setOpen(false)} to="/dashboard">
+          <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Dashboard" />
+        </ListItemButton>
       </List>
     </SwipeableDrawer>
     <IconButton sx={{ marginLeft: 'auto' }} onClick={() => setOpen(!open)}>

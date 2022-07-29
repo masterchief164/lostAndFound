@@ -25,7 +25,7 @@ const Form = () => {
     type: 'Lost',
     dateTime: new Date().toISOString()
       .substring(0, new Date().toISOString()
-        .lastIndexOf(':')),
+        .lastIndexOf(':'))
   };
 
   const [errors, setErrors] = useState({
@@ -35,7 +35,7 @@ const Form = () => {
     description: false,
     location: false,
     itemTag: false,
-    type: false,
+    type: false
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -56,26 +56,26 @@ const Form = () => {
     reader.onloadend = () => {
       setPostData({
         ...postData,
-        image: reader.result,
+        image: reader.result
       });
     };
   }, [postData]);
 
   const {
     getRootProps,
-    getInputProps,
+    getInputProps
   } = useDropzone({
     onDrop,
     accepts: 'image/*',
-    multiple: false,
+    multiple: false
   });
 
   const reportTypes = [{
     value: 'Lost',
-    label: 'Lost',
+    label: 'Lost'
   }, {
     value: 'Found',
-    label: 'Found',
+    label: 'Found'
   }];
 
   const handleSubmit = async () => {
@@ -95,10 +95,9 @@ const Form = () => {
     }
     setIsLoading(true);
     try {
-      await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/report/form`, postData,{withCredentials:true});
+      await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/report/form`, postData, { withCredentials: true });
       // message = resp.data.message;
       // TODO handle error messages in both backend and frontend
-      console.log('here');
       setIsLoading(false);
       setIsAlert(true);
       setIsSuccess(true);
@@ -119,10 +118,9 @@ const Form = () => {
     }}>{isSuccess ? 'Your Report was successfully Submitted!' : `Error: ${message}`}</Alert> : ''}
     <section className={'formSection'}>
       {isLoading ? <CircularProgress /> : <div className="formContainer">
-
         <select value={postData.type} className="selectBox" onChange={(e) => setPostData({
           ...postData,
-          type: e.target.value,
+          type: e.target.value
         })}>
           {reportTypes.map((type) => <option className={'optionBox'} key={type.value}
                                              value={type.value}>{type.label}</option>)}
@@ -136,17 +134,17 @@ const Form = () => {
                        if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
                          setErrors({
                            ...errors,
-                           firstName: true,
+                           firstName: true
                          });
                        } else {
                          setErrors({
                            ...errors,
-                           firstName: false,
+                           firstName: false
                          });
                        }
                        setPostData({
                          ...postData,
-                         firstName: e.target.value,
+                         firstName: e.target.value
                        });
                      }} required={true} label="First Name" variant="outlined" />
           <TextField error={errors.lastName} margin={'normal'} sx={{ width: '20vw' }}
@@ -156,17 +154,17 @@ const Form = () => {
                        if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
                          setErrors({
                            ...errors,
-                           lastName: true,
+                           lastName: true
                          });
                        } else {
                          setErrors({
                            ...errors,
-                           lastName: false,
+                           lastName: false
                          });
                        }
                        setPostData({
                          ...postData,
-                         lastName: e.target.value,
+                         lastName: e.target.value
                        });
                      }} required={true} label="Last Name" variant="outlined" />
         </div>
@@ -179,17 +177,17 @@ const Form = () => {
                        if (!e.target.value.match(/^[a-zA-Z\s\d,_.-]{2,30}$/)) {
                          setErrors({
                            ...errors,
-                           location: true,
+                           location: true
                          });
                        } else {
                          setErrors({
                            ...errors,
-                           location: false,
+                           location: false
                          });
                        }
                        setPostData({
                          ...postData,
-                         location: e.target.value,
+                         location: e.target.value
                        });
                      }} required={true} label="Last Seen Place" variant="outlined" />
           <TextField margin={'normal'} sx={{ width: '20vw' }} id="outlined-basic"
@@ -197,7 +195,7 @@ const Form = () => {
                      value={postData.dateTime}
                      onChange={(e) => setPostData({
                        ...postData,
-                       dateTime: e.target.value,
+                       dateTime: e.target.value
                      })} required={true} label="Last Seen Time" variant="outlined" />
         </div>
 
@@ -210,17 +208,17 @@ const Form = () => {
                        if (!e.target.value.match(/^[a-zA-Z,\s]{2,15}$/)) {
                          setErrors({
                            ...errors,
-                           itemTag: true,
+                           itemTag: true
                          });
                        } else {
                          setErrors({
                            ...errors,
-                           itemTag: false,
+                           itemTag: false
                          });
                        }
                        setPostData({
                          ...postData,
-                         itemTag: e.target.value,
+                         itemTag: e.target.value
                        });
                      }} required={true} label="Item Tag" variant="outlined" />
           <TextField error={errors.title} margin={'normal'} sx={{ width: '20vw' }}
@@ -230,17 +228,17 @@ const Form = () => {
                        if (!e.target.value.match(/^[a-z\sA-Z]{2,15}$/)) {
                          setErrors({
                            ...errors,
-                           title: true,
+                           title: true
                          });
                        } else {
                          setErrors({
                            ...errors,
-                           title: false,
+                           title: false
                          });
                        }
                        setPostData({
                          ...postData,
-                         title: e.target.value,
+                         title: e.target.value
                        });
                      }} required={true} label="Title" variant="outlined" />
         </div>
@@ -252,38 +250,34 @@ const Form = () => {
                      if (e.target.value.length < 1) {
                        setErrors({
                          ...errors,
-                         description: true,
+                         description: true
                        });
                      } else {
                        setErrors({
                          ...errors,
-                         description: false,
+                         description: false
                        });
                      }
                      setPostData({
                        ...postData,
-                       description: e.target.value,
+                       description: e.target.value
                      });
                    }} required={true}
                    id="outlined-basic" label="Description" variant="outlined" />
 
         <div className={'dropBox'} {...getRootProps()}>
           <input {...getInputProps()} />
-          {imageSelected
-            ? <div className="container" id={'preview'}>
-              <img src={postData.image} alt="Preview" className={'preview'} />
-              <img src={closeButton} alt="Preview" className={'close'}
-                   onClick={() => {
-                     setImageSelected(false);
-                     setPostData({
-                       ...postData,
-                       image: '',
-                     });
-                   }
-                   } />
-            </div>
-            : <p>Drop files here or click to upload</p>
-          }
+          {imageSelected ? <div className="container" id={'preview'}>
+            <img src={postData.image} alt="Preview" className={'preview'} />
+            <img src={closeButton} alt="Preview" className={'close'}
+                 onClick={() => {
+                   setImageSelected(false);
+                   setPostData({
+                     ...postData,
+                     image: ''
+                   });
+                 }} />
+          </div> : <p>Drop files here or click to upload</p>}
         </div>
 
         <button className={'submitButton'} onClick={handleSubmit}>Submit</button>

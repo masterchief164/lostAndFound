@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
   locale: String,
   given_name: String,
   family_name: String,
+  phoneNumber: String,
+  batch: String,
+  hallNumber: String,
+  roomNumber: String,
 });
 
 const userModel = mongoose.model('User', userSchema);
