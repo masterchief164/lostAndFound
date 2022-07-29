@@ -11,6 +11,7 @@ import GoogleLogin from '../routes/GoogleLogin';
 import Form from '../routes/Form';
 import theme from '../utils/AppTheme';
 import { UserContextProvider } from '../utils/UserContext';
+import Dashboard from '../routes/Dashboard';
 
 function App() {
   return (<ThemeProvider theme={theme}>
@@ -24,6 +25,7 @@ function App() {
                 <Route exact path="/found" element={<FoundPage />} />
                 <Route exact path="/report/form" element={<Form />} />
                 <Route exact path="/google" element={<GoogleLogin />} />
+                <Route exact path="/dashboard" element={<Dashboard />} />
               </Routes>
               <Footer />
             </div>

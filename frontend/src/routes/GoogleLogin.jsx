@@ -8,8 +8,13 @@ const GoogleLogin = () => {
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     login()
-      .then(() => {
-        window.location.assign('/');
+      .then((userData) => {
+        console.log(userData);
+        if (userData.hallNumber) {
+          window.location.assign('/');
+        } else {
+          window.location.assign('/dashboard');
+        }
         console.log('logged in');
       });
   }, []);
@@ -20,7 +25,7 @@ const GoogleLogin = () => {
     if (state !== url.get('state')) {
       console.error('state mismatch');
     }
-    await sendAuthorizationCode(url.get('code'), setUser);
+    return await sendAuthorizationCode(url.get('code'), setUser);
   };
 
   return (<>
@@ -30,7 +35,7 @@ const GoogleLogin = () => {
       alignContent: 'center',
       justifyContent: 'center',
       alignItems: 'center',
-      flexDirection: 'column',
+      flexDirection: 'column'
     }}>
       <CircularProgress />
       <h1>Please Wait</h1>

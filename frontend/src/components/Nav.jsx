@@ -24,6 +24,8 @@ const Nav = () => {
   useEffect(() => {
     if (user) {
       localStorage.setItem('userDataLost', JSON.stringify(user));
+      console.log(user);
+      console.log('hereNav');
     }
   }, [user]);
 
@@ -75,10 +77,7 @@ const Nav = () => {
                 height: 'calc(max(3vw, 5vh))',
                 width: 'calc(max(3vw, 5vh))',
               }}
-              onClick={() => {
-                handleGoogleSignIn(setUser);
-              }
-              }>
+              onClick={handleGoogleSignIn}>
               <img src={GoogleIcon} alt={'Google Icon'} />
             </IconButton>
             : <button className={'logout_button'} onClick={handleLogout}>Logout</button>}

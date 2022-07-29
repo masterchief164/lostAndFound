@@ -110,15 +110,15 @@
 }
 
 .submitButton {
-    margin-top: 4vh;
+    border: none;
     font-size: 1vw;
+    margin-top: 4vh;
     align-items: center;
     justify-content: center;
     width: 10vw;
     background: linear-gradient(90deg, #F47A51 5.68%, #FE926E 95.79%);
     color: white;
     height: 2.5vw;
-    border: none;
     box-shadow: 10px 10px 30px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     transition: .1s;
