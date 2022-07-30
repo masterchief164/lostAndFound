@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const fetchFound = async (setFoundItems,searchText,searchTags) => {
   try {
-    const res = await axios.get(`http://localhost:8000/found?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/found?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
       setFoundItems(res.data);
     }
@@ -14,7 +14,7 @@ const fetchFound = async (setFoundItems,searchText,searchTags) => {
 
 const fetchLost = async (setLostItems,searchText,searchTags) => {
   try {
-    const res = await axios.get(`http://localhost:8000/lost/?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/lost/?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
       setLostItems(res.data);
     }
@@ -26,7 +26,7 @@ const fetchLost = async (setLostItems,searchText,searchTags) => {
 
 const sendAuthorizationCode = async (code, setUser) => {
   try {
-    const res = await axios.post('http://localhost:8000/auth/googleLogin', { tokenId: code }, { withCredentials: true });
+    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/googleLogin`, { tokenId: code }, { withCredentials: true });
     setUser(res.data.userData);
     localStorage.setItem('userDataLost', JSON.stringify(res.data.userData));
     console.log('hereData');
@@ -38,7 +38,7 @@ const sendAuthorizationCode = async (code, setUser) => {
 };
 
 const logout = async (setUser) => {
-  await axios.get('http://localhost:8000/auth/logout', { withCredentials: true })
+  await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, { withCredentials: true })
     .then((response) => {
       if (response.status === 200) {
         console.log('logged out');
@@ -50,9 +50,9 @@ const logout = async (setUser) => {
 
 const claim = async (item) => {
   if (item.type === 'Lost') {
-    return axios.get(`http://localhost:8000/lost/foundIt/${item.id}`, { withCredentials: true });
+    return axios.get(`${import.meta.env.VITE_BACKEND_URL}/lost/foundIt/${item.id}`, { withCredentials: true });
   }
-  return axios.get(`http://localhost:8000/found/claimIt/${item.id}`, { withCredentials: true });
+  return axios.get(`${import.meta.env.VITE_BACKEND_URL}/found/claimIt/${item.id}`, { withCredentials: true });
 };
 
 export {
