@@ -1,12 +1,11 @@
 import React from 'react';
 import '../stylesheets/Homepage.css';
-import IMG from '../assets/banner.png';
 
 const HomepageListItems = () => {
   // const [btnPopup, setBtnPopup] = useState(false);
   return (
     <section className="listItem" >
-        <img src={IMG} alt="img"></img>
+        <img src={'https://res.cloudinary.com/masterchief/image/upload/v1660475392/lostAndFound/banner_2_ku9kqn.webp'} alt="img"></img>
         <div className="listTexts">
             <h3>Lost a Laptop Charger </h3>
             <div>
