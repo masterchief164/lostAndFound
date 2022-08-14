@@ -1,6 +1,5 @@
 import React from 'react';
 import '../stylesheets/popups.css';
-import IMG from '../assets/banner.png';
 
 function LostPopup(props) {
   return (props.trigger) ? (
@@ -10,7 +9,7 @@ function LostPopup(props) {
           <button onClick={() => props.setTrigger(false)}> X</button>
         </div>
         <div className="title">
-          <img src={IMG} alt="img"></img>
+          <img src={'https://res.cloudinary.com/masterchief/image/upload/v1660475392/lostAndFound/banner_2_ku9kqn.webp'} alt="img"></img>
           <h3>Lost a laptop charger</h3>
         </div>
         <div className="description">

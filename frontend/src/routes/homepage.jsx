@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import '../stylesheets/Homepage.css';
 import HomepageListItems from '../components/homepageItemsList';
-import banner from '../assets/banner.png';
 import { UserContext } from '../utils/UserContext';
 
 function Homepage() {
@@ -17,7 +16,7 @@ function Homepage() {
         <div className="banner">
           <h1>Lost <span> & </span> Found</h1>
           <h3>We help everyone to get their lost things !</h3>
-          <img src={banner} alt="banner" />
+          <img src={'https://res.cloudinary.com/masterchief/image/upload/v1660475392/lostAndFound/banner_2_ku9kqn.webp'} alt="banner" />
         </div>
         <div className="itemTags">
           <div className="tag">

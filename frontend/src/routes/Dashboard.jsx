@@ -4,7 +4,6 @@ import { Alert, CircularProgress, TextField } from '@mui/material';
 import Axios from 'axios';
 import profileIcon from '../assets/profile.png';
 import { UserContext } from '../utils/UserContext';
-import banner from '../assets/banner.png';
 
 const Dashboard = () => {
   const [user,setUser] = React.useContext(UserContext);
@@ -75,7 +74,7 @@ const Dashboard = () => {
       <section className={'formSection'}>
         {isLoading ? <CircularProgress /> : <div className={'wrapper'}>
           <div className={'preview'}>
-            <img className={'bgimg'} src={banner} alt={'banner image'} />
+            <img className={'bgimg'} src={'https://res.cloudinary.com/masterchief/image/upload/v1660475392/lostAndFound/banner_2_ku9kqn.webp'} alt={'banner image'} />
             <img className={'profile'} referrerPolicy="no-referrer" src={user ? user.picture : profileIcon}
                  alt={'Profile Icon'} />
             <h1>{postData.firstName}</h1>
