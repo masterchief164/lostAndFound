@@ -102,3 +102,41 @@
     align-items: center;
     padding: 1rem;
 }
+
+@media only screen and (max-width: 1410px){
+    .filterBox{
+        display: none;
+    }
+    .filter-box-spacing{
+        display: none;
+    }
+    .progressBox{
+        width: 100%;
+        min-height: 65vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0;
+    }
+    .progressBox > h3{
+        margin-left: 2rem;
+      }
+    .lostpage-banner{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+   
+}
+
+@media only screen and (max-width: 640px) {
+    .progressBox > h3{
+        font-size: 14px;
+        text-shadow: none;
+    }
+    .lostpage-banner > h1{
+      font-size:  max(2vw,3vh);;
+    } 
+
+}
