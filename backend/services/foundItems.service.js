@@ -1,5 +1,4 @@
 const { foundModel } = require('../models/report.model');
-const logger = require('../bin/winston.util');
 
 module.exports.getFoundItems = async (searchFields, selectedFields) => {
   try {
@@ -19,18 +18,22 @@ module.exports.getFoundItems = async (searchFields, selectedFields) => {
     if (searchFields.location === 'true' || checkTags) searchArray.push({ location: regexp });
     if (searchFields.username === 'true' || checkTags) searchArray.push({ firstName: regexp });
 
-    const document = await foundModel.find(
+    let count  = 0;
+    if(searchFields.count)
+      count = searchFields.count;
+
+    return await foundModel.find(
       regexp ? {
         $or: searchArray,
       } : {},
-    ).select(selectedFields).lean().exec();
-    return document;
+    )
+      .select(selectedFields)
+      .limit(count)
+      .sort({ dateTime: -1 })
+      .lean()
+      .exec();
   } catch (err) {
-    logger.error({
-      err: err.stack,
-      file: 'foundItems.service.js',
-      params: {},
-    });
+    console.log(err);
   }
 };
 
@@ -46,10 +49,6 @@ module.exports.checkClaimed = async (searchFields) => {
     ).lean().exec();
     return newEntry;
   } catch (error) {
-    logger.error({
-      err: error.stack,
-      file: 'foundItems.service.js',
-      params: {},
-    });
+    console.log(error);
   }
 };

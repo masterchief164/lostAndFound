@@ -1,5 +1,4 @@
 const { saveItem } = require('../services/report.service');
-const logger = require('../bin/winston.util');
 const { cloudinary } = require('../utils/cloudinary');
 
 module.exports.createItem = async (req, res) => {
@@ -17,10 +16,6 @@ module.exports.createItem = async (req, res) => {
     // console.log(document);
     res.send(document);
   } catch (err) {
-    logger.error({
-      err: err.stack,
-      file: 'report.controller.js',
-      params: {},
-    });
+    console.log(err);
   }
 };

@@ -9,9 +9,9 @@ const getGoogleOAuthTokens = async (code) => {
 
   const options = {
     code,
-    client_id: process.env.REACT_APP_CLIENT_ID,
+    client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
-    redirect_uri: 'http://localhost:3000/google',
+    redirect_uri: `${process.env.FRONTEND_URL}/google`,
     grant_type: 'authorization_code',
   };
 

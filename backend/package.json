@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "chalk": "^5.0.1",
     "cloudinary": "^1.30.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -23,17 +24,5 @@
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0",
     "winston": "^3.7.2"
-  },
-  "devDependencies": {
-    "axios-debug-log": "^0.8.4",
-    "eslint": "^8.17.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-node": "^4.1.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "nodemon": "^2.0.16",
-    "prettier": "^2.7.1"
   }
 }
