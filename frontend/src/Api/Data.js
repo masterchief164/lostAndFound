@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const fetchFound = async (setFoundItems,searchText,searchTags) => {
+const fetchFound = async (setFoundItems, searchText, searchTags) => {
   try {
     const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/found?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
@@ -12,7 +12,32 @@ const fetchFound = async (setFoundItems,searchText,searchTags) => {
   }
 };
 
-const fetchLost = async (setLostItems,searchText,searchTags) => {
+const fetchTopFound = async (setTopTenFound) => {
+  try {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/found?searchText=&username=false&description=false&title=false&location=false&count=10`, { withCredentials: true });
+    if (res.status === 200) {
+      setTopTenFound(res.data);
+    }
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+const fetchTopLost = async (setTopTenLost) => {
+  try {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/lost?searchText=&username=false&description=false&title=false&location=false&count=10`, { withCredentials: true });
+    if (res.status === 200) {
+      setTopTenLost(res.data);
+    }
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+
+const fetchLost = async (setLostItems, searchText, searchTags) => {
   try {
     const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/lost/?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
@@ -56,5 +81,5 @@ const claim = async (item) => {
 };
 
 export {
-  fetchFound, fetchLost, sendAuthorizationCode, logout, claim,
+  fetchFound, fetchLost, sendAuthorizationCode, logout, claim, fetchTopFound, fetchTopLost
 };

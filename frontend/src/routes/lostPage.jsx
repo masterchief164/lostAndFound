@@ -23,7 +23,6 @@ const LostPage = () => {
   const getLostItems = async () => {
     await fetchLost(setLostItems, searchText, searchTags);
     setIsLoading(false);
-    console.log(lostItems);
   };
 
   const searchBtnHandler = async (e) => {

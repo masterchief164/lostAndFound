@@ -5,7 +5,6 @@ import IMG from '../assets/Id.jpg';
 import { claim } from '../Api/Data';
 
 const Popup = (props) => {
-     console.log(props.data);
      const [user] = React.useContext(UserContext);
      const button = (props.data.type) === 'Lost' ? 'Found' : 'Claim';
 

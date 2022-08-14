@@ -1,4 +1,3 @@
-const logger = require('../bin/winston.util');
 const { getFoundItems, checkClaimed } = require('../services/foundItems.service');
 const { getFoundItemsDTO } = require('../dto/foundItems.dto');
 
@@ -7,13 +6,10 @@ module.exports.getItems = async (req, res) => {
   try {
     const document = await getFoundItems(searchFields, getFoundItemsDTO.selectedFields);
     const data = document.map(getFoundItemsDTO.execute);
+    console.log("fetched items");
     res.send(data);
   } catch (err) {
-    logger.error({
-      err: err.stack,
-      file: 'foundItems.controller.js',
-      params: {},
-    });
+    console.log(err);
   }
 };
 
@@ -26,10 +22,6 @@ module.exports.claimIt = async (req, res) => {
       res.send({ status: 1, data: document });
     } else res.send({ status: 0, data: null });
   } catch (err) {
-    logger.error({
-      err: err.stack,
-      file: 'foundItems.controller.js',
-      params: {},
-    });
+    console.log(err);
   }
 };

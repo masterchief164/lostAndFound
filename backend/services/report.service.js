@@ -1,5 +1,4 @@
 const { lostModel, foundModel } = require('../models/report.model');
-const logger = require('../bin/winston.util');
 
 module.exports.saveItem = async (data) => {
   try {
@@ -11,10 +10,6 @@ module.exports.saveItem = async (data) => {
     const document = new foundModel(data);
     return await document.save();
   } catch (err) {
-    logger.error({
-      err: err.stack,
-      file: 'report.service.js',
-      params: {},
-    });
+    console.log(err);
   }
 };

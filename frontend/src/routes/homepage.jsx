@@ -1,14 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../stylesheets/Homepage.css';
 import HomepageListItems from '../components/homepageItemsList';
 import { UserContext } from '../utils/UserContext';
+import { fetchTopFound, fetchTopLost } from '../Api/Data';
 
 function Homepage() {
   const [, , , setPageNumber] = React.useContext(UserContext);
+  const [topTenFound,setTopTenFound] = useState([]);
+  const [topTenLost, setTopTenLost] = useState([]);
 
+  const getFoundItems = async () => {
+    await fetchTopFound(setTopTenFound);
+  };
+
+  const getLostItems = async() =>{
+    await fetchTopLost(setTopTenLost);
+  }
   useEffect(() => {
     setPageNumber(0);
+    getLostItems()
+    getFoundItems()
   }, []);
+
+
 
   return (
     <>
@@ -30,20 +44,10 @@ function Homepage() {
 
       <section className="ListBox">
         <div className="listContainer">
-          <HomepageListItems />
-          <HomepageListItems />
-          <HomepageListItems />
-          <HomepageListItems />
-          <HomepageListItems />
-          <HomepageListItems />
+          {topTenLost.map((item,index) => <HomepageListItems image={item.image} date={item.dateTime} title={item.title} type={1} key={index}/>)}
         </div>
         <div className="listContainer">
-          <HomepageListItems />
-          <HomepageListItems />
-          <HomepageListItems />
-          <HomepageListItems />
-          <HomepageListItems />
-          <HomepageListItems />
+          {topTenFound.map((item,index) => <HomepageListItems image={item.image} date={item.dateTime} title={item.title} type={0} key={index}/>)}
         </div>
       </section>
     </>
