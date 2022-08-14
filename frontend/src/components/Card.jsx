@@ -25,6 +25,7 @@ const Card = ({
   return (
     <>
       <div className="card-box">
+        <div className='inner-card-box'>
         <div className="popup-header">
           <div className="Image-box">
             <img src={image} alt="img"></img>
@@ -44,6 +45,7 @@ const Card = ({
         <div className="popup-footer">
           <p>Reported on<br /><strong>{date}</strong></p>
           <button onClick={clickHandler}>{button} it</button>
+        </div>
         </div>
       </div>
     </>

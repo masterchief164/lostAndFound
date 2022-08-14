@@ -138,5 +138,8 @@
     .lostpage-banner > h1{
       font-size:  max(2vw,3vh);;
     } 
+    .lostItems{
+        width: 100%;
+    }
 
 }
