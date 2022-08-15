@@ -40,8 +40,8 @@ body::-webkit-scrollbar {
 }
 
 .banner > h1 {
-    font-size: 4.4vw;
-    font-weight: 750;
+    font-size: 4.1vw;
+    font-weight:500;
 }
 
 .banner > h1 > span {
@@ -51,7 +51,7 @@ body::-webkit-scrollbar {
 
 .banner > h3 {
     width: 32vw;
-    font-size: 2.2vw;
+    font-size: 1.8vw;
     line-height: 1.5;
     font-weight: 400;
 }
@@ -172,3 +172,106 @@ footer > h3 {
     font-size: 1vw;
     font-weight: 400;
 }
+
+@media only screen and (max-width: 1550px){
+    .listContainer{
+        width: 40%;
+       }
+}
+
+@media only screen and (max-width: 1150px) {
+   .banner > h1{
+        font-size: 6vw;
+   }
+
+   .banner > h3 {
+    width: 35vw;
+    font-size: 2.8vw;
+    line-height: 1.5;
+    font-weight: 400;
+    }   
+
+    .tag{
+    width: 22vw;
+    height:6vw
+   }
+
+   .ListBox{
+    flex-direction: column;
+   }
+
+   .listContainer{
+    width: 70%;
+    margin-bottom: 2rem;
+   }
+
+   footer > h3{
+    font-size: 16px;
+   }
+  }
+
+  @media only screen and (max-width: 640px) {
+    .banner > h1{
+         font-size: 10vw;
+    }
+ 
+    .banner > h3 {
+     width: 50vw;
+     font-size: 4vw;
+     line-height: 1.5;
+     font-weight: 400;
+     }   
+ 
+     .tag{
+     width: 32vw;
+     height:10vw;
+    }
+
+    .tag > h3{
+        font-size: 3vw;
+    }
+    .banner{
+        width: 95%;
+        height: 60%;
+        background-image: url('../assets/banner.png');
+        background: linear-gradient(90deg, #BFB2C4 0%, #E3DDD3 100%);;
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+        padding-left: 4rem;
+    }
+    .itemTags{
+        height: 14%;
+    }
+    .banner > img {
+        display: none;
+    }
+
+    .listContainer{
+        width: 90%;
+        margin-bottom: 2rem;
+       }
+
+    .listItem{
+        height : 4.2rem;
+    }   
+
+    .listTexts > h3{
+        font-size: 16px;
+    }
+
+   footer > h3{
+        font-size: 10px;
+    }
+
+    footer{
+        height: 10vh;
+    }
+   }
+
+   @media only screen and (max-width: 430px){
+
+   footer > h3{
+    font-size: 8px;
+   }  
+   }

@@ -27,7 +27,7 @@
     "vite": "^3.0.0"
   },
   "scripts": {
-    "dev": "vite --port 3000",
+    "dev": "vite --port 3000 --host",
     "build": "vite build",
     "preview": "vite preview --port 3000",
     "lint": "eslint --fix --ext .js,.jsx ."
