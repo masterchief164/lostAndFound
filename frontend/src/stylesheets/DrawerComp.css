@@ -1,6 +1,6 @@
-.profile {
-    width: 40px;
+.profileDrawer {
+    width: 70px;
     height: auto;
     border-radius: 50%;
-    margin-left: 10px;
+    margin: 5vw 5vh;
 }

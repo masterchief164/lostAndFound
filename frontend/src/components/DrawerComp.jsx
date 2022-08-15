@@ -37,7 +37,7 @@ const DrawerComp = () => {
         marginRight: '2vw',
         marginLeft: '1vw',
       }}>
-        <img className={'profile'} src={profileIcon} referrerPolicy="no-referrer" alt={'Profile Icon'} />
+        <img className={'profileDrawer'} src={profileIcon} referrerPolicy="no-referrer" alt={'Profile Icon'} />
         <Divider />
         {(user == null) ? <ListItemButton onClick={() => {
           setOpen(false);

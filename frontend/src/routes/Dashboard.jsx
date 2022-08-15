@@ -31,6 +31,19 @@ const Dashboard = () => {
 
   });
   const [postData, setPostData] = useState(defaultFormData);
+  const [screen, setScreen] = useState(!(window.matchMedia('(max-width: 768px)').matches));
+
+  useEffect(() => {
+    let width = window.matchMedia('(max-width: 1000px)');
+    const handleMediaQueryChange = (x) => {
+      if (x.matches) {
+        setScreen(false);
+      } else {
+        setScreen(true);
+      }
+    }
+    width.addEventListener('change', handleMediaQueryChange);
+  }, []);
 
   useEffect(() => {
     setPostData(defaultFormData);
@@ -38,7 +51,7 @@ const Dashboard = () => {
 
   const handleSubmit = async () => {
     if (user == null) {
-      setMessage('Please login to submit a report');
+      setMessage('Please login to submit changes` ');
       setIsAlert(true);
       return;
     }
@@ -81,11 +94,11 @@ const Dashboard = () => {
             <span>{postData.lastName}</span>
             <p>{postData.roomNumber ? `${postData.roomNumber}, ` : ''}{postData.hallNumber ? `Hall: ${postData.hallNumber}` : ''}</p>
           </div>
-          <div className={'form'}>
+          <div className={'formDashboard'}>
             <h1>Dashboard</h1>
             <h2>Welcome {`${postData.firstName}..`}</h2>
             <div className={'row'}>
-              <TextField error={errors.firstName} margin={'dense'} sx={{ width: '20vw' }}
+              <TextField error={errors.firstName} margin={'dense'} sx={{ width: screen?'20vw':'55vw' }}
                          id='outlined-basic'
                          value={postData.firstName}
                          onChange={(e) => {
@@ -105,7 +118,7 @@ const Dashboard = () => {
                              firstName: e.target.value
                            });
                          }} required={true} label='First Name' variant='outlined' />
-              <TextField error={errors.lastName} margin={'dense'} sx={{ width: '20vw' }}
+              <TextField error={errors.lastName} margin={'dense'} sx={{ width: screen?'20vw':'55vw' }}
                          id='outlined-basic'
                          value={postData.lastName}
                          onChange={(e) => {
@@ -128,7 +141,7 @@ const Dashboard = () => {
             </div>
 
             <div className={'row'}>
-              <TextField error={errors.phoneNumber} margin={'dense'} sx={{ width: '20vw' }}
+              <TextField error={errors.phoneNumber} margin={'dense'} sx={{ width: screen?'20vw':'55vw' }}
                          id='outlined-basic'
                          value={postData.phoneNumber}
                          onChange={(e) => {
@@ -149,7 +162,7 @@ const Dashboard = () => {
                            });
                          }} required={true} label='Phone Number' variant='outlined' />
               <TextField error={errors.batch} margin={'dense'}
-                         sx={{ width: '20vw' }}
+                         sx={{ width: screen?'20vw':'55vw' }}
                          id='outlined-basic'
                          value={postData.batch}
                          onChange={(e) => {
@@ -172,7 +185,7 @@ const Dashboard = () => {
             </div>
 
             <div className={'row'}>
-              <TextField error={errors.hallNumber} margin={'dense'} sx={{ width: '20vw' }}
+              <TextField error={errors.hallNumber} margin={'dense'} sx={{ width: screen?'20vw':'55vw' }}
                          id='outlined-basic'
                          value={postData.hallNumber}
                          helperText={'Like 2 😂️'}
@@ -193,7 +206,7 @@ const Dashboard = () => {
                              hallNumber: e.target.value
                            });
                          }} required={true} label='Hall Number' variant='outlined' />
-              <TextField error={errors.roomNumber} margin={'dense'} sx={{ width: '20vw' }}
+              <TextField error={errors.roomNumber} margin={'dense'} sx={{ width: screen?'20vw':'55vw' }}
                          id='outlined-basic'
                          value={postData.roomNumber}
                          helperText={'Like F-103 '}
@@ -218,7 +231,7 @@ const Dashboard = () => {
                            });
                          }} required={true} label='Room Number' variant='outlined' />
             </div>
-            <button className={'submitButton'} onClick={handleSubmit}>Submit</button>
+            <button className={'submitButtonForm'} onClick={handleSubmit}>Submit</button>
           </div>
         </div>}
       </section>

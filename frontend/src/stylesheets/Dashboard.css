@@ -8,6 +8,9 @@
     align-content: center;
     justify-items: center;
 }
+.formSection{
+    /*width: min(auto,100%);*/
+}
 
 .preview{
     position: relative;
@@ -24,7 +27,7 @@
     justify-items: center;
 }
 
-.form{
+.formDashboard{
     height: 60vh;
     width: 50vw;
     margin-left: 5vw;
@@ -41,6 +44,7 @@
 }
 .profile{
     width: 6vw;
+    height: auto;
     margin: 0 0 5vh;
 }
 
@@ -72,30 +76,66 @@
     Text-align: center;
     font-family: 'Nunito-sans', sans-serif;
 }
-.form>h2{
+.formDashboard>h2{
     margin-left: 3vw;
     margin-right: auto;
     font-weight: 400;
     margin-bottom: 1vh;
 }
-.form>h1{
+.formDashboard>h1{
     margin-bottom: 5vh;
     color: #FE916D;
 }
-.submitButton {
-    font-size: 1vw;
-    align-items: center;
-    justify-content: center;
-    width: 10vw;
-    background: linear-gradient(90deg, #F47A51 5.68%, #FE926E 95.79%);
-    color: white;
-    height: 2.5vw;
-    border: none;
-    box-shadow: 10px 10px 30px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    transition: .1s;
+
+@media only screen and (max-width: 1000px){
+    .formDashboard>h2{
+        font-size: 2vh;
+        margin-bottom: 4vh;
+        margin-left: 5vw;
+    }
+    .wrapper{
+        height: auto;
+        flex-direction: column;
+    }
+    .preview{
+        width: 70vw;
+        height: auto;
+        margin-bottom: 5vh;
+    }
+    .preview>h1{
+        font-size: 5vw;
+    }
+    .preview>span{
+        font-size: 4vw;
+    }
+    .preview>p{
+        font-size: 3vw;
+        width: 40vw;
+        margin-bottom: 5vh;
+    }
+    .preview>.bgimg{
+        width: 40vw;
+    }
+    .profile{
+        margin-top: 5vh;
+        width: 10vw;
+    }
+    .formDashboard{
+        height: auto;
+        width: 70vw;
+        margin-left: 0;
+        flex-direction: column;
+    }
+    .row{
+        flex-direction: column;
+    }
 }
 
-.submitButton:active {
-    box-shadow: 5px 5px 15px 2px rgba(0, 0, 0, 0.25);
+@media only screen and (max-width: 1000px) {
+    .preview{
+        width: 80vw;
+    }
+    .formDashboard{
+        width: 80vw;
+    }
 }

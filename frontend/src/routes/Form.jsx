@@ -20,7 +20,7 @@ const Form = () => {
             setScreen(true);
         }
     }
-    width.addListener(handleMediaQueryChange);
+    width.addEventListener('change', handleMediaQueryChange);
   }, []);
 
   const defaultFormData = {
