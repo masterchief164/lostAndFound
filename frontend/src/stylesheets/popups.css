@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,7 @@
 .popup-inner {
     background-color: white;
     min-height: 60vh;
-    width: 50vw;
+    width: 45vw;
     border: 2px solid black;
     padding: 1rem;
     border-radius: 20px;
@@ -119,4 +119,44 @@
 .description > h3 > span  {
     font-size: 16px;
     font-weight: 600;
+}
+
+@media only screen and (max-width: 1500px){
+    .popup-inner{
+        width: 70vw;
+        left: 15%;
+        top: 15%;
+    }
+
+    .title > img{
+        width: auto;
+        height: 100%;
+      }
+}
+
+@media only screen and (max-width: 1000px){
+    .popup-inner{
+        width: 85vw;
+        left: 5%;
+        top: 15%;
+    }
+
+    .title > img{
+      width: auto;
+      height: 100%;
+    }
+}
+
+@media only screen and (max-width: 650px){
+    .popup-inner{
+        width: 95vw;
+        left: 2%;
+        top: 15%;
+    }
+
+    .title > img{
+      width: 10rem;
+      height: auto;
+      margin-left: 3rem;
+    }
 }
