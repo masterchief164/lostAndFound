@@ -4,7 +4,7 @@ const fetchFound = async (setFoundItems, searchText, searchTags) => {
   try {
     const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/found?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
-      setFoundItems(res.data);
+      setFoundItems(res.data.data);
     }
   } catch (err) {
     console.log(err);
@@ -12,11 +12,12 @@ const fetchFound = async (setFoundItems, searchText, searchTags) => {
   }
 };
 
-const fetchTopFound = async (setTopTenFound) => {
+const fetchTopFound = async (setTopTenFound,setFoundCount) => {
   try {
     const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/found?searchText=&username=false&description=false&title=false&location=false&count=10`, { withCredentials: true });
     if (res.status === 200) {
-      setTopTenFound(res.data);
+      setTopTenFound(res.data.data);
+      setFoundCount(res.data.count);
     }
   } catch (err) {
     console.log(err);
@@ -24,11 +25,12 @@ const fetchTopFound = async (setTopTenFound) => {
   }
 };
 
-const fetchTopLost = async (setTopTenLost) => {
+const fetchTopLost = async (setTopTenLost,setLostCount) => {
   try {
     const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/lost?searchText=&username=false&description=false&title=false&location=false&count=10`, { withCredentials: true });
     if (res.status === 200) {
-      setTopTenLost(res.data);
+      setTopTenLost(res.data.data);
+      setLostCount(res.data.count);
     }
   } catch (err) {
     console.log(err);
@@ -41,7 +43,7 @@ const fetchLost = async (setLostItems, searchText, searchTags) => {
   try {
     const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/lost/?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
     if (res.status === 200) {
-      setLostItems(res.data);
+      setLostItems(res.data.data);
     }
   } catch (err) {
     console.log(err);

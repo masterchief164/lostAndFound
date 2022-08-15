@@ -4,10 +4,10 @@ const { getFoundItemsDTO } = require('../dto/foundItems.dto');
 module.exports.getItems = async (req, res) => {
   const searchFields = req.query;
   try {
-    const document = await getFoundItems(searchFields, getFoundItemsDTO.selectedFields);
+    const { document, count } = await getFoundItems(searchFields, getFoundItemsDTO.selectedFields);
     const data = document.map(getFoundItemsDTO.execute);
     console.log("fetched items");
-    res.send(data);
+    res.send({data, count});
   } catch (err) {
     console.log(err);
   }
