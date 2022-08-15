@@ -8,9 +8,19 @@ import { UserContext } from '../utils/UserContext';
 
 const Form = () => {
   const [user, , , setPageNumber] = React.useContext(UserContext);
+  const [screen, setScreen] = useState(!(window.matchMedia('(max-width: 768px)').matches));
 
   useEffect(() => {
     setPageNumber(3);
+    let width = window.matchMedia('(max-width: 768px)');
+    const handleMediaQueryChange = (x) => {
+        if (x.matches) {
+          setScreen(false);
+        } else {
+            setScreen(true);
+        }
+    }
+    width.addListener(handleMediaQueryChange);
   }, []);
 
   const defaultFormData = {
@@ -127,7 +137,7 @@ const Form = () => {
         </select>
 
         <div className={'row'}>
-          <TextField error={errors.firstName} margin={'normal'} sx={{ width: '20vw' }}
+          <TextField error={errors.firstName} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
                      id="outlined-basic"
                      value={postData.firstName}
                      onChange={(e) => {
@@ -147,7 +157,7 @@ const Form = () => {
                          firstName: e.target.value
                        });
                      }} required={true} label="First Name" variant="outlined" />
-          <TextField error={errors.lastName} margin={'normal'} sx={{ width: '20vw' }}
+          <TextField error={errors.lastName} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
                      id="outlined-basic"
                      value={postData.lastName}
                      onChange={(e) => {
@@ -170,7 +180,7 @@ const Form = () => {
         </div>
 
         <div className={'row'}>
-          <TextField error={errors.location} margin={'normal'} sx={{ width: '20vw' }}
+          <TextField error={errors.location} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
                      id="outlined-basic"
                      value={postData.location}
                      onChange={(e) => {
@@ -190,7 +200,7 @@ const Form = () => {
                          location: e.target.value
                        });
                      }} required={true} label="Last Seen Place" variant="outlined" />
-          <TextField margin={'normal'} sx={{ width: '20vw' }} id="outlined-basic"
+          <TextField margin={'normal'} sx={{ width: screen?'20vw':'70vw' }} id="outlined-basic"
                      type={'datetime-local'}
                      value={postData.dateTime}
                      onChange={(e) => setPostData({
@@ -200,7 +210,7 @@ const Form = () => {
         </div>
 
         <div className={'row'}>
-          <TextField error={errors.itemTag} margin={'normal'} sx={{ width: '20vw' }}
+          <TextField error={errors.itemTag} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
                      id="outlined-basic"
                      value={postData.itemTag}
                      helperText={'Tag like mobile, bag, laptop'}
@@ -221,7 +231,7 @@ const Form = () => {
                          itemTag: e.target.value
                        });
                      }} required={true} label="Item Tag" variant="outlined" />
-          <TextField error={errors.title} margin={'normal'} sx={{ width: '20vw' }}
+          <TextField error={errors.title} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
                      id="outlined-basic"
                      value={postData.title} helperText={' '}
                      onChange={(e) => {
@@ -244,7 +254,7 @@ const Form = () => {
         </div>
 
         <TextField error={errors.description} margin={'normal'} multiline={true} minRows={5}
-                   sx={{ width: '50vw' }}
+                   sx={{ width: screen?'50vw':'75vw' }}
                    value={postData.description}
                    onChange={(e) => {
                      if (e.target.value.length < 1) {
@@ -268,7 +278,7 @@ const Form = () => {
         <div className={'dropBox'} {...getRootProps()}>
           <input {...getInputProps()} />
           {imageSelected ? <div className="container" id={'preview'}>
-            <img src={postData.image} alt="Preview" className={'preview'} />
+            <img src={postData.image} alt="Preview" className={'previewImg'} />
             <img src={closeButton} alt="Preview" className={'close'}
                  onClick={() => {
                    setImageSelected(false);
@@ -280,7 +290,7 @@ const Form = () => {
           </div> : <p>Drop files here or click to upload</p>}
         </div>
 
-        <button className={'submitButton'} onClick={handleSubmit}>Submit</button>
+        <button className={'submitButtonForm'} onClick={handleSubmit}>Submit</button>
       </div>}
     </section>
   </>);
