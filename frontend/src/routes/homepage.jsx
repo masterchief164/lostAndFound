@@ -8,13 +8,15 @@ function Homepage() {
   const [, , , setPageNumber] = React.useContext(UserContext);
   const [topTenFound,setTopTenFound] = useState([]);
   const [topTenLost, setTopTenLost] = useState([]);
+  const [lostCount, setLostCount] = useState(0);
+  const [foundCount, setFoundCount] = useState(0);
 
   const getFoundItems = async () => {
-    await fetchTopFound(setTopTenFound);
+    await fetchTopFound(setTopTenFound,setFoundCount);
   };
 
   const getLostItems = async() =>{
-    await fetchTopLost(setTopTenLost);
+    await fetchTopLost(setTopTenLost,setLostCount);
   }
   useEffect(() => {
     setPageNumber(0);
@@ -34,10 +36,10 @@ function Homepage() {
         </div>
         <div className="itemTags">
           <div className="tag">
-            <h3>LOST ITEMS : 30</h3>
+            <h3>LOST ITEMS : {lostCount}</h3>
           </div>
           <div className="tag">
-            <h3>FOUND ITEMS : 30</h3>
+            <h3>FOUND ITEMS : {foundCount}</h3>
           </div>
         </div>
       </section>

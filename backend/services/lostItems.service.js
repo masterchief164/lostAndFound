@@ -22,7 +22,8 @@ module.exports.getAllLostItems = async (searchFields, selectedFields) => {
     if(searchFields.count)
       count = searchFields.count;
 
-    return await lostModel.find(
+    let cnt = lostModel.countDocuments({}).exec();
+    let document = lostModel.find(
       regexp ? {
         $or: searchArray,
       } : {},
@@ -32,6 +33,10 @@ module.exports.getAllLostItems = async (searchFields, selectedFields) => {
       .sort({dateTime:-1})
       .lean()
       .exec();
+
+    [cnt,document] = await Promise.all([cnt, document])
+
+    return { document, count: cnt };
   } catch (err) {
     console.log(err);
   }

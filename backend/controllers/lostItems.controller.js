@@ -4,9 +4,9 @@ const { getLostItemsDTO } = require('../dto/lostItems.dto');
 module.exports.getItems = async (req, res) => {
   const searchFields = req.query;
   try {
-    const document = await getAllLostItems(searchFields, getLostItemsDTO.selectedFields);
+    const { document, count } = await getAllLostItems(searchFields, getLostItemsDTO.selectedFields);
     const data = document.map(getLostItemsDTO.execute);
-    res.send(data);
+    res.send({ data, count });
   } catch (err) {
     console.log(err);
   }
