@@ -37,6 +37,11 @@ const LostPage = () => {
 
   useEffect(() => {
     setPageNumber(1);
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') {
+        setPopupTrigger(false);
+      }
+    }, false);
   }, []);
 
   useEffect(() => {

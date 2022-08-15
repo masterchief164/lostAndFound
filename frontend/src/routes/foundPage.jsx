@@ -35,6 +35,11 @@ const FoundPage = () => {
 
   useEffect(() => {
     setPageNumber(2);
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') {
+        setPopupTrigger(false);
+      }
+    }, false);
   }, []);
 
   useEffect(() => {
