@@ -1,11 +1,24 @@
 const transporter = require("../utils/nodemailer.config");
 
-module.exports.mailSenderService = (mailOptions) =>{
-    transporter.sendMail(mailOptions, function(err, data) {
-        if (err) {
-          console.log("Error " + err);
-        } else {
-          console.log("Email sent successfully" , data);
-        }
-      });
+module.exports.mailSenderService = async (mailOptions) =>{
+  try {
+    const data = await transporter.sendMail(mailOptions);
+    if(data){
+      return {
+        status: 1,
+        data: data
+      }
+    }else{
+      return {
+        status: 0,
+        data: null
+      }
+    }
+  } catch (error) {
+    return {
+      status: 0,
+      data: error
+    }
+  }
+   
 }
