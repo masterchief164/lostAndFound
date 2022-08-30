@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  AppBar, IconButton, Tab, Tabs, Toolbar, useMediaQuery,
+  AppBar, Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tab, Tabs, Toolbar, useMediaQuery,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import CollegeIcon from '../assets/iiitdmj.svg';
@@ -11,10 +11,19 @@ import { UserContext } from '../utils/UserContext.jsx';
 import initializeApp from '../utils/initializeApp';
 import { logout } from '../Api/Data';
 import handleGoogleSignIn from '../utils/HandleGoogleSignIn';
+import {Logout} from '@mui/icons-material';
 
 const Nav = () => {
   const [user, setUser, pageNumber, setPageNumber] = React.useContext(UserContext);
   const isSmall = useMediaQuery('(max-width:900px)');
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     initializeApp(setUser)
@@ -24,8 +33,8 @@ const Nav = () => {
   useEffect(() => {
     if (user) {
       localStorage.setItem('userDataLost', JSON.stringify(user));
-      console.log(user);
-      console.log('hereNav');
+      // console.log(user);
+      // console.log('hereNav');
     }
   }, [user]);
 
@@ -71,18 +80,77 @@ const Nav = () => {
             }} />
 
           </Tabs>
+          {/*{(user == null) ? */}
+          {/*  : <button className={'logout_button'} onClick={handleLogout}>Logout</button>}*/}
           {(user == null) ? <IconButton
+                  sx={{
+                    marginLeft: 'auto',
+                    height: 'calc(max(3vw, 5vh))',
+                    width: 'calc(max(3vw, 5vh))',
+                  }}
+                  onClick={handleGoogleSignIn}>
+                <img src={GoogleIcon} alt={'Google Icon'} />
+              </IconButton>
+              :
+          <>
+          <IconButton
               sx={{
                 marginLeft: 'auto',
                 height: 'calc(max(3vw, 5vh))',
                 width: 'calc(max(3vw, 5vh))',
               }}
-              onClick={handleGoogleSignIn}>
-              <img src={GoogleIcon} alt={'Google Icon'} />
-            </IconButton>
-            : <button className={'logout_button'} onClick={handleLogout}>Logout</button>}
-        </> : <DrawerComp />}
+              onClick={handleClick}>
+            <img src={user.picture} referrerPolicy='no-referrer' alt={'Google Icon'} />
+          </IconButton>
 
+          <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+
+            <MenuItem component={Link} to={'/dashboard'}>
+              <Avatar /> Dashboard
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleLogout}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
+          </>}
+        </> : <DrawerComp />}
       </Toolbar>
     </AppBar>
 
