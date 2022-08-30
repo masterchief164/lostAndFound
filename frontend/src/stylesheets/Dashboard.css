@@ -8,9 +8,6 @@
     align-content: center;
     justify-items: center;
 }
-.formSection{
-    /*width: min(auto,100%);*/
-}
 
 .preview{
     position: relative;
@@ -46,6 +43,7 @@
     width: 6vw;
     height: auto;
     margin: 0 0 5vh;
+    border-radius: 50%;
 }
 
 .bgimg{
