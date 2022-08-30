@@ -1,0 +1,9 @@
+<%- include('header.ejs') %>
+<main class="cont">
+    <div class="listContainer">
+        <%items.forEach((item)=>{ console.log(item)%>
+            <%- include('box.ejs', {item}); %>
+        <%})%>
+    </div>
+</main>
+<%- include('footer.ejs') %>

@@ -1,0 +1,13 @@
+<div class="col" onclick="location.href='https://frontend-gamma-sage.vercel.app/'">
+    <img alt="image" src=<%=(item.image==null || item.image === 'default')?'https://res.cloudinary.com/masterchief/image/upload/v1660475392/lostAndFound/banner_2_ku9kqn.webp':item.image%> />
+    <div class="row">
+        <h3 class="title"><%=item.type===1? `Lost ${item.title}`:`Found  ${item.title}`%></h3>
+        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Ut ut venenatis urna. Cras venenatis orci lorem,
+            eget mollis urna sagittis feugiat. Nulla commodo eget sem in congue.
+            Sed mollis in libero faucibus consequat. In diam justo,
+            feugiat nec leo vel, vehicula eleifend ligula.</p>
+        <p class="time"><%=item.date%></p>
+        <p class="name">- <%=item.firstName%> <%=item.lastName%></p>
+    </div>
+</div>
