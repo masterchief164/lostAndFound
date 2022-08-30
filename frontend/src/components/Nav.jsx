@@ -100,7 +100,7 @@ const Nav = () => {
                 width: 'calc(max(3vw, 5vh))',
               }}
               onClick={handleClick}>
-            <img src={user.picture} referrerPolicy='no-referrer' alt={'Google Icon'} />
+            <img style={{borderRadius: '50%'}} src={user.picture} referrerPolicy='no-referrer' alt={'Google Icon'} />
           </IconButton>
 
           <Menu
