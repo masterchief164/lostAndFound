@@ -83,7 +83,7 @@ const Dashboard = () => {
   return (<>
       {isAlert ? <Alert severity={isSuccess ? 'success' : 'error'} onClose={() => {
         setIsAlert(false);
-      }}>{isSuccess ? 'Your Report was successfully Submitted!' : `Error: ${message}`}</Alert> : ''}
+      }}>{isSuccess ? 'Your Details were successfully Submitted!' : `Error: ${message}`}</Alert> : ''}
       <section className={'formSection'}>
         {isLoading ? <CircularProgress /> : <div className={'wrapper'}>
           <div className={'preview'}>

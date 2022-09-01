@@ -15,7 +15,7 @@ const LostPage = () => {
   const [message, setMessage] = React.useState('');
   const [searchText, setSearchText] = React.useState('');
   const [searchTags, setSearchTags] = React.useState({ username: false, description: false, title: false, location: false });
-  const [searchBtn, setSearchbtn] = React.useState(false);
+  const [searchBtn, setSearchBtn] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [popupTrigger, setPopupTrigger] = React.useState(false);
   const [popupData, setPopupData] = React.useState({});
@@ -27,7 +27,7 @@ const LostPage = () => {
 
   const searchBtnHandler = async (e) => {
     e.preventDefault();
-    setSearchbtn(!searchBtn);
+    setSearchBtn(!searchBtn);
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -100,7 +100,7 @@ const LostPage = () => {
             <h1>Lost Items</h1>
           </div>
           {isLoading ? <div className='progressBox'><CircularProgress /></div> : (<Grid container={true} spacing={5}>
-            {lostItems.length === 0 || lostItems == null ?
+            {lostItems.length === 0 || !lostItems ?
               <div className='progressBox'>
                 <h3>No lost items found , Report a new item.</h3>
               </div> :
