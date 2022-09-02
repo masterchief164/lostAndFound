@@ -48,18 +48,25 @@ const Form = () => {
     type: false
   });
 
+  const initialFormData = sessionStorage.getItem('formData')?JSON.parse(sessionStorage.getItem('formData')): defaultFormData;
   const [isLoading, setIsLoading] = useState(false);
-  const [postData, setPostData] = useState(defaultFormData);
+  const [postData, setPostData] = useState(initialFormData);
   const [isAlert, setIsAlert] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState('Something went wrong');
-  // useEffect(() => {
-  //     console.log(postData.firstName);
-  // }, [postData]);
+
+  useEffect(() => {
+      sessionStorage.setItem('formData', JSON.stringify(postData));
+  }, [postData]);
+
+  useEffect(() => {
+    if(user)
+        setPostData({...postData, submittedBy: user.email});
+  },[user]);
 
   const onDrop = useCallback(async (acceptedFiles) => {
-    console.log(acceptedFiles[0]);
+    // console.log(acceptedFiles[0]);
     setImageSelected(true);
     const reader = new FileReader();
     reader.readAsDataURL(acceptedFiles[0]);
@@ -94,8 +101,9 @@ const Form = () => {
       setIsAlert(true);
       return;
     }
-    console.log(!Object.values(postData)
-      .every((value) => value.length !== 0));
+    // console.log(postData);
+    // console.log(!Object.values(postData)
+    //   .every((value) => value.length !== 0));
     if (!Object.values(errors)
       .every((value) => value === false) || !Object.values(postData)
       .every((value) => value.length !== 0)) {
