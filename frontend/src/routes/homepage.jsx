@@ -11,17 +11,14 @@ function Homepage() {
   const [lostCount, setLostCount] = useState(0);
   const [foundCount, setFoundCount] = useState(0);
 
-  const getFoundItems = async () => {
-    await fetchTopFound(setTopTenFound,setFoundCount);
+  const getItems = async () => {
+    const promises = [fetchTopLost(setTopTenLost,setLostCount), fetchTopFound(setTopTenFound,setFoundCount)];
+    await Promise.all(promises);
   };
 
-  const getLostItems = async() =>{
-    await fetchTopLost(setTopTenLost,setLostCount);
-  }
   useEffect(() => {
     setPageNumber(0);
-    getLostItems()
-    getFoundItems()
+    getItems();
   }, []);
 
 
