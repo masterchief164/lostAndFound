@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 const Router = require('./routes/index.router');
+const {dailyUpdate} = require("./scheduler/dailyUpdate");
 
 app.use(cookieParser());
 
@@ -24,5 +25,7 @@ app.use(cors({
 }));
 
 app.use('/', Router);
+
+dailyUpdate();
 
 module.exports = app;
