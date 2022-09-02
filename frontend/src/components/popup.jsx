@@ -65,7 +65,7 @@ const Popup = (props) => {
                          {claimedBy ? '' : <p className='descp'>Note : Click on {button.toLocaleLowerCase()} button if you found the item / it is your item.</p>}
                     </div>
                     <div className="description desc-btn">
-                         {claimedBy ? <button onClick={(e) => { e.preventDefault(); }} className="btn-inv">{button}</button> : <button onClick={(e) => { clickHandler(e); }} className='btn-vis'>{button}</button>}
+                         {claimedBy || (user && props.data.submittedBy == user.email) ? <button onClick={(e) => { e.preventDefault(); }} className="btn-inv">{button}</button> : <button onClick={(e) => { clickHandler(e); }} className='btn-vis'>{button}</button>}
                     </div>
                     <div className="description">
                          {claimedBy ? <p className='descp1'>This item is already reported!</p> : ''}
