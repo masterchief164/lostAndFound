@@ -1,13 +1,11 @@
-<div class="col" onclick="location.href='https://frontend-gamma-sage.vercel.app/'">
-    <img alt="image" src=<%=(item.image==null || item.image === 'default')?'https://res.cloudinary.com/masterchief/image/upload/v1660475392/lostAndFound/banner_2_ku9kqn.webp':item.image%> />
-    <div class="row">
-        <h3 class="title"><%=item.type===1? `Lost ${item.title}`:`Found  ${item.title}`%></h3>
-        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Ut ut venenatis urna. Cras venenatis orci lorem,
-            eget mollis urna sagittis feugiat. Nulla commodo eget sem in congue.
-            Sed mollis in libero faucibus consequat. In diam justo,
-            feugiat nec leo vel, vehicula eleifend ligula.</p>
-        <p class="time"><%=item.date%></p>
-        <p class="name">- <%=item.firstName%> <%=item.lastName%></p>
-    </div>
-</div>
+<table style="width: 100%; margin: 10% 0;">
+    <tr>
+        <td style="text-align: center; background: #F47A51; padding: 20px; border-radius: 25px;">
+            <img alt="image" style="height: 12vh;width: auto;margin:auto;border-radius: 50%" src=<%=(item.image==null || item.image === 'default')?'https://res.cloudinary.com/masterchief/image/upload/v1660475392/lostAndFound/banner_2_ku9kqn.webp':item.image%> />
+            <h3 class="title" style="font-size: max(2vw, 2.5vh);"><%= item.type===1? `Lost ${item.title}`:`Found  ${item.title}` %></h3>
+            <p class="description" style="width: 75%;font-size: 18px; text-align: center;margin: auto"><%= item.description %></p>
+            <p class="time" style="font-weight: bold;"><%= item.date %></p>
+            <p class="name" style="font-weight: 500;font-size: max(1.5vw,2vh);">- <%= item.firstName %> <%= item.lastName %></p>
+        </td>
+    </tr>
+</table>

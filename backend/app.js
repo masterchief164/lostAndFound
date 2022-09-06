@@ -4,12 +4,13 @@ require('dotenv')
 const cors = require('cors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const ejs = require('ejs');
 
 const app = express();
 const Router = require('./routes/index.router');
+const transporter = require("./utils/nodemailer.config");
 
 app.use(cookieParser());
-app.set('view engine', 'ejs');
 
 const data = [{
     "id": "62fa33a0cbc2396a690af096",
@@ -69,9 +70,21 @@ data.map(item => {
     item.date = new Date(item.dateTime).toDateString();
 })
 
-app.use(express.static(__dirname + '/public'));
 app.get('/', function (req, res) {
-    res.render('newsletter.ejs', {items: data});
+    ejs.renderFile(__dirname + '/views/newsletter.ejs', {items: data}, (err, data) => {
+        if(err)
+            console.log(err);
+        else
+            mail_options.html = data;
+        res.send(data);
+        // transporter.sendMail(mail_options, (err, data) => {
+        //     if (err)
+        //         console.log(err);
+        //     else
+        //         console.log(data);
+        // });
+    });
+    // res.render('newsletter.ejs', {items: data});
 })
 
 app.use(express.urlencoded({
@@ -86,6 +99,36 @@ app.use(cors({
     credentials: true,
     origin: ["http://localhost:3000", "https://frontend-gamma-sage.vercel.app"]
 }));
+
+transporter.verify((error, success) => {
+    if (error) {
+        console.log('here')
+        console.log(error);
+    } else {
+        console.log('Server is ready to take messages');
+    }
+});
+
+const mail_options = {
+    from: '20bec101@iiitdmj.ac.in',
+    to: '20bec101@iiitdmj.ac.in',
+    subject: 'Test',
+}
+
+ejs.renderFile(__dirname + '/views/newsletter.ejs', {items: data}, (err, data) => {
+   if(err)
+       console.log(err);
+   else
+       mail_options.html = data;
+    // transporter.sendMail(mail_options, (err, data) => {
+    //     if (err)
+    //         console.log(err);
+    //     else
+    //         console.log(data);
+    // });
+});
+
+
 
 app.use('/', Router);
 
