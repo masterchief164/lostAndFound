@@ -24,3 +24,4 @@ backend/.idea/codeStyles/Project.xml
 backend/.idea/inspectionProfiles/Project_Default.xml
 frontend/.gitignore
 .idea/inspectionProfiles/Project_Default.xml
+/backend/utils/lost-and-found.json

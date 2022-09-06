@@ -5,13 +5,11 @@ let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     type: 'OAuth2',
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-    clientId: process.env.MAIL_CLIENTID,
-    clientSecret: process.env.MAIL_SECRET,
-    refreshToken: process.env.MAIL_REFRESHTOKEN
+    user: '20bec101@iiitdmj.ac.in',
+    clientId: process.env.CLIENT_ID1,
+    clientSecret: process.env.CLIENT_SECRET1,
+    refreshToken: process.env.REFRESH_TOKEN,
   }
 });
-
 
 module.exports = transporter;
