@@ -1,0 +1,12 @@
+<%- include('header.ejs') %>
+<table style="background: #f0f0f0; width: 85%; padding: 1.5rem; border-radius: 20px; margin-bottom: 50px; max-width: 650px">
+    <tr>
+        <td>
+            <%items.forEach((item)=>{%>
+                <%- include('box.ejs', {item}); %>
+            <%})%>
+        </td>
+    </tr>
+
+</table>
+<%- include('footer.ejs') %>
