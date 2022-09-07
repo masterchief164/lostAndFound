@@ -7,8 +7,8 @@ const ejs = require('ejs');
 
 const app = express();
 const Router = require('./routes/index.router');
-const transporter = require("./utils/nodemailer.config");
 const {dailyUpdate} = require("./scheduler/dailyUpdate");
+const {mailSenderService} = require("./services/mail.service");
 
 app.use(cookieParser());
 
@@ -75,8 +75,7 @@ app.get('/', function (req, res) {
         if (err)
             console.log(err);
         else
-            mail_options.html = data;
-        res.send(data);
+            res.send(data);
     });
 })
 
@@ -93,13 +92,12 @@ app.use(cors({
     origin: ["http://localhost:3000", "https://frontend-gamma-sage.vercel.app"]
 }));
 
-transporter.verify((error, success) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('Server is ready to take messages');
-    }
-});
+mailSenderService({
+    from: "20bec101@iiitdmj.ac.in",
+    to: ["20bec101@iiitdmj.ac.in","20bec116@iiitdmj.ac.in"],
+    subject: "test",
+    body: "test"
+}).then(() => console.log("done"));
 
 app.use('/', Router);
 
