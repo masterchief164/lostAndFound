@@ -1,5 +1,4 @@
-require('dotenv')
-    .config();
+require('dotenv').config();
 
 const cors = require('cors');
 const express = require('express');
@@ -9,6 +8,7 @@ const ejs = require('ejs');
 const app = express();
 const Router = require('./routes/index.router');
 const transporter = require("./utils/nodemailer.config");
+const {dailyUpdate} = require("./scheduler/dailyUpdate");
 
 app.use(cookieParser());
 
@@ -72,19 +72,12 @@ data.map(item => {
 
 app.get('/', function (req, res) {
     ejs.renderFile(__dirname + '/views/newsletter.ejs', {items: data}, (err, data) => {
-        if(err)
+        if (err)
             console.log(err);
         else
             mail_options.html = data;
         res.send(data);
-        // transporter.sendMail(mail_options, (err, data) => {
-        //     if (err)
-        //         console.log(err);
-        //     else
-        //         console.log(data);
-        // });
     });
-    // res.render('newsletter.ejs', {items: data});
 })
 
 app.use(express.urlencoded({
@@ -102,34 +95,14 @@ app.use(cors({
 
 transporter.verify((error, success) => {
     if (error) {
-        console.log('here')
         console.log(error);
     } else {
         console.log('Server is ready to take messages');
     }
 });
 
-const mail_options = {
-    from: '20bec101@iiitdmj.ac.in',
-    to: '20bec101@iiitdmj.ac.in',
-    subject: 'Test',
-}
-
-ejs.renderFile(__dirname + '/views/newsletter.ejs', {items: data}, (err, data) => {
-   if(err)
-       console.log(err);
-   else
-       mail_options.html = data;
-    // transporter.sendMail(mail_options, (err, data) => {
-    //     if (err)
-    //         console.log(err);
-    //     else
-    //         console.log(data);
-    // });
-});
-
-
-
 app.use('/', Router);
+
+dailyUpdate();
 
 module.exports = app;
