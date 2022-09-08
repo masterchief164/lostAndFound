@@ -23,24 +23,26 @@ const Form = () => {
     width.addEventListener('change', handleMediaQueryChange);
   }, []);
 
+  const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+  let localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+  localISOTime = localISOTime.substring(0, localISOTime
+      .lastIndexOf(':'))
+
   const defaultFormData = {
-    firstName: '',
     submittedBy: user ? user.email : '',
-    lastName: '',
     title: '',
     description: '',
     location: '',
     itemTag: '',
     image: 'default',
     type: 'Lost',
-    dateTime: new Date().toISOString()
-      .substring(0, new Date().toISOString()
+    dateTime: localISOTime
+      .substring(0, localISOTime
         .lastIndexOf(':'))
   };
 
+
   const [errors, setErrors] = useState({
-    firstName: false,
-    lastName: false,
     title: false,
     description: false,
     location: false,
@@ -61,12 +63,16 @@ const Form = () => {
   }, [postData]);
 
   useEffect(() => {
-    if(user)
-        setPostData({...postData, submittedBy: user.email});
+    if(user) {
+      setPostData((prev) => {
+        prev.dateTime = localISOTime;
+        return prev;
+      });
+      setPostData({...postData, submittedBy: user.email});
+    }
   },[user]);
 
   const onDrop = useCallback(async (acceptedFiles) => {
-    // console.log(acceptedFiles[0]);
     setImageSelected(true);
     const reader = new FileReader();
     reader.readAsDataURL(acceptedFiles[0]);
@@ -101,9 +107,8 @@ const Form = () => {
       setIsAlert(true);
       return;
     }
-    // console.log(postData);
-    // console.log(!Object.values(postData)
-    //   .every((value) => value.length !== 0));
+      console.log(errors);
+      console.log(postData);
     if (!Object.values(errors)
       .every((value) => value === false) || !Object.values(postData)
       .every((value) => value.length !== 0)) {
@@ -145,82 +150,10 @@ const Form = () => {
         </select>
 
         <div className={'row'}>
-          <TextField error={errors.firstName} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
-                     id="outlined-basic"
-                     value={postData.firstName}
-                     onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
-                         setErrors({
-                           ...errors,
-                           firstName: true
-                         });
-                       } else {
-                         setErrors({
-                           ...errors,
-                           firstName: false
-                         });
-                       }
-                       setPostData({
-                         ...postData,
-                         firstName: e.target.value
-                       });
-                     }} required={true} label="First Name" variant="outlined" />
-          <TextField error={errors.lastName} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
-                     id="outlined-basic"
-                     value={postData.lastName}
-                     onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
-                         setErrors({
-                           ...errors,
-                           lastName: true
-                         });
-                       } else {
-                         setErrors({
-                           ...errors,
-                           lastName: false
-                         });
-                       }
-                       setPostData({
-                         ...postData,
-                         lastName: e.target.value
-                       });
-                     }} required={true} label="Last Name" variant="outlined" />
-        </div>
-
-        <div className={'row'}>
-          <TextField error={errors.location} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
-                     id="outlined-basic"
-                     value={postData.location}
-                     onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z\s\d,_.-]{2,30}$/)) {
-                         setErrors({
-                           ...errors,
-                           location: true
-                         });
-                       } else {
-                         setErrors({
-                           ...errors,
-                           location: false
-                         });
-                       }
-                       setPostData({
-                         ...postData,
-                         location: e.target.value
-                       });
-                     }} required={true} label="Last Seen Place" variant="outlined" />
-          <TextField margin={'normal'} sx={{ width: screen?'20vw':'70vw' }} id="outlined-basic"
-                     type={'datetime-local'}
-                     value={postData.dateTime}
-                     onChange={(e) => setPostData({
-                       ...postData,
-                       dateTime: e.target.value
-                     })} required={true} label="Last Seen Time" variant="outlined" />
-        </div>
-
-        <div className={'row'}>
           <TextField error={errors.itemTag} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
                      id="outlined-basic"
                      value={postData.itemTag}
+                     autoComplete={'on'}
                      helperText={'Tag like mobile, bag, laptop'}
                      onChange={(e) => {
                        if (!e.target.value.match(/^[a-zA-Z,\s]{2,15}$/)) {
@@ -259,6 +192,36 @@ const Form = () => {
                          title: e.target.value
                        });
                      }} required={true} label="Title" variant="outlined" />
+        </div>
+
+        <div className={'row'}>
+          <TextField error={errors.location} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
+                     id="outlined-basic"
+                     value={postData.location}
+                     onChange={(e) => {
+                       if (!e.target.value.match(/^[a-zA-Z\s\d,_.-]{2,30}$/)) {
+                         setErrors({
+                           ...errors,
+                           location: true
+                         });
+                       } else {
+                         setErrors({
+                           ...errors,
+                           location: false
+                         });
+                       }
+                       setPostData({
+                         ...postData,
+                         location: e.target.value
+                       });
+                     }} required={true} label="Last Seen Place" variant="outlined" />
+          <TextField margin={'normal'} sx={{ width: screen?'20vw':'70vw' }} id="outlined-basic"
+                     type={'datetime-local'}
+                     value={postData.dateTime}
+                     onChange={(e) => setPostData({
+                       ...postData,
+                       dateTime: e.target.value
+                     })} required={true} label="Last Seen Time" variant="outlined" />
         </div>
 
         <TextField error={errors.description} margin={'normal'} multiline={true} minRows={5}
