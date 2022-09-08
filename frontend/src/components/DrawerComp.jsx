@@ -19,8 +19,6 @@ const DrawerComp = () => {
   useEffect(() => {
     if (user) {
       localStorage.setItem('userDataLost', JSON.stringify(user));
-      console.log(user);
-      console.log('hereDra');
       setProfileIcon(user.picture);
     }
   }, [user]);
@@ -44,11 +42,8 @@ const DrawerComp = () => {
           handleGoogleSignIn();
         }}>
           <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Login" />
-        </ListItemButton> : <ListItemButton onClick={() => {
-          setOpen(false);
-          handleLogout();
-        }}>
-          <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Logout" />
+        </ListItemButton> : <ListItemButton component={Link} onClick={() => setOpen(false)} to="/dashboard">
+          <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Dashboard" />
         </ListItemButton>}
         <ListItemButton component={Link} onClick={() => setOpen(false)} to="/lost">
           <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Lost Items" />
@@ -61,9 +56,12 @@ const DrawerComp = () => {
                                        to="/">
         <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="About" />
       </ListItemButton>
-        <ListItemButton component={Link} onClick={() => setOpen(false)} to="/dashboard">
-          <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Dashboard" />
-        </ListItemButton>
+        {user?<ListItemButton onClick={() => {
+          setOpen(false);
+          handleLogout();
+        }}>
+          <ListItemText primaryTypographyProps={{ fontSize: '1.2em' }} primary="Logout" />
+        </ListItemButton>:''}
       </List>
     </SwipeableDrawer>
     <IconButton sx={{ marginLeft: 'auto' }} onClick={() => setOpen(!open)}>

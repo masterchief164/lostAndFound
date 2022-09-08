@@ -44,7 +44,7 @@ const Card = ({
         </div>
         <div className="popup-footer">
           <p>Reported on<br /><strong>{date}</strong></p>
-          <button onClick={clickHandler}>{button} it</button>
+          <button onClick={clickHandler}>View Details</button>
         </div>
         </div>
       </div>

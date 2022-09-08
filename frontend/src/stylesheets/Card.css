@@ -121,3 +121,7 @@
     border: none;
     outline: none;
 }
+
+.card-box button:hover{
+    cursor: pointer;
+}
