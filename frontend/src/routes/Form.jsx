@@ -44,7 +44,6 @@ const Form = () => {
 
   const [errors, setErrors] = useState({
     title: false,
-    description: false,
     location: false,
     itemTag: false,
     type: false
@@ -156,7 +155,7 @@ const Form = () => {
                      autoComplete={'on'}
                      helperText={'Tag like mobile, bag, laptop'}
                      onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z,\s]{2,15}$/)) {
+                       if (!e.target.value.match(/^[a-zA-Z,\s\d]{2,15}$/)) {
                          setErrors({
                            ...errors,
                            itemTag: true
@@ -176,7 +175,7 @@ const Form = () => {
                      id="outlined-basic"
                      value={postData.title} helperText={' '}
                      onChange={(e) => {
-                       if (!e.target.value.match(/^[a-z\sA-Z]{2,15}$/)) {
+                       if (!e.target.value.match(/^[a-z\sA-Z\d]{2,15}$/)) {
                          setErrors({
                            ...errors,
                            title: true
@@ -199,7 +198,7 @@ const Form = () => {
                      id="outlined-basic"
                      value={postData.location}
                      onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z\s\d,_.-]{2,30}$/)) {
+                       if (!e.target.value.match(/^[a-zA-Z0-9\s\d,_.-]{1,30}$/)) {
                          setErrors({
                            ...errors,
                            location: true
@@ -228,17 +227,6 @@ const Form = () => {
                    sx={{ width: screen?'50vw':'75vw' }}
                    value={postData.description}
                    onChange={(e) => {
-                     if (e.target.value.length < 1) {
-                       setErrors({
-                         ...errors,
-                         description: true
-                       });
-                     } else {
-                       setErrors({
-                         ...errors,
-                         description: false
-                       });
-                     }
                      setPostData({
                        ...postData,
                        description: e.target.value
