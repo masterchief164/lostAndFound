@@ -14,9 +14,7 @@ require('dotenv')
 const googleLogin = async (req, res) => {
   try {
     const code = req.body.tokenId;
-    // console.log(code);
     const resp = await getGoogleOAuthTokens(code);
-    // console.log(resp.data);
     // eslint-disable-next-line camelcase
     const { id_token } = resp.data;
     const user = jwt.decode(id_token, { complete: false });
@@ -30,14 +28,12 @@ const googleLogin = async (req, res) => {
     const token = person.hallNumber ? await createTokenProfile(person) : await createToken(person);
     const userData = decodeToken(token);
     userData.exp = new Date(Date.now() + 1800000);
-    // console.log('login');
     console.log(process.env.NODE_ENV === 'production');
     res.status(202)
       .cookie('token', token, {
         expires: new Date(Date.now() + 1800000),
         httpOnly: true,
         sameSite: process.env.NODE_ENV==='production'? 'none': 'lax',
-        // domain: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : 'localhost',
         secure: process.env.NODE_ENV === 'production',
       })
       .send({ userData });
@@ -49,7 +45,6 @@ const googleLogin = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  // console.log('logout');
   res.clearCookie('token')
     .sendStatus(200);
 };

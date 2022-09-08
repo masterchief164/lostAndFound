@@ -3,8 +3,6 @@ const { decodeToken } = require('../services/user.service');
 const User = require('../models/user.model').userModel;
 
 const updateUserDetails = async (req, res) => {
-  // console.log(req.body);
-  // console.log(req.user);
   const result = await User.findOneAndUpdate({ email: req.user.email }, {
     given_name: req.body.firstName,
     family_name: req.body.lastName,
@@ -16,7 +14,6 @@ const updateUserDetails = async (req, res) => {
   const token = await createTokenProfile(result);
   const userData = decodeToken(token);
   userData.exp = new Date(Date.now() + 1800000);
-  // console.log(token);
   res.cookie('token', token, {
     expires: new Date(Date.now() + 1800000),
     httpOnly: true,

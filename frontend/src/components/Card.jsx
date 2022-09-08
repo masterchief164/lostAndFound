@@ -14,7 +14,6 @@ const Card = ({
   date = date === 'lid Date' ? '22 Jan,2022' : date;
   const title = item.title === undefined ? 'default' : item.title;
   const description = item.description === undefined ? 'default' : item.description;
-  // const location = item.location === undefined ? 'default' : item.location;
   const button = (item.type) === 'Lost' ? 'Found' : 'Claim';
 
   const clickHandler = async () => {
