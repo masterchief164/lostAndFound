@@ -32,7 +32,6 @@ const addUser = async (user) => {
     person = new User(user);
     await person.save();
   }
-  // console.log(person);
 
   return person;
 };

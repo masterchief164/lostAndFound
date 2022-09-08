@@ -2,7 +2,6 @@ import React from 'react';
 import '../stylesheets/Homepage.css';
 
 const HomepageListItems = (props) => {
-  // const [btnPopup, setBtnPopup] = useState(false);
   let date = new Date(props.date).toDateString()
     .substring(4);
   date = date === 'lid Date' ? '22 Jan,2022' : date;
