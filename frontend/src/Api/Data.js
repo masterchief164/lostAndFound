@@ -3,6 +3,7 @@ import axios from 'axios';
 const fetchFound = async (setFoundItems, searchText, searchTags) => {
   try {
     const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/found?searchText=${searchText}&username=${searchTags.username}&description=${searchTags.description}&title=${searchTags.title}&location=${searchTags.location}`, { withCredentials: true });
+
     if (res.status === 200) {
       setFoundItems(res.data.data);
     }

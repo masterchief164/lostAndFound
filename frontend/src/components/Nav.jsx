@@ -33,8 +33,6 @@ const Nav = () => {
   useEffect(() => {
     if (user) {
       localStorage.setItem('userDataLost', JSON.stringify(user));
-      // console.log(user);
-      // console.log('hereNav');
     }
   }, [user]);
 
@@ -80,8 +78,6 @@ const Nav = () => {
             }} />
 
           </Tabs>
-          {/*{(user == null) ? */}
-          {/*  : <button className={'logout_button'} onClick={handleLogout}>Logout</button>}*/}
           {(user == null) ? <IconButton
                   sx={{
                     marginLeft: 'auto',
