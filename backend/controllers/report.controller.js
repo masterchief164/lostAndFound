@@ -12,6 +12,9 @@ module.exports.createItem = async (req, res) => {
       // console.log(uploadedImage.secure_url);
       data.image = uploadedImage.secure_url;
     }
+    data.firstName = req.user.given_name;
+    data.lastName = req.user.family_name;
+    console.log(data);
     const document = await saveItem(data);
     // console.log(document);
     res.send(document);

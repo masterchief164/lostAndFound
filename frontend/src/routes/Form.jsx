@@ -23,26 +23,27 @@ const Form = () => {
     width.addEventListener('change', handleMediaQueryChange);
   }, []);
 
+  const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+  let localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+  localISOTime = localISOTime.substring(0, localISOTime
+      .lastIndexOf(':'))
+
   const defaultFormData = {
-    firstName: '',
     submittedBy: user ? user.email : '',
-    lastName: '',
     title: '',
     description: '',
     location: '',
     itemTag: '',
     image: 'default',
     type: 'Lost',
-    dateTime: new Date().toISOString()
-      .substring(0, new Date().toISOString()
+    dateTime: localISOTime
+      .substring(0, localISOTime
         .lastIndexOf(':'))
   };
 
+
   const [errors, setErrors] = useState({
-    firstName: false,
-    lastName: false,
     title: false,
-    description: false,
     location: false,
     itemTag: false,
     type: false
@@ -61,12 +62,16 @@ const Form = () => {
   }, [postData]);
 
   useEffect(() => {
-    if(user)
-        setPostData({...postData, submittedBy: user.email});
+    if(user) {
+      setPostData((prev) => {
+        prev.dateTime = localISOTime;
+        return prev;
+      });
+      setPostData({...postData, submittedBy: user.email});
+    }
   },[user]);
 
   const onDrop = useCallback(async (acceptedFiles) => {
-    // console.log(acceptedFiles[0]);
     setImageSelected(true);
     const reader = new FileReader();
     reader.readAsDataURL(acceptedFiles[0]);
@@ -101,9 +106,8 @@ const Form = () => {
       setIsAlert(true);
       return;
     }
-    // console.log(postData);
-    // console.log(!Object.values(postData)
-    //   .every((value) => value.length !== 0));
+      console.log(errors);
+      console.log(postData);
     if (!Object.values(errors)
       .every((value) => value === false) || !Object.values(postData)
       .every((value) => value.length !== 0)) {
@@ -145,46 +149,48 @@ const Form = () => {
         </select>
 
         <div className={'row'}>
-          <TextField error={errors.firstName} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
+          <TextField error={errors.itemTag} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
                      id="outlined-basic"
-                     value={postData.firstName}
+                     value={postData.itemTag}
+                     autoComplete={'on'}
+                     helperText={'Tag like mobile, bag, laptop'}
                      onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
+                       if (!e.target.value.match(/^[a-zA-Z,\s\d]{2,15}$/)) {
                          setErrors({
                            ...errors,
-                           firstName: true
+                           itemTag: true
                          });
                        } else {
                          setErrors({
                            ...errors,
-                           firstName: false
+                           itemTag: false
                          });
                        }
                        setPostData({
                          ...postData,
-                         firstName: e.target.value
+                         itemTag: e.target.value
                        });
-                     }} required={true} label="First Name" variant="outlined" />
-          <TextField error={errors.lastName} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
+                     }} required={true} label="Item Tag" variant="outlined" />
+          <TextField error={errors.title} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
                      id="outlined-basic"
-                     value={postData.lastName}
+                     value={postData.title} helperText={' '}
                      onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z]{2,20}$/)) {
+                       if (!e.target.value.match(/^[a-z\sA-Z\d]{2,15}$/)) {
                          setErrors({
                            ...errors,
-                           lastName: true
+                           title: true
                          });
                        } else {
                          setErrors({
                            ...errors,
-                           lastName: false
+                           title: false
                          });
                        }
                        setPostData({
                          ...postData,
-                         lastName: e.target.value
+                         title: e.target.value
                        });
-                     }} required={true} label="Last Name" variant="outlined" />
+                     }} required={true} label="Title" variant="outlined" />
         </div>
 
         <div className={'row'}>
@@ -192,7 +198,7 @@ const Form = () => {
                      id="outlined-basic"
                      value={postData.location}
                      onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z\s\d,_.-]{2,30}$/)) {
+                       if (!e.target.value.match(/^[a-zA-Z0-9\s\d,_.-]{1,30}$/)) {
                          setErrors({
                            ...errors,
                            location: true
@@ -217,65 +223,10 @@ const Form = () => {
                      })} required={true} label="Last Seen Time" variant="outlined" />
         </div>
 
-        <div className={'row'}>
-          <TextField error={errors.itemTag} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
-                     id="outlined-basic"
-                     value={postData.itemTag}
-                     helperText={'Tag like mobile, bag, laptop'}
-                     onChange={(e) => {
-                       if (!e.target.value.match(/^[a-zA-Z,\s]{2,15}$/)) {
-                         setErrors({
-                           ...errors,
-                           itemTag: true
-                         });
-                       } else {
-                         setErrors({
-                           ...errors,
-                           itemTag: false
-                         });
-                       }
-                       setPostData({
-                         ...postData,
-                         itemTag: e.target.value
-                       });
-                     }} required={true} label="Item Tag" variant="outlined" />
-          <TextField error={errors.title} margin={'normal'} sx={{ width: screen?'20vw':'70vw' }}
-                     id="outlined-basic"
-                     value={postData.title} helperText={' '}
-                     onChange={(e) => {
-                       if (!e.target.value.match(/^[a-z\sA-Z]{2,15}$/)) {
-                         setErrors({
-                           ...errors,
-                           title: true
-                         });
-                       } else {
-                         setErrors({
-                           ...errors,
-                           title: false
-                         });
-                       }
-                       setPostData({
-                         ...postData,
-                         title: e.target.value
-                       });
-                     }} required={true} label="Title" variant="outlined" />
-        </div>
-
         <TextField error={errors.description} margin={'normal'} multiline={true} minRows={5}
                    sx={{ width: screen?'50vw':'75vw' }}
                    value={postData.description}
                    onChange={(e) => {
-                     if (e.target.value.length < 1) {
-                       setErrors({
-                         ...errors,
-                         description: true
-                       });
-                     } else {
-                       setErrors({
-                         ...errors,
-                         description: false
-                       });
-                     }
                      setPostData({
                        ...postData,
                        description: e.target.value
