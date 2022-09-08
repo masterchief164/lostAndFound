@@ -44,6 +44,7 @@
     height: auto;
     margin: 0 0 5vh;
     border-radius: 50%;
+    z-index: 1;
 }
 
 .bgimg{
@@ -63,6 +64,7 @@
     font-weight: 300;
     color: #000;
     margin-top: 1vh;
+    margin-bottom: 5vh;
     font-family: 'Nunito-sans', sans-serif;
 }
 .preview>p{
@@ -70,7 +72,7 @@
     font-weight: 400;
     color: #000;
     width: 18vw;
-    margin-top: 5vh;
+    margin: 1vh 0;
     text-align: center;
     font-family: 'Nunito-sans', sans-serif;
 }

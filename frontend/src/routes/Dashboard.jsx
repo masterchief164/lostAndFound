@@ -65,8 +65,6 @@ const Dashboard = () => {
     setIsLoading(true);
     try {
       const response = await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/profile/update`, postData, { withCredentials: true });
-      console.log(response.data.userData);
-      console.log("here");
       setUser(response.data.userData);
       setIsLoading(false);
       setIsAlert(true);
@@ -92,7 +90,8 @@ const Dashboard = () => {
                  alt={'Profile Icon'} />
             <h1>{postData.firstName}</h1>
             <span>{postData.lastName}</span>
-            <p>{postData.roomNumber ? `${postData.roomNumber}, ` : ''}{postData.hallNumber ? `Hall: ${postData.hallNumber}` : ''}</p>
+            <p>{postData.roomNumber ? `${postData.roomNumber} ` : ''}</p>
+            <p>{postData.hallNumber ? `Hall: ${postData.hallNumber}` : ''}</p>
           </div>
           <div className={'formDashboard'}>
             <h1>Dashboard</h1>
@@ -187,10 +186,11 @@ const Dashboard = () => {
             <div className={'row'}>
               <TextField error={errors.hallNumber} margin={'dense'} sx={{ width: screen?'20vw':'55vw' }}
                          id='outlined-basic'
+                         autoCapitalize={'true'}
                          value={postData.hallNumber}
                          helperText={'Like 2 😂️'}
                          onChange={(e) => {
-                           if (!e.target.value.match(/^[134]$/)) {
+                           if (e.target.value.match(/^2$/)) {
                              setErrors({
                                ...errors,
                                hallNumber: true
@@ -205,7 +205,7 @@ const Dashboard = () => {
                              ...postData,
                              hallNumber: e.target.value
                            });
-                         }} required={true} label='Hall Number' variant='outlined' />
+                         }} required={true} label='Hall' variant='outlined' />
               <TextField error={errors.roomNumber} margin={'dense'} sx={{ width: screen?'20vw':'55vw' }}
                          id='outlined-basic'
                          value={postData.roomNumber}
