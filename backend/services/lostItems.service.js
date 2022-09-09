@@ -1,5 +1,4 @@
-const { lostModel } = require('../models/report.model');
-const { mailSenderService } = require('./mail.service');
+const { lostModel} = require('../models/report.model');
 
 module.exports.getAllLostItems = async (searchFields, selectedFields) => {
   try {
@@ -56,5 +55,22 @@ module.exports.checkClaimed = async (searchFields) => {
 
   } catch (error) {
     console.log(error);
+  }
+};
+
+module.exports.deleteLostItem = async ({id,user}) => {
+  try{
+    const document = await lostModel.findOne({_id:id}).lean().exec();
+    if(document && document.submittedBy === user.email){
+      await lostModel.deleteOne({_id:id}).lean().exec();
+      return 200;
+    }else if(document && document.submittedBy !== user.email){
+      return 401;
+    } else {
+      return 404;
+    }
+  } catch (error) {
+    console.log(error);
+    return 500;
   }
 };

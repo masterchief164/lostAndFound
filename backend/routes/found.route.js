@@ -21,5 +21,6 @@ const router = express.Router();
  */
 router.get('/', controller.getItems);
 router.get('/claimIt/:id', verify, controller.claimIt);
+router.delete('/delete/:id', verify, controller.deleteItem);
 
 module.exports = router;

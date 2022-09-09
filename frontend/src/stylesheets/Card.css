@@ -125,3 +125,8 @@
 .card-box button:hover{
     cursor: pointer;
 }
+.deleteIcon{
+    border: none;
+    margin-left: 160px;
+    margin-top: 45px;
+}

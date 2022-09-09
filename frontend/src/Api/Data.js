@@ -83,6 +83,14 @@ const claim = async (item) => {
   return axios.get(`${import.meta.env.VITE_BACKEND_URL}/found/claimIt/${item.id}`, { withCredentials: true });
 };
 
+const deleteItem = async (item) => {
+  console.log(item);
+  if(item.type === 'Lost'){
+    return axios.delete(`${import.meta.env.VITE_BACKEND_URL}/lost/delete/${item.id}`, { withCredentials: true });
+  }
+  return axios.delete(`${import.meta.env.VITE_BACKEND_URL}/found/delete/${item.id}`, { withCredentials: true });
+}
+
 export {
-  fetchFound, fetchLost, sendAuthorizationCode, logout, claim, fetchTopFound, fetchTopLost
+  fetchFound, fetchLost, sendAuthorizationCode, logout, claim, fetchTopFound, fetchTopLost, deleteItem
 };

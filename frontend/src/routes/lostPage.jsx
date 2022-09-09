@@ -107,6 +107,7 @@ const LostPage = () => {
               (lostItems.map((item, index) => (
                 <Grid item={true} xs={12} md={6} lg={4} xl={4} key={index}>
                   <Card item={item}
+                    refresh={getLostItems}
                     setPopupTrigger={setPopupTrigger}
                     setPopupData={setPopupData} />
                   <Popup trigger={popupTrigger}

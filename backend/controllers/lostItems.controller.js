@@ -1,4 +1,4 @@
-const { getAllLostItems, checkClaimed } = require('../services/lostItems.service');
+const { getAllLostItems, checkClaimed, deleteLostItem} = require('../services/lostItems.service');
 const { getLostItemsDTO } = require('../dto/lostItems.dto');
 const ejs = require('ejs');
 const {mailSenderService} = require('../services/mail.service');
@@ -59,3 +59,20 @@ module.exports.foundIt = async (req, res) => {
     console.log(err);
   }
 };
+
+module.exports.deleteItem =  async (req, res) => {
+  try{
+    const { id } = req.params;
+    const user = req.user;
+    const document = await deleteLostItem({ id, user });
+    if(document === 200)
+      res.status(200).send('deleted');
+    else if(document === 401)
+      res.status(401).send("You cannot delete as you are not the author");
+    else if(document === 404)
+      res.status(404).send("Item not found");
+  }catch (e) {
+    console.log(e);
+    res.status(500).send({message: 'Internal Server Error'});
+  }
+}
