@@ -49,25 +49,11 @@ module.exports.checkClaimed = async (searchFields) => {
     if (document && document.claimedBy) {
       return document;
     }
-    const newEntry = await foundModel.findOneAndUpdate(
-      { _id: searchFields.id },
-      { claimedBy: searchFields.user.email },
+    return await foundModel.findOneAndUpdate(
+        {_id: searchFields.id},
+        {claimedBy: searchFields.user.email},
     ).lean().exec();
 
-     // send mail to each other in a single mail
-    
-     let mailOptions = {
-      from: 'singh.utkarshofficial@gmail.com',
-      to: [newEntry.claimedBy , newEntry.submittedBy],
-      subject: 'Lost and Found Forum update',
-      text: 'This mail is sent to you because you reported/found/lost item(s) on lost and found!',
-      html: '<h1>This mail is sent to you because you reported/found/lost item(s) on lost and found!</h1>'
-    }
-    
-    const mailResp = await mailSenderService(mailOptions);
-    console.log(mailResp);
-
-    return newEntry;
   } catch (error) {
     console.log(error);
   }

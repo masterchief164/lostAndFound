@@ -36,6 +36,13 @@ const addUser = async (user) => {
   return person;
 };
 
+const getUser = async (email)=>{
+    const user = await User.findOne({email: email});
+    if(!user)
+        return null;
+    return user;
+};
+
 const decodeToken = (token) => jwt.decode(token, { complete: false });
 
-module.exports = { getGoogleOAuthTokens, addUser, decodeToken };
+module.exports = { getGoogleOAuthTokens, addUser, decodeToken, getUser };
