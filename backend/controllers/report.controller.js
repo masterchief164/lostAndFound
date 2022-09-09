@@ -11,10 +11,10 @@ module.exports.createItem = async (req, res) => {
     }
     data.firstName = req.user.given_name;
     data.lastName = req.user.family_name;
-    console.log(data);
     const document = await saveItem(data);
     res.send(document);
   } catch (err) {
     console.log(err);
+    res.status(500);
   }
 };

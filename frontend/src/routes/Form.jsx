@@ -9,10 +9,14 @@ import { UserContext } from '../utils/UserContext';
 const Form = () => {
   const [user, , , setPageNumber] = React.useContext(UserContext);
   const [screen, setScreen] = useState(!(window.matchMedia('(max-width: 768px)').matches));
+  const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+  let localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
 
   useEffect(() => {
     setPageNumber(3);
     let width = window.matchMedia('(max-width: 768px)');
+    localISOTime = localISOTime.substring(0, localISOTime
+        .lastIndexOf(':'))
     const handleMediaQueryChange = (x) => {
         if (x.matches) {
           setScreen(false);
@@ -23,10 +27,7 @@ const Form = () => {
     width.addEventListener('change', handleMediaQueryChange);
   }, []);
 
-  const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-  let localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
-  localISOTime = localISOTime.substring(0, localISOTime
-      .lastIndexOf(':'))
+
 
   const defaultFormData = {
     submittedBy: user ? user.email : '',
@@ -34,7 +35,6 @@ const Form = () => {
     description: '',
     location: '',
     itemTag: '',
-    image: 'default',
     type: 'Lost',
     dateTime: localISOTime
       .substring(0, localISOTime
@@ -54,6 +54,7 @@ const Form = () => {
   const [postData, setPostData] = useState(initialFormData);
   const [isAlert, setIsAlert] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
+  const [image,setImage] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState('Something went wrong');
 
@@ -76,10 +77,7 @@ const Form = () => {
     const reader = new FileReader();
     reader.readAsDataURL(acceptedFiles[0]);
     reader.onloadend = () => {
-      setPostData({
-        ...postData,
-        image: reader.result
-      });
+      setImage(reader.result);
     };
   }, [postData]);
 
@@ -117,7 +115,7 @@ const Form = () => {
     }
     setIsLoading(true);
     try {
-      await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/report/form`, postData, { withCredentials: true });
+      await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/report/form`, {...postData, image: image}, { withCredentials: true });
       // TODO handle error messages in both backend and frontend
       setIsLoading(false);
       setIsAlert(true);
@@ -236,14 +234,11 @@ const Form = () => {
         <div className={'dropBox'} {...getRootProps()}>
           <input {...getInputProps()} />
           {imageSelected ? <div className="container" id={'preview'}>
-            <img src={postData.image} alt="Preview" className={'previewImg'} />
+            <img src={image} alt="Preview" className={'previewImg'} />
             <img src={closeButton} alt="Preview" className={'close'}
                  onClick={() => {
                    setImageSelected(false);
-                   setPostData({
-                     ...postData,
-                     image: ''
-                   });
+                   setImage(null);
                  }} />
           </div> : <p>Drop files here or click to upload</p>}
         </div>
