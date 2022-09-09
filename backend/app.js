@@ -117,7 +117,7 @@ app.enable('trust proxy');
 app.use(express.json({limit: '50mb'}));
 app.use(cors({
     credentials: true,
-    origin: ['http://localhost:3000', 'https://frontend-gamma-sage.vercel.app']
+    origin: ['http://localhost:3000', 'https://frontend-gamma-sage.vercel.app','https://lostandfoundiiitdmj.vercel.app']
 }));
 
 // mailSenderService({
