@@ -21,9 +21,8 @@
     border-radius: 20px;
     box-shadow: 10px 10px 50px 4px rgba(0, 0, 0, 0.28);
     position: fixed;
-    left: 30%;
-    top: 10%;
     z-index: 10;
+    max-height: 100vh;
 }
 
 .close-btn {
@@ -53,10 +52,12 @@
 }
 
 .title > img {
+    max-height: 40vh;
     width: auto;
     height: 20vh;
     margin-right: 2rem;
     border-radius:10px;
+    object-fit: contain;
 }
 
 .title > h3 {
@@ -128,8 +129,6 @@
 @media only screen and (max-width: 1500px){
     .popup-inner{
         width: 70vw;
-        left: 15%;
-        top: 15%;
     }
 
 }
@@ -137,13 +136,13 @@
 @media only screen and (max-width: 1000px){
     .popup-inner{
         width: 85vw;
-        left: 5%;
-        top: 15%;
     }
     .title{
         flex-direction: column;
     }
     .title>img{
+        width: 75%;
+        height: auto;
         margin: 2vw;
     }
 
@@ -152,13 +151,10 @@
 @media only screen and (max-width: 650px){
     .popup-inner{
         width: 95vw;
-        left: 2%;
-        top: 15%;
     }
 
     .title > img{
-        width: 80%;
-        height: auto;
+
         margin-left: 3rem;
     }
 }
