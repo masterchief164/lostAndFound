@@ -1,12 +1,15 @@
 import React from 'react';
 import '../stylesheets/Card.css';
 import IMG from '../assets/Id.jpg';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import {UserContext} from '../utils/UserContext';
+import {deleteItem} from '../Api/Data';
 
 const Card = ({
   item,
   setPopupTrigger,
   setPopupData,
+  refresh,
 }) => {
   const image = item.image === undefined || item.image === 'default' || item.image === '' ? IMG : item.image;
   let date = new Date(item.dateTime).toDateString()
@@ -15,10 +18,19 @@ const Card = ({
   const title = item.title === undefined ? 'default' : item.title;
   const description = item.description === undefined ? 'default' : item.description;
   const button = (item.type) === 'Lost' ? 'Found' : 'Claim';
+  const [user] = React.useContext(UserContext);
 
   const clickHandler = async () => {
     setPopupData(item);
     setPopupTrigger(true);
+  };
+
+  const handleDelete = async () => {
+    const res = await deleteItem(item);
+    console.log(res);
+    if (res.status === 200) {
+        refresh();
+    }
   };
 
   return (
@@ -39,6 +51,7 @@ const Card = ({
               <h3>Description</h3>
               <p>{description}</p>
             </div>
+            {(user && user.email===item.submittedBy)&&<button onClick={handleDelete} className={'deleteIcon'}><DeleteIcon/></button>}
           </div>
         </div>
         <div className="popup-footer">

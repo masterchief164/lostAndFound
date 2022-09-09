@@ -97,13 +97,14 @@ const FoundPage = () => {
             <h1>Found Items</h1>
           </div>
           {isLoading ? <div className='progressBox'><CircularProgress /></div> : (<Grid container={true} spacing={5}>
-            {foundItems.length === 0 || foundItems == null ?
+            {(foundItems == null || foundItems.length === 0) ?
               <div className='progressBox'>
                 <h3>No reported items found , Report a new item.</h3>
               </div> :
               (foundItems.map((item, index) => (
                 <Grid item={true} xs={12} md={6} lg={4} xl={4} key={index}>
                   <Card item={item}
+                    refresh={getFoundItems}
                     setPopupTrigger={setPopupTrigger}
                     setPopupData={setPopupData} />
                   {popupTrigger ? <Popup trigger={popupTrigger}

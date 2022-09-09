@@ -1,5 +1,4 @@
 const { foundModel } = require('../models/report.model');
-const { mailSenderService } = require('./mail.service');
 
 module.exports.getFoundItems = async (searchFields, selectedFields) => {
   try {
@@ -58,3 +57,20 @@ module.exports.checkClaimed = async (searchFields) => {
     console.log(error);
   }
 };
+
+module.exports.deleteFoundItem = async ({id,user}) => {
+  try{
+    const document = await foundModel.findOne({_id:id}).lean().exec();
+    if(document && document.submittedBy === user.email){
+      await foundModel.deleteOne({_id:id}).lean().exec();
+      return 200;
+    }else if(document && document.submittedBy !== user.email){
+      return 401;
+    } else {
+      return 404;
+    }
+  } catch (error) {
+    console.log(error);
+    return 500;
+  }
+}
