@@ -30,6 +30,42 @@
             width: 100%;
         }
 
+        .preview h1{
+            font-size: 4em;
+            font-weight: 500;
+            color: #000;
+            font-family: 'Nunito-sans', sans-serif;
+            z-index: 1;
+            margin: 0;
+        }
+        .preview span{
+            font-size: 3em;
+            font-weight: 300;
+            color: #000;
+            margin-top: 1vh;
+            margin-bottom: 2vh;
+            font-family: 'Nunito-sans', sans-serif;
+            z-index: 1;
+        }
+        .preview p{
+            font-size: 2em;
+            font-weight: 400;
+            color: #000;
+            margin: 1vh 0;
+            text-align: center;
+            font-family: 'Nunito-sans', sans-serif;
+            z-index: 1;
+        }
+
+        .profile{
+            width: 15%;
+            height: auto;
+            margin: 0 0 5%;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+
         .main {
             width: 90%;
             table-layout: fixed;
@@ -39,6 +75,16 @@
             background: linear-gradient(90deg, #BFB2C4 0%, #E3DDD3 100%) no-repeat center;
             box-shadow: 10px 10px 10px 2px rgba(0, 0, 0, 0.28);
             border-radius: 50px;
+        }
+        .preview{
+            height: 60vh;
+            width: 90%;
+            table-layout: fixed;
+            max-width: 670px;
+            background: linear-gradient(90deg, #BFB2C4 0%, #E3DDD3 100%) no-repeat center;
+            box-shadow: 9px 9px 26px 3px rgba(0, 0, 0, 0.25);
+            border-radius: 35px;
+            margin-bottom: 5%;
         }
     </style>
 </head>
@@ -53,13 +99,6 @@
                 <h3 style="font-size: max(140%,2.2vw);line-height: 1.5;font-weight: 400;text-align: center;">
                     We
                     help everyone find their lost things!</h3>
-            </td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td>
-                <h1>Items Reported Today</h1>
             </td>
         </tr>
     </table>

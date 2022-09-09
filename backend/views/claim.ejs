@@ -1,0 +1,18 @@
+<%- include('header.ejs') %>
+<h1 style="margin-bottom: 3%; color: #F47A51">Contact Details</h1>
+<table class='preview' style="text-align: center">
+
+    <tr style="text-align: center">
+        <td style="text-align: center; position: relative">
+            <img class='profile' referrerPolicy="no-referrer" src="<%= user.picture; %>" alt='Profile Icon'>
+            <h1 style="text-align: center"><%= user.given_name; %></h1>
+            <span><%= user.family_name; %></span>
+            <p><%= user.roomNumber ? `${user.roomNumber} ` : ''; %></p>
+            <p><%= user.hallNumber ? `Hall: ${user.hallNumber}` : ''; %></p>
+            <p><%= user.email; %></p>
+            <p><%= user.phoneNumber; %></p>
+        </td>
+    </tr>
+
+</table>
+<%- include('footer.ejs') %>
